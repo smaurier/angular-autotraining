@@ -1,5 +1,7 @@
 # Cours 36 — Tester les composants : fixture, DOM, interactions
 
+> **Prérequis** : tu as déjà appris les fondamentaux du testing (describe/it/expect, mocking, stratégie de test) dans la formation Vue. Ce cours se concentre sur les **spécificités Angular** : TestBed, ComponentFixture, et Material test harnesses.
+
 > **Objectif** : Maitriser les tests de composants Angular avec `TestBed.createComponent()`, `ComponentFixture`, les requetes DOM, le test des signals/inputs, les interactions utilisateur (clic, saisie, soumission de formulaire), et les test harnesses Angular Material.
 
 ---

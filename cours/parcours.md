@@ -34,11 +34,11 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 | 06 | HTTP & API | 3 | 2 | ~4h30 |
 | 07 | Formulaires | 4 | 3 | ~6h |
 | 08 | Angular Material | 3 | 2 + 1 bonus | ~5h |
-| 09 | Tests | 4 | 2 | ~5h30 |
+| 09 | Tests | 2 | 1 | ~3h |
 | 10 | State Management | 3 | 2 | ~4h30 |
-| 11 | CI/CD, Auth & Securite | 3 | 2 | ~4h30 |
+| 11 | Auth (specifique Angular) | 1 | 1 | ~2h |
 | 12 | Recettes ESN | 2 | 1 | ~3h |
-| | **TOTAL** | **46** | **29** | **~65h** |
+| | **TOTAL** | **42** | **27** | **~60h** |
 
 ---
 
@@ -124,14 +124,14 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 | 02 | Composants courants | Table, Dialog, Snackbar, Form fields |
 | 03 | CDK et composants avances | Drag & drop, virtual scroll, overlay |
 
-### Module 09 -- Tests (4 cours, 2 exercices)
+### Module 09 -- Tests (2 cours, 1 exercice)
+
+> Les fondamentaux du testing (describe/it/expect, mocking, Playwright E2E) sont couverts dans la formation Vue. Ce module se concentre sur les specificites Angular.
 
 | # | Cours | Contenu cle |
 |---|-------|-------------|
-| 01 | Tests unitaires avec Jest / Vitest | Configuration, premier test |
 | 02 | Tester les composants | TestBed, ComponentFixture, queries |
 | 03 | Tester les services et HTTP | HttpTestingController, mocks |
-| 04 | Tests e2e avec Playwright | Configuration, scenarios, CI |
 
 ### Module 10 -- State Management (3 cours, 2 exercices)
 
@@ -141,13 +141,13 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 | 02 | NgRx SignalStore | Stores, features, entites |
 | 03 | Patterns avances d'etat | Optimistic updates, cache, sync |
 
-### Module 11 -- CI/CD, Auth & Securite (3 cours, 2 exercices)
+### Module 11 -- Auth (specifique Angular) (1 cours, 1 exercice)
+
+> Le pipeline CI/CD (GitHub Actions) et la securite front-end (XSS, CSP) sont couverts dans la formation Vue. Ce module se concentre sur l'implementation Angular de l'authentification.
 
 | # | Cours | Contenu cle |
 |---|-------|-------------|
-| 01 | Pipeline CI/CD | GitHub Actions, lint, test, build, deploy |
 | 02 | Authentification JWT | Login, guards, interceptors auth |
-| 03 | Securite Angular | XSS, CSRF, sanitization, CSP |
 
 ### Module 12 -- Recettes ESN (2 cours, 1 exercice)
 
@@ -198,16 +198,12 @@ Utilisez ce tableau pour suivre vos revisions espacees. Cochez chaque case apres
 | 08 | 01 - Theming Material | ____/____/____ | [ ] | [ ] | [ ] |
 | 08 | 02 - Composants courants | ____/____/____ | [ ] | [ ] | [ ] |
 | 08 | 03 - CDK avance | ____/____/____ | [ ] | [ ] | [ ] |
-| 09 | 01 - Tests unitaires | ____/____/____ | [ ] | [ ] | [ ] |
 | 09 | 02 - Tests composants | ____/____/____ | [ ] | [ ] | [ ] |
 | 09 | 03 - Tests services | ____/____/____ | [ ] | [ ] | [ ] |
-| 09 | 04 - Tests e2e | ____/____/____ | [ ] | [ ] | [ ] |
 | 10 | 01 - Etat local Signals | ____/____/____ | [ ] | [ ] | [ ] |
 | 10 | 02 - NgRx SignalStore | ____/____/____ | [ ] | [ ] | [ ] |
 | 10 | 03 - Patterns etat | ____/____/____ | [ ] | [ ] | [ ] |
-| 11 | 01 - Pipeline CI/CD | ____/____/____ | [ ] | [ ] | [ ] |
 | 11 | 02 - Auth JWT | ____/____/____ | [ ] | [ ] | [ ] |
-| 11 | 03 - Securite | ____/____/____ | [ ] | [ ] | [ ] |
 | 12 | 01 - Architecture ESN | ____/____/____ | [ ] | [ ] | [ ] |
 | 12 | 02 - Performance | ____/____/____ | [ ] | [ ] | [ ] |
 
@@ -224,7 +220,7 @@ Utilisez ce tableau pour suivre vos revisions espacees. Cochez chaque case apres
 
 ---
 
-> **Duree totale estimee** : ~65 heures sur 46 jours minimum (1 cours/jour).
+> **Duree totale estimee** : ~60 heures sur 42 jours minimum (1 cours/jour).
 > Avec les revisions espacees, comptez environ **3 mois** pour une maitrise solide.
 
 Bon courage et bonne formation !

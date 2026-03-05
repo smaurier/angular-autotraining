@@ -1,5 +1,7 @@
 # Cours 43 — Authentification JWT : guards et interceptors
 
+> **Prérequis** : tu connais déjà JWT, OAuth et les principes d'authentification (formation Vue). Ce cours se concentre sur l'implémentation Angular : interceptors fonctionnels, guards `canActivate`, et le pattern AuthService avec Signals.
+
 > **Objectif** : Implementer un flux d'authentification JWT complet : AuthService avec Signals, interceptor HTTP pour le token, guard fonctionnel, et gestion du refresh token.
 
 ---
@@ -272,4 +274,4 @@ Implementez un flux d'auth complet : AuthService avec signals, interceptor Beare
 
 ---
 
-> **Prochain cours** : [Cours 44 — Securite front-end Angular](./03-securite-front.md)
+> **Prochain cours** : [Module 12 — Recettes ESN](../12-recettes-esn/01-architecture-conventions.md)
