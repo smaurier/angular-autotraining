@@ -1,6 +1,6 @@
 # Cours 37 — Tester les services HTTP et la DI
 
-> **Prérequis** : les concepts de mocking et d'isolation sont acquis depuis la formation Vue. Ici on se concentre sur `HttpTestingController` et le mocking de la DI Angular.
+> **Prerequis** : les concepts de mocking et d'isolation sont couverts dans le **[Testing Course](https://github.com/smaurier/testing-course)** (module 04). Ici on se concentre sur `HttpTestingController` et le mocking de la DI Angular.
 
 > **Objectif** : Maitriser le test des appels HTTP avec `provideHttpClientTesting()` et `HttpTestingController`, mocker des services avec `provide` + `useValue`, et tester les interceptors, guards et resolvers. Comprendre le pattern : test service -> mock HTTP -> assert comportement.
 
