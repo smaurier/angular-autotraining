@@ -1,52 +1,52 @@
 # Cours 39 — State management avec Services et Signals
 
-> **Objectif** : Construire un systeme de gestion d'etat avec des services Angular et des signals — l'equivalent d'un "Pinia maison". Comprendre le pattern service + signal, les selecteurs computed, les actions, et quand cette approche suffit (spoiler : la plupart du temps en ESN).
+> **Objectif** : Construire un système de gestion d'état avec des services Angular et des signals — l'équivalent d'un "Pinia maison". Comprendre le pattern service + signal, les selecteurs computed, les actions, et quand cette approche suffit (spoiler : la plupart du temps en ESN).
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
 <summary>1. Quel est le role du Page Object Pattern dans les tests E2E ?</summary>
 
-Il encapsule les selecteurs et les actions d'une page dans une classe reutilisable. Si un selecteur change, on le modifie a un seul endroit au lieu de chaque test.
+Il encapsule les selecteurs et les actions d'une page dans une classe réutilisable. Si un selecteur change, on le modifie à un seul endroit au lieu de chaque test.
 </details>
 
 <details>
 <summary>2. Quels selecteurs Playwright faut-il privilegier ?</summary>
 
-`getByRole()` pour les elements interactifs, `getByTestId()` pour les elements sans role semantique clair, `getByLabel()` pour les champs de formulaire.
+`getByRole()` pour les éléments interactifs, `getByTestId()` pour les éléments sans role semantique clair, `getByLabel()` pour les champs de formulaire.
 </details>
 
 <details>
 <summary>3. Quelle est la pyramide des tests recommandee ?</summary>
 
-Beaucoup de tests unitaires (base), des tests d'integration au milieu, et peu de tests E2E au sommet (uniquement les parcours critiques).
+Beaucoup de tests unitaires (base), des tests d'intégration au milieu, et peu de tests E2E au sommet (uniquement les parcours critiques).
 </details>
 
 ---
 
 ## Analogie
 
-Si vous venez de Vue 3, vous connaissez **Pinia** : un store avec un `state` (reactif), des `getters` (derives) et des `actions` (methodes qui modifient l'etat).
+Si vous venez de Vue 3, vous connaissez **Pinia** : un store avec un `state` (réactif), des `getters` (dérivés) et des `actions` (méthodes qui modifient l'état).
 
-En Angular, **un service injectable + des signals** fait exactement la meme chose. C'est ce qu'on appelle un "store maison" ou "lightweight store" :
+En Angular, **un service injectable + des signals** fait exactement la même chose. C'est ce qu'on appelle un "store maison" ou "lightweight store" :
 
 | Pinia (Vue 3) | Service + Signals (Angular) |
 |---------------|---------------------------|
 | `ref()` dans state | `signal()` |
 | `computed()` dans getters | `computed()` |
-| Fonctions dans actions | Methodes du service |
+| Fonctions dans actions | Méthodes du service |
 | `defineStore('tasks', ...)` | `@Injectable({ providedIn: 'root' })` |
 | `store.tasks` | `service.tasks()` |
-| `storeToRefs(store)` | Signals deja reactifs |
+| `storeToRefs(store)` | Signals déjà réactifs |
 | Auto-import dans composants | `inject(TaskStore)` |
 
-L'approche est **si similaire** qu'un developpeur Vue/Pinia se sent immediatement a l'aise.
+L'approche est **si similaire** qu'un développeur Vue/Pinia se sent immediatement a l'aise.
 
 ---
 
-## Theorie
+## Théorie
 
 ### Pattern : service + signal = store
 
@@ -158,7 +158,7 @@ this.store.tasks();        // OK : lecture
 this.store.tasks.set([]);  // ❌ Erreur TypeScript !
 ```
 
-> **Regle d'or** : L'etat interne est prive. Les composants lisent via `asReadonly()` et modifient via les methodes (actions).
+> **Regle d'or** : L'état interne est prive. Les composants lisent via `asReadonly()` et modifient via les méthodes (actions).
 
 ### Utilisation dans un composant
 
@@ -290,7 +290,7 @@ export class TaskStore {
 }
 ```
 
-> La structure est quasi identique. `ref()` devient `signal()`, `computed()` reste `computed()`, les fonctions deviennent des methodes.
+> La structure est quasi identique. `ref()` devient `signal()`, `computed()` reste `computed()`, les fonctions deviennent des méthodes.
 
 ### Quand cette approche suffit
 
@@ -313,7 +313,7 @@ Envisagez NgRx SignalStore quand :
 
 ## Pratique
 
-Creez un `PanierStore` (service) pour un e-commerce simple. Il doit gerer une liste d'articles avec : ajout, suppression, modification de quantite, et calcul du total.
+Creez un `PanierStore` (service) pour un e-commerce simple. Il doit gérer une liste d'articles avec : ajout, suppression, modification de quantite, et calcul du total.
 
 **Consignes** :
 1. Interface `ArticlePanier { id: number; nom: string; prix: number; quantite: number }`
@@ -419,18 +419,18 @@ describe('PanierStore', () => {
 
 ---
 
-## Resume
+## Résumé
 
 | Concept Pinia | Equivalent Angular | Pattern |
 |---------------|-------------------|---------|
 | `ref()` state | `signal()` prive | `private readonly _x = signal(...)` |
 | `computed()` getters | `computed()` | `readonly x = computed(() => ...)` |
-| Actions (fonctions) | Methodes du service | `methode(): void { this._x.update(...) }` |
-| `storeToRefs()` | `.asReadonly()` | Deja reactif, pas besoin de conversion |
+| Actions (fonctions) | Méthodes du service | `methode(): void { this._x.update(...) }` |
+| `storeToRefs()` | `.asReadonly()` | Déjà réactif, pas besoin de conversion |
 | `defineStore()` | `@Injectable()` | Service singleton, injecte avec `inject()` |
 
-> **A retenir** : Pour 80% des projets ESN, un service + signals suffit largement. C'est simple, testable, et familier pour un developpeur Vue/Pinia.
+> **A retenir** : Pour 80% des projets ESN, un service + signals suffit largement. C'est simple, testable, et familier pour un développeur Vue/Pinia.
 
 ---
 
-> **Prochain cours** : [Cours 40 — NgRx SignalStore : store structure pour grandes equipes](./02-ngrx-signal-store.md)
+> **Prochain cours** : [Cours 40 — NgRx SignalStore : store structure pour grandes équipes](./02-ngrx-signal-store.md)

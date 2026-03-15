@@ -1,12 +1,12 @@
 # Correction — Exercice 19b : Drag-drop Kanban
 
-## Resultat attendu
+## Résultat attendu
 
-Un tableau Kanban avec 3 colonnes ("A faire", "En cours", "Termine"). Les taches sont des cartes deplacables par drag-and-drop entre les colonnes. Chaque deplacement met a jour le statut de la tache. Un formulaire inline permet d'ajouter de nouvelles taches.
+Un tableau Kanban avec 3 colonnes ("A faire", "En cours", "Termine"). Les taches sont des cartes deplacables par drag-and-drop entre les colonnes. Chaque déplacement met a jour le statut de la tache. Un formulaire inline permet d'ajouter de nouvelles taches.
 
 ## Code corrige
 
-### Modele
+### Modèle
 
 ```typescript
 // src/app/exercises/ex19b/kanban-task.model.ts
@@ -454,31 +454,31 @@ export class KanbanBoardComponent {
 
 ### 2. Confondre `moveItemInArray` et `transferArrayItem`
 - ❌ Utiliser `moveItemInArray` quand on change de colonne → erreur d'index
-- ✅ Verifier `event.previousContainer === event.container` pour choisir la bonne fonction
+- ✅ Vérifier `event.previousContainer === event.container` pour choisir la bonne fonction
 
 ### 3. Oublier de typer `CdkDragDrop`
-- ❌ `onDrop(event: any)` → pas de securite de type
+- ❌ `onDrop(event: any)` → pas de sécurité de type
 - ✅ `onDrop(event: CdkDragDrop<KanbanTask[]>)` → acces type a `previousContainer`, `container`, `previousIndex`
 
 ### 4. Muter le signal au lieu d'utiliser `update()`
 - ❌ `this.tasks().push(newTask)` → le signal n'est pas notifie du changement
-- ✅ `this.tasks.update(tasks => [...tasks, newTask])` → cree un nouveau tableau et notifie
+- ✅ `this.tasks.update(tasks => [...tasks, newTask])` → créé un nouveau tableau et notifie
 
 ### 5. Oublier le `track` dans `@for`
 - ❌ `@for (task of tasks())` sans `track` → Angular 19 exige un `track`
-- ✅ `@for (task of tasks(); track task.id)` → Angular suit les elements par leur ID
+- ✅ `@for (task of tasks(); track task.id)` → Angular suit les éléments par leur ID
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
-| `cdkDropList` | Directive CDK qui transforme un conteneur en zone de depot pour les elements draggables |
-| `cdkDrag` | Directive CDK qui rend un element deplacable par drag-and-drop |
-| `cdkDragHandle` | Limite le drag a une zone specifique (poignee) au lieu de tout l'element |
+| `cdkDropList` | Directive CDK qui transforme un conteneur en zone de depot pour les éléments draggables |
+| `cdkDrag` | Directive CDK qui rend un élément deplacable par drag-and-drop |
+| `cdkDragHandle` | Limite le drag à une zone spécifique (poignee) au lieu de tout l'élément |
 | `*cdkDragPlaceholder` | Template affiche dans la zone d'atterrissage pendant le drag |
 | `[cdkDropListConnectedTo]` | Connecte les drop lists entre elles pour permettre le transfert |
-| `CdkDragDrop<T>` | Evenement type contenant les infos du deplacement (source, destination, index) |
-| `transferArrayItem()` | Fonction utilitaire CDK pour deplacer un element entre deux tableaux |
+| `CdkDragDrop<T>` | Événement type contenant les infos du déplacement (source, destination, index) |
+| `transferArrayItem()` | Fonction utilitaire CDK pour deplacer un élément entre deux tableaux |
 | `signal<T[]>()` | Signal contenant la liste des taches (source de verite unique) |
-| `computed<T[]>()` | Derive les taches filtrees par colonne a partir du signal principal |
-| `effect()` | Persiste automatiquement l'etat dans le localStorage |
+| `computed<T[]>()` | Derive les taches filtrees par colonne à partir du signal principal |
+| `effect()` | Persiste automatiquement l'état dans le localStorage |

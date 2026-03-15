@@ -2,7 +2,7 @@
 
 > **Module** : 00 - De Vue a Angular
 > **Duree estimee** : 1h00
-> **Prerequis** : Cours 1 et 2 (Modele mental + Equivalences)
+> **Prérequis** : Cours 1 et 2 (Modèle mental + Equivalences)
 
 ---
 
@@ -10,15 +10,15 @@
 
 A la fin de ce cours, vous serez capable de :
 
-- Creer un projet Angular 19+ avec le CLI
-- Comprendre le role de **chaque fichier** genere
-- Creer votre premier composant standalone
-- Lancer le serveur de developpement et voir le hot reload en action
+- Créer un projet Angular 19+ avec le CLI
+- Comprendre le role de **chaque fichier** généré
+- Créer votre premier composant standalone
+- Lancer le serveur de développement et voir le hot reload en action
 - Builder le projet pour la production
 
 ---
 
-## 1. Creer le projet
+## 1. Créer le projet
 
 Ouvrez un terminal et lancez :
 
@@ -30,21 +30,21 @@ ng new devdesk --style=scss --routing
 
 | Option | Effet |
 |--------|-------|
-| `devdesk` | Nom du projet (et du dossier cree) |
+| `devdesk` | Nom du projet (et du dossier créé) |
 | `--style=scss` | Utilise SCSS au lieu de CSS (comme dans la plupart des projets Vue) |
 | `--routing` | Ajoute la configuration du router Angular |
 
 > **Equivalent Vue** : `npm create vue@latest` avec les options Vue Router et SCSS activees.
 
 Le CLI va :
-1. Creer le dossier `devdesk/`
-2. Generer toute la structure de fichiers
-3. Installer les dependances (`npm install`)
+1. Créer le dossier `devdesk/`
+2. Générer toute la structure de fichiers
+3. Installer les dépendances (`npm install`)
 4. Initialiser un depot Git
 
 ---
 
-## 2. Tour du projet genere
+## 2. Tour du projet généré
 
 Entrez dans le dossier et ouvrez-le dans votre editeur :
 
@@ -96,7 +96,7 @@ bootstrapApplication(AppComponent, appConfig)
 > createApp(App).mount('#app')
 > ```
 
-`bootstrapApplication` cree l'application Angular avec le composant racine (`AppComponent`) et la configuration (`appConfig`).
+`bootstrapApplication` créé l'application Angular avec le composant racine (`AppComponent`) et la configuration (`appConfig`).
 
 ---
 
@@ -158,7 +158,7 @@ export class AppComponent {
 ```
 
 Remarquez :
-- `imports: [RouterOutlet]` : declare ses dependances
+- `imports: [RouterOutlet]` : declare ses dépendances
 - `selector: 'app-root'` : correspond au `<app-root>` dans `index.html`
 - `templateUrl` et `styleUrl` : fichiers separes (contrairement au SFC Vue)
 
@@ -182,7 +182,7 @@ Remarquez :
 </html>
 ```
 
-Le `<app-root>` est remplace par le composant `AppComponent` au demarrage. Equivalent du `<div id="app">` en Vue.
+Le `<app-root>` est remplace par le composant `AppComponent` au démarrage. Equivalent du `<div id="app">` en Vue.
 
 ---
 
@@ -212,7 +212,7 @@ Ce fichier configure tout le build system. Les sections importantes :
 }
 ```
 
-> **Equivalent Vue** : `vite.config.ts`. Mais `angular.json` est plus verbeux car il gere aussi les tests, les budgets de bundle, et les environnements.
+> **Equivalent Vue** : `vite.config.ts`. Mais `angular.json` est plus verbeux car il géré aussi les tests, les budgets de bundle, et les environnements.
 
 ---
 
@@ -230,7 +230,7 @@ Le mode strict est active par defaut. C'est une bonne chose -- laissez-le.
 
 ---
 
-## 3. Creer votre premier composant standalone
+## 3. Créer votre premier composant standalone
 
 ### Utiliser le CLI
 
@@ -239,7 +239,7 @@ ng generate component hello --inline-template --inline-style
 # Raccourci : ng g c hello --inline-template --inline-style
 ```
 
-Cela genere `src/app/hello/hello.component.ts` :
+Cela généré `src/app/hello/hello.component.ts` :
 
 ```typescript
 import { Component } from '@angular/core';
@@ -325,7 +325,7 @@ export class AppComponent {}
 
 ---
 
-## 4. Lancer le serveur de developpement
+## 4. Lancer le serveur de développement
 
 ```bash
 ng serve
@@ -352,7 +352,7 @@ Modifiez n'importe quel fichier et sauvegardez. Le navigateur se rafraichit auto
 |--------|-------|
 | `--port 3000` | Change le port (defaut: 4200) |
 | `--open` ou `-o` | Ouvre le navigateur automatiquement |
-| `--host 0.0.0.0` | Accessible depuis le reseau local |
+| `--host 0.0.0.0` | Accessible depuis le réseau local |
 | `--hmr` | Active le Hot Module Replacement |
 
 ---
@@ -385,7 +385,7 @@ npx webpack-bundle-analyzer dist/devdesk/browser/stats.json
 
 ### Budgets de build
 
-Angular a un concept unique : les **budgets** dans `angular.json`. Ils vous alertent si votre bundle depasse une taille limite :
+Angular à un concept unique : les **budgets** dans `angular.json`. Ils vous alertent si votre bundle dépasse une taille limite :
 
 ```json
 "budgets": [
@@ -397,7 +397,7 @@ Angular a un concept unique : les **budgets** dans `angular.json`. Ils vous aler
 ]
 ```
 
-En entreprise, ces budgets empechent les regressions de performance. C'est un filet de securite que Vue n'offre pas nativement.
+En entreprise, ces budgets empechent les regressions de performance. C'est un filet de sécurité que Vue n'offre pas nativement.
 
 ---
 
@@ -410,9 +410,9 @@ Voici les commandes que vous utiliserez quotidiennement :
 | `ng serve` | Lancer le dev server |
 | `ng build` | Builder pour la production |
 | `ng test` | Lancer les tests unitaires |
-| `ng generate component nom` | Generer un composant |
-| `ng generate service nom` | Generer un service |
-| `ng lint` | Verifier le code (si ESLint configure) |
+| `ng generate component nom` | Générer un composant |
+| `ng generate service nom` | Générer un service |
+| `ng lint` | Vérifier le code (si ESLint configure) |
 | `ng update` | Mettre a jour Angular |
 | `ng add @angular/material` | Ajouter une librairie Angular |
 
@@ -420,7 +420,7 @@ Voici les commandes que vous utiliserez quotidiennement :
 
 ## Pratique : creez votre HelloComponent
 
-> **Consigne** : avant de regarder la solution, essayez par vous-meme pendant 20 minutes.
+> **Consigne** : avant de regarder la solution, essayez par vous-même pendant 20 minutes.
 
 1. Creez un nouveau projet : `ng new devdesk --style=scss --routing`
 2. Generez un composant `hello` : `ng g c hello --inline-template --inline-style`
@@ -428,21 +428,21 @@ Voici les commandes que vous utiliserez quotidiennement :
 4. Ajoutez un champ `<input>` qui met a jour le signal
 5. Utilisez `@if` pour afficher un message conditionnel
 6. Importez le composant dans `AppComponent`
-7. Lancez avec `ng serve` et verifiez le resultat
+7. Lancez avec `ng serve` et verifiez le résultat
 
 **Criteres de reussite** :
 - Le composant s'affiche correctement
-- Le signal se met a jour en temps reel quand on tape
+- Le signal se met a jour en temps réel quand on tape
 - Le `@if`/`@else` fonctionne
 - Pas d'erreur dans la console
 
 ---
 
-## Recapitulatif
+## Récapitulatif
 
 | Ce que vous avez appris | Detail |
 |-------------------------|--------|
-| Creer un projet | `ng new` avec options |
+| Créer un projet | `ng new` avec options |
 | Structure des fichiers | `main.ts`, `app.config.ts`, `app.routes.ts`, `angular.json` |
 | Composant standalone | `@Component` (standalone par defaut) |
 | Signal basique | `signal()`, `.set()`, lecture avec `()` |
@@ -463,3 +463,11 @@ Nous plongerons en detail dans la structure d'un composant Angular : decorateur,
 
 **[Exercice 01 -- HelloComponent](./exercices/01-hello-component.md)**
 Mettez en pratique ce que vous venez d'apprendre en creant un composant complet avec signal, input et affichage conditionnel.
+
+---
+
+<!-- parcours-recommande -->
+
+::: tip Parcours recommandé
+1. **Exercice** : [01-premier-composant](../../exercices/01-premier-composant/ENONCE)
+:::

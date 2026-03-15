@@ -1,8 +1,8 @@
 # Correction — Exercice 18 : Signal Forms
 
-## Resultat attendu
+## Résultat attendu
 
-Un formulaire d'inscription avec 4 champs (nom, email, mot de passe, confirmation) entierement gere par des signaux Angular. L'indicateur de force du mot de passe se met a jour en temps reel. Les erreurs n'apparaissent qu'apres interaction avec le champ. Le bouton de soumission est desactive tant que le formulaire n'est pas valide.
+Un formulaire d'inscription avec 4 champs (nom, email, mot de passe, confirmation) entièrement géré par des signaux Angular. L'indicateur de force du mot de passe se met a jour en temps réel. Les erreurs n'apparaissent qu'après interaction avec le champ. Le bouton de soumission est désactivé tant que le formulaire n'est pas valide.
 
 ## Code corrige
 
@@ -306,27 +306,27 @@ export class SignalFormComponent {
 
 ### 2. Oublier de typer `passwordStrength` avec un union literal
 - ❌ `computed<string>(() => ...)` → on pourrait retourner n'importe quelle chaine
-- ✅ `computed<'weak' | 'medium' | 'strong'>(() => ...)` → le compilateur verifie les valeurs
+- ✅ `computed<'weak' | 'medium' | 'strong'>(() => ...)` → le compilateur vérifié les valeurs
 
-### 3. Utiliser `any` pour l'evenement dans `onFieldChange`
-- ❌ `onFieldChange(field: string, event: any)` → pas de securite de type
+### 3. Utiliser `any` pour l'événement dans `onFieldChange`
+- ❌ `onFieldChange(field: string, event: any)` → pas de sécurité de type
 - ✅ `onFieldChange(field: 'name' | 'email' | ..., event: Event)` puis cast `as HTMLInputElement`
 
 ### 4. Oublier `event.preventDefault()` dans `onSubmit`
-- ❌ Le formulaire recharge la page a la soumission
+- ❌ Le formulaire recharge la page à la soumission
 - ✅ Appeler `event.preventDefault()` pour empecher le comportement par defaut
 
 ### 5. Confondre `signal()` et `model()`
 - ❌ Utiliser `model()` dans un composant non-parent (model est concu pour le two-way binding parent-enfant)
 - ✅ Utiliser `signal()` quand le binding est interne au composant, `model()` pour l'API publique du composant
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
 | `signal<T>(value)` | Cree un signal mutable pour chaque champ du formulaire |
-| `computed<T>(() => ...)` | Derive des validations reactives (emailValid, passwordStrength, isFormValid) |
-| `effect(() => ...)` | Execute un side-effect (log) quand une dependance change |
+| `computed<T>(() => ...)` | Derive des validations réactives (emailValid, passwordStrength, isFormValid) |
+| `effect(() => ...)` | Execute un side-effect (log) quand une dépendance change |
 | `[value]="signal()"` | Property binding pour lier la valeur de l'input au signal |
 | `(input)="handler($event)"` | Event binding pour capturer les saisies utilisateur |
 | `(blur)="touched.set(true)"` | Detecte quand l'utilisateur quitte un champ |

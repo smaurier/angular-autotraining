@@ -164,7 +164,7 @@ export class EditionArticleComponent implements HasUnsavedChanges {
 
 ### inject() dans les guards
 
-Les guards fonctionnels ont accès à `inject()` — c'est un avantage majeur par rapport à Vue Router où les guards globaux n'ont pas de système d'injection.
+Les guards fonctionnels ont accès à `inject()` — c'est un avantage majeur par rapport à Vue Router ou les guards globaux n'ont pas de système d'injection.
 
 ```typescript
 export const roleGuard: CanActivateFn = (route) => {

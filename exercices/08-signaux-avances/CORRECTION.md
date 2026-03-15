@@ -1,12 +1,12 @@
 # Correction — Exercice 08 : Signaux avances
 
-## Resultat attendu
+## Résultat attendu
 
 Une page avec :
 - Des boutons de categories ("Tous", "Livres", "Films", "Musique")
-- Une pagination qui revient a la page 1 quand on change de categorie
+- Une pagination qui revient à la page 1 quand on change de categorie
 - Un champ de recherche focusable via bouton
-- Une liste d'items charges de maniere asynchrone avec indicateur de chargement
+- Une liste d'items charges de manière asynchrone avec indicateur de chargement
 - La liste se recharge automatiquement quand la categorie ou la page change
 
 ## Code corrige
@@ -379,29 +379,29 @@ export class AdvancedSignalsComponent {
 
 ### 2. Oublier que viewChild retourne un signal
 - ❌ `this.searchInputRef.nativeElement` → erreur, c'est un signal
-- ✅ `this.searchInputRef()?.nativeElement` → appeler le signal, puis acceder a l'element
+- ✅ `this.searchInputRef()?.nativeElement` → appeler le signal, puis acceder a l'élément
 
 ### 3. Utiliser un effect au lieu de resource
-- ❌ Creer un effect qui appelle une API et stocke le resultat dans un signal → pas de gestion du loading/error
-- ✅ `resource({ request, loader })` → gere automatiquement loading, error, valeur, et annulation
+- ❌ Créer un effect qui appelle une API et stocke le résultat dans un signal → pas de gestion du loading/error
+- ✅ `resource({ request, loader })` → géré automatiquement loading, error, valeur, et annulation
 
 ### 4. Oublier le `await` dans le loader de resource
 - ❌ `loader: ({ request }) => { ... }` sans async/await → le loader doit retourner une Promise
 - ✅ `loader: async ({ request }) => { ... }` → le loader est asynchrone
 
-### 5. Ne pas gerer l'etat de chargement dans le template
+### 5. Ne pas gérer l'état de chargement dans le template
 - ❌ Afficher uniquement `resource.value()` → ecran vide pendant le chargement
-- ✅ Verifier `resource.isLoading()` et `resource.error()` pour une UX complete
+- ✅ Vérifier `resource.isLoading()` et `resource.error()` pour une UX complete
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
 | `linkedSignal({ source, computation })` | Signal qui se reinitialise quand la source change, mais reste modifiable manuellement |
-| `viewChild<T>('ref')` | Signal qui contient la reference d'un element de template (`#ref`) |
-| `resource({ request, loader })` | Charge des donnees asynchrones de maniere reactive, avec gestion du loading/error |
+| `viewChild<T>('ref')` | Signal qui contient la référence d'un élément de template (`#ref`) |
+| `resource({ request, loader })` | Charge des donnees asynchrones de manière réactive, avec gestion du loading/error |
 | `resource.value()` | Signal contenant les donnees chargees |
 | `resource.isLoading()` | Signal booleen indiquant si le chargement est en cours |
 | `resource.error()` | Signal contenant l'erreur eventuelle |
-| `resource.reload()` | Methode pour forcer un rechargement des donnees |
-| `ElementRef<HTMLElement>` | Typage fort pour la reference DOM |
+| `resource.reload()` | Méthode pour forcer un rechargement des donnees |
+| `ElementRef<HTMLElement>` | Typage fort pour la référence DOM |

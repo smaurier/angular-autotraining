@@ -427,3 +427,11 @@ export class PanierComponent {
 ---
 
 > **Prochain cours** : [Cours 14 — Services et @Injectable](../03-services-di/01-services-et-injectable.md)
+
+---
+
+<!-- parcours-recommande -->
+
+::: tip Parcours recommandé
+1. **Exercice** : [08-signaux-avances](../../exercices/08-signaux-avances/ENONCE)
+:::

@@ -1,27 +1,27 @@
 # Cours 27 — Gestion d'erreurs et cache HTTP
 
-> **Objectif** : Mettre en place des strategies robustes de gestion d'erreurs HTTP (retry, backoff, detection offline), un cache simple avec Map + TTL, le pattern `shareReplay`, et decouvrir `resource()` comme alternative moderne au cache manuel.
+> **Objectif** : Mettre en place des stratégies robustes de gestion d'erreurs HTTP (retry, backoff, detection offline), un cache simple avec Map + TTL, le pattern `shareReplay`, et découvrir `resource()` comme alternative moderne au cache manuel.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
 <summary>1. Pourquoi faut-il utiliser req.clone() dans un intercepteur ?</summary>
 
-Les objets `HttpRequest` sont **immutables** en Angular. Toute tentative de modification directe est ignoree ou leve une erreur. `req.clone({ setHeaders: {...} })` cree une nouvelle instance avec les modifications souhaitees.
+Les objets `HttpRequest` sont **immutables** en Angular. Toute tentative de modification directe est ignoree ou leve une erreur. `req.clone({ setHeaders: {...} })` créé une nouvelle instance avec les modifications souhaitees.
 </details>
 
 <details>
 <summary>2. Dans quel ordre s'executent les intercepteurs ?</summary>
 
-Dans l'ordre du tableau pour les **requetes** (premier enregistre = premier execute) et en ordre **inverse** pour les **reponses**. L'intercepteur auth doit etre en premier pour que le token soit present avant les autres traitements.
+Dans l'ordre du tableau pour les **requêtes** (premier enregistre = premier exécuté) et en ordre **inverse** pour les **réponses**. L'intercepteur auth doit etre en premier pour que le token soit present avant les autres traitements.
 </details>
 
 <details>
-<summary>3. Quel operateur RxJS permet d'executer du code quand un Observable complete OU echoue ?</summary>
+<summary>3. Quel operateur RxJS permet d'exécuter du code quand un Observable complete OU echoue ?</summary>
 
-`finalize()`. Il s'execute dans les deux cas, ce qui le rend ideal pour arreter un spinner de chargement quel que soit le resultat de la requete.
+`finalize()`. Il s'exécuté dans les deux cas, ce qui le rend ideal pour arreter un spinner de chargement quel que soit le résultat de la requête.
 </details>
 
 ---
@@ -32,15 +32,15 @@ Imaginez un **livreur de colis** :
 
 - **Retry simple** : le livreur sonne. Personne ne repond. Il sonne encore 3 fois.
 - **Backoff exponentiel** : il sonne, attend 2 min, re-sonne, attend 4 min, re-sonne, attend 8 min.
-- **Detection offline** : il arrive devant l'immeuble, la porte est muree (pas de reseau). Inutile de sonner.
-- **Cache** : il a deja livre un colis identique hier. Au lieu de retourner a l'entrepot, il utilise sa copie locale.
-- **TTL (Time To Live)** : la copie locale expire apres 5 minutes. Apres, il doit retourner a l'entrepot.
+- **Detection offline** : il arrive devant l'immeuble, la porte est muree (pas de réseau). Inutile de sonner.
+- **Cache** : il a déjà livre un colis identique hier. Au lieu de retourner a l'entrepot, il utilise sa copie locale.
+- **TTL (Time To Live)** : la copie locale expire après 5 minutes. Après, il doit retourner a l'entrepot.
 
 ---
 
-## Theorie
+## Théorie
 
-### Strategies de gestion d'erreurs HTTP
+### Stratégies de gestion d'erreurs HTTP
 
 #### Erreur unique : catchError
 
@@ -109,7 +109,7 @@ getProduits(): Observable<Produit[]> {
 }
 ```
 
-**Flux detaille du backoff :**
+**Flux détaillé du backoff :**
 
 ```
 Requete initiale → 500 Error
@@ -237,7 +237,7 @@ export class ProductService {
 
 ### shareReplay : cache d'Observables
 
-`shareReplay` partage une seule souscription entre plusieurs abonnes et rejoue les derniers resultats :
+`shareReplay` partage une seule souscription entre plusieurs abonnes et rejoue les derniers résultats :
 
 ```typescript
 import { shareReplay } from 'rxjs/operators';
@@ -264,7 +264,7 @@ export class ConfigService {
 
 | Option | Description |
 |--------|------------|
-| `bufferSize: 1` | Garde la derniere valeur pour les nouveaux abonnes |
+| `bufferSize: 1` | Garde la dernière valeur pour les nouveaux abonnes |
 | `refCount: true` | Se desabonne de la source quand plus personne n'ecoute |
 
 ```typescript
@@ -279,7 +279,7 @@ const data$ = source$.pipe(
 
 ### resource() : alternative moderne (Angular 19+)
 
-`resource()` est une API Signal-based pour charger des donnees asynchrones avec gestion de cache et etats integres :
+`resource()` est une API Signal-based pour charger des donnees asynchrones avec gestion de cache et états integres :
 
 ```typescript
 import { Component, inject, signal, resource } from '@angular/core';
@@ -326,11 +326,11 @@ export class CatalogueComponent {
 
 | Fonctionnalite | Cache manuel | `resource()` |
 |---------------|-------------|-------------|
-| Etats (loading, error, value) | A gerer soi-meme | ✅ Integres |
-| Reactivite aux parametres | Manuelle | ✅ Automatique via Signals |
+| Etats (loading, error, value) | A gérer soi-même | ✅ Integres |
+| Réactivité aux paramètres | Manuelle | ✅ Automatique via Signals |
 | Reload | A implementer | ✅ `.reload()` |
-| Annulation requete obsolete | `switchMap` | ✅ Automatique |
-| Cache | A gerer soi-meme | Basique (par defaut) |
+| Annulation requête obsolete | `switchMap` | ✅ Automatique |
+| Cache | A gérer soi-même | Basique (par defaut) |
 
 ### Pattern complet : service API avec erreurs + cache
 
@@ -390,8 +390,8 @@ export class ApiProductService {
 
 Creez un service `UserApiService` qui :
 1. Charge la liste des utilisateurs avec retry (2 tentatives, backoff 1s/2s)
-2. Cache le resultat 3 minutes avec `CacheService`
-3. Invalide le cache quand on cree un nouvel utilisateur
+2. Cache le résultat 3 minutes avec `CacheService`
+3. Invalide le cache quand on créé un nouvel utilisateur
 4. Expose un Signal `users` via `toSignal()`
 5. Expose un Signal `isError` pour afficher un message d'erreur
 
@@ -476,15 +476,15 @@ export class UserListComponent {
 
 ---
 
-## Resume
+## Résumé
 
-| Point cle | A retenir |
+| Point clé | A retenir |
 |-----------|-----------|
 | `catchError` | Intercepte l'erreur, retourne un Observable de secours |
 | Backoff exponentiel | `retry({ delay: (err, n) => timer(2^n * 1000) })` |
 | Ne pas retry les 4xx | Erreurs client = inutile de reessayer |
 | Detection offline | `fromEvent(window, 'online'/'offline')` |
-| Cache Map + TTL | Simple, efficace, invalider apres mutation |
+| Cache Map + TTL | Simple, efficace, invalider après mutation |
 | `shareReplay` | Partage une seule souscription, `refCount: true` obligatoire |
 | `resource()` | API moderne Signal-based avec loading/error/reload integres |
 | Pattern ESN | Service = retry + cache + error handling + Signals exposes |
@@ -492,3 +492,12 @@ export class UserListComponent {
 ---
 
 > **Prochain cours** : [Cours 28 — Formulaires template-driven](../07-formulaires/01-template-driven-forms.md)
+
+---
+
+<!-- parcours-recommande -->
+
+::: tip Parcours recommandé
+1. **Exercice** : [14-crud-api](../../exercices/14-crud-api/ENONCE)
+2. **Exercice** : [15-interceptors](../../exercices/15-interceptors/ENONCE)
+:::

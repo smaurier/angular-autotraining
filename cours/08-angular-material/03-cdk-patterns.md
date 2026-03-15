@@ -1,13 +1,13 @@
 # Cours 34 — CDK : Drag & Drop, Virtual Scroll, Overlay
 
-> **Objectif** : Decouvrir le CDK (Component Dev Kit) d'Angular, la couche comportementale sous Angular Material. Maitriser le drag & drop, le virtual scroll pour les grandes listes, l'overlay pour les popups, le clipboard et le responsive avec `BreakpointObserver`.
+> **Objectif** : Decouvrir le CDK (Component Dev Kit) d'Angular, la couche comportementale sous Angular Material. Maîtriser le drag & drop, le virtual scroll pour les grandes listes, l'overlay pour les popups, le clipboard et le responsive avec `BreakpointObserver`.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
-<summary>1. Comment ouvrir un MatDialog et recuperer le resultat a sa fermeture ?</summary>
+<summary>1. Comment ouvrir un MatDialog et récupérer le résultat a sa fermeture ?</summary>
 
 ```typescript
 const ref = this.dialog.open(MonDialogComponent, { data: { ... } });
@@ -20,7 +20,7 @@ On injecte `MatDialog`, on appelle `open()`, et on ecoute `afterClosed()`.
 <details>
 <summary>2. Quel est le role de `MatTableDataSource` ?</summary>
 
-C'est une classe utilitaire qui gere automatiquement le tri (`MatSort`), la pagination (`MatPaginator`) et le filtre texte pour un `mat-table`.
+C'est une classe utilitaire qui géré automatiquement le tri (`MatSort`), la pagination (`MatPaginator`) et le filtre texte pour un `mat-table`.
 </details>
 
 <details>
@@ -37,9 +37,9 @@ On injecte `MatSnackBar` et on appelle `open()` avec un message, une action et u
 
 ## Analogie
 
-En Vue 3, quand vous avez besoin de drag & drop, vous installez `vuedraggable`. Pour le virtual scroll, vous utilisez `vue-virtual-scroller`. Chaque comportement necessite une librairie tierce.
+En Vue 3, quand vous avez besoin de drag & drop, vous installez `vuedraggable`. Pour le virtual scroll, vous utilisez `vue-virtual-scroller`. Chaque comportement nécessité une librairie tierce.
 
-Angular a reuni tous ces **comportements reutilisables** dans un seul package : le **CDK** (Component Dev Kit). C'est la fondation sur laquelle Angular Material est construit. Le CDK fournit le **comportement** (drag, scroll, overlay, focus trap...) sans imposer de style visuel.
+Angular a reuni tous ces **comportements réutilisables** dans un seul package : le **CDK** (Component Dev Kit). C'est la fondation sur laquelle Angular Material est construit. Le CDK fournit le **comportement** (drag, scroll, overlay, focus trap...) sans imposer de style visuel.
 
 ```
 CDK = Comportement (headless)    →  Vous stylisez comme vous voulez
@@ -56,7 +56,7 @@ Material = CDK + Style Material  →  Composants prets a l'emploi
 
 ---
 
-## Theorie
+## Théorie
 
 ### CDK DragDrop : glisser-deposer
 
@@ -138,7 +138,7 @@ export class KanbanComponent {
 
 ### CDK VirtualScroll : listes geantes
 
-Quand vous avez des milliers d'elements, le DOM ne peut pas tous les rendre. Le virtual scroll ne rend que les elements visibles :
+Quand vous avez des milliers d'éléments, le DOM ne peut pas tous les rendre. Le virtual scroll ne rend que les éléments visibles :
 
 ```typescript
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -165,9 +165,9 @@ export class GrandeListeComponent {
 }
 ```
 
-| Propriete | Description |
+| Propriété | Description |
 |-----------|-------------|
-| `itemSize` | Hauteur fixe de chaque element (en px) |
+| `itemSize` | Hauteur fixe de chaque élément (en px) |
 | `*cdkVirtualFor` | Remplace `@for` pour le virtual scroll |
 | `minBufferPx` | Buffer minimum a pre-rendre |
 | `maxBufferPx` | Buffer maximum a pre-rendre |
@@ -186,7 +186,7 @@ export class GrandeListeComponent {
 
 ### CDK Overlay : popups et tooltips personnalises
 
-L'overlay CDK cree des elements flottants positionnes par rapport a un element ancre :
+L'overlay CDK créé des éléments flottants positionnes par rapport à un élément ancre :
 
 ```typescript
 import { Overlay, OverlayRef, OverlayModule } from '@angular/cdk/overlay';
@@ -321,7 +321,7 @@ Material = CDK + habillage Material Design
 
 ## Pratique
 
-Creez un mini kanban board avec deux colonnes ("A faire" / "En cours") utilisant le CDK Drag & Drop. Ajoutez un virtual scroll dans une troisieme colonne "Archive" contenant 1000 elements.
+Creez un mini kanban board avec deux colonnes ("A faire" / "En cours") utilisant le CDK Drag & Drop. Ajoutez un virtual scroll dans une troisieme colonne "Archive" contenant 1000 éléments.
 
 **Consignes** :
 1. Trois colonnes cote a cote avec `cdkDropList`
@@ -413,9 +413,9 @@ export class KanbanCompletComponent {
 
 ---
 
-## Resume
+## Résumé
 
-| Module CDK | Usage | Directive / Classe cle |
+| Module CDK | Usage | Directive / Classe clé |
 |------------|-------|----------------------|
 | Drag & Drop | Glisser-deposer | `cdkDrag`, `cdkDropList`, `moveItemInArray` |
 | Scrolling | Grandes listes | `cdk-virtual-scroll-viewport`, `*cdkVirtualFor` |
@@ -428,3 +428,12 @@ export class KanbanCompletComponent {
 ---
 
 > **Prochain cours** : [Cours 35 — Tests unitaires : Jest, TestBed, premiers tests](../09-tests/01-tests-unitaires.md)
+
+---
+
+<!-- parcours-recommande -->
+
+::: tip Parcours recommandé
+1. **Exercice** : [19-material-dashboard](../../exercices/19-material-dashboard/ENONCE)
+2. **Renforcement** : [19b-drag-drop-kanban](../../exercices/19b-drag-drop-kanban/ENONCE)
+:::

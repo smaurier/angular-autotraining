@@ -1,17 +1,19 @@
 # Cours 43 — Authentification JWT : guards et interceptors
 
 > **Prérequis** : tu connais déjà JWT, OAuth et les principes d'authentification (formation Vue). Ce cours se concentre sur l'implémentation Angular : interceptors fonctionnels, guards `canActivate`, et le pattern AuthService avec Signals.
+>
+> **Auth cross-cours** : les concepts JWT/OAuth sont couverts dans 03-Vue (module 11), 05-NestJS (modules 08 et 19, cote serveur), 08-React (module 10, NextAuth). Ici l'angle est interceptors + guards spécifiques Angular.
 
 > **Objectif** : Implementer un flux d'authentification JWT complet : AuthService avec Signals, interceptor HTTP pour le token, guard fonctionnel, et gestion du refresh token.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
-<summary>1. Quelles sont les etapes d'un pipeline CI Angular ?</summary>
+<summary>1. Quelles sont les étapes d'un pipeline CI Angular ?</summary>
 
-`install → lint → test → build → deploy`. Si une etape echoue, les suivantes ne s'executent pas.
+`install → lint → test → build → deploy`. Si une étape echoue, les suivantes ne s'executent pas.
 </details>
 
 <details>
@@ -38,7 +40,7 @@ Si tu as utilise Vue Router `beforeEach` + Axios interceptors + Pinia store pour
 
 ---
 
-## Theorie
+## Théorie
 
 ### Le flux JWT
 
@@ -230,18 +232,18 @@ export class LoginComponent {
 
 ### Stockage des tokens
 
-| Methode | Avantage | Inconvenient |
+| Méthode | Avantage | Inconvenient |
 |---|---|---|
 | `localStorage` | Simple, controle cote front | Vulnerable XSS |
 | `httpOnly cookie` | Inaccessible au JS | Necessite config serveur, CSRF possible |
 
-> **Recommandation ESN** : `httpOnly cookies` pour la securite. `localStorage` acceptable en prototypage.
+> **Recommandation ESN** : `httpOnly cookies` pour la sécurité. `localStorage` acceptable en prototypage.
 
 ---
 
 ## Pratique
 
-Implementez un flux d'auth complet : AuthService avec signals, interceptor Bearer + gestion 401, guard `authGuard`, composant Login avec formulaire reactif, routes protegees.
+Implementez un flux d'auth complet : AuthService avec signals, interceptor Bearer + gestion 401, guard `authGuard`, composant Login avec formulaire réactif, routes protegees.
 
 <details>
 <summary>Solution</summary>
@@ -262,16 +264,24 @@ Implementez un flux d'auth complet : AuthService avec signals, interceptor Beare
 
 ---
 
-## Resume
+## Résumé
 
-| Point cle | A retenir |
+| Point clé | A retenir |
 |---|---|
-| AuthService | Signals pour l'etat reactif (`isAuthenticated`, `currentUser`) |
-| Interceptor | `HttpInterceptorFn` : ajoute Bearer, gere 401 + refresh |
-| Guard | `CanActivateFn` : verifie l'auth, redirige vers `/login` |
+| AuthService | Signals pour l'état réactif (`isAuthenticated`, `currentUser`) |
+| Interceptor | `HttpInterceptorFn` : ajoute Bearer, géré 401 + refresh |
+| Guard | `CanActivateFn` : vérifié l'auth, redirige vers `/login` |
 | RBAC | Guard avec `route.data['role']` pour les permissions |
 | Tokens | Preferer `httpOnly cookie`, `localStorage` pour le prototypage |
 
 ---
 
 > **Prochain cours** : [Module 12 — Recettes ESN](../12-recettes-esn/01-architecture-conventions.md)
+
+---
+
+<!-- parcours-recommande -->
+
+::: tip Parcours recommandé
+1. **Exercice** : [25-auth-complete](../../exercices/25-auth-complete/ENONCE)
+:::

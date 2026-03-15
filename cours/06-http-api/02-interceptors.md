@@ -1,10 +1,10 @@
 # Cours 26 — Intercepteurs fonctionnels
 
-> **Objectif** : Comprendre et implementer des intercepteurs HTTP fonctionnels en Angular 19+ : authentification, gestion d'erreurs globale, loading spinner et logging. Maitriser l'ordre d'execution et les patterns de combinaison reels.
+> **Objectif** : Comprendre et implementer des intercepteurs HTTP fonctionnels en Angular 19+ : authentification, gestion d'erreurs globale, loading spinner et logging. Maîtriser l'ordre d'exécution et les patterns de combinaison réels.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
 <summary>1. Comment configurer HttpClient dans une application standalone Angular 19+ ?</summary>
@@ -15,31 +15,31 @@ On utilise `provideHttpClient()` dans le tableau `providers` de `app.config.ts`.
 <details>
 <summary>2. Pourquoi les Observables HTTP sont-ils qualifies de "cold" ?</summary>
 
-Un Observable HTTP ne lance **aucune** requete reseau tant que personne n'appelle `subscribe()`. Chaque nouveau subscribe cree une nouvelle requete independante.
+Un Observable HTTP ne lance **aucune** requête réseau tant que personne n'appelle `subscribe()`. Chaque nouveau subscribe créé une nouvelle requête independante.
 </details>
 
 <details>
-<summary>3. Quelle est la difference entre PUT et PATCH ?</summary>
+<summary>3. Quelle est la différence entre PUT et PATCH ?</summary>
 
-`PUT` remplace **completement** la ressource (il faut envoyer tous les champs). `PATCH` effectue une mise a jour **partielle** (seuls les champs envoyes sont modifies).
+`PUT` remplace **complètement** la ressource (il faut envoyer tous les champs). `PATCH` effectue une mise a jour **partielle** (seuls les champs envoyes sont modifies).
 </details>
 
 ---
 
 ## Analogie
 
-Imaginez un **controle de securite a l'aeroport**. Chaque passager (requete HTTP) passe par une serie de postes :
+Imaginez un **controle de sécurité a l'aeroport**. Chaque passager (requête HTTP) passe par une serie de postes :
 
-1. **Verification du billet** (intercepteur auth : ajoute le token)
-2. **Scanner a bagages** (intercepteur logging : enregistre la requete)
-3. **Controle passeport** (intercepteur erreur : verifie la reponse)
+1. **Vérification du billet** (intercepteur auth : ajoute le token)
+2. **Scanner a bagages** (intercepteur logging : enregistre la requête)
+3. **Controle passeport** (intercepteur erreur : vérifié la réponse)
 4. **Chronometre** (intercepteur loading : mesure le temps)
 
-Chaque poste peut laisser passer, modifier, ou bloquer le passager. L'ordre des postes compte : on verifie le billet **avant** de scanner les bagages.
+Chaque poste peut laisser passer, modifier, ou bloquer le passager. L'ordre des postes compte : on vérifié le billet **avant** de scanner les bagages.
 
 ---
 
-## Theorie
+## Théorie
 
 ### Intercepteur fonctionnel : syntaxe de base
 
@@ -74,7 +74,7 @@ export const appConfig: ApplicationConfig = {
 
 ### Intercepteur d'authentification
 
-Le plus courant en ESN : ajouter un token Bearer a chaque requete.
+Le plus courant en ESN : ajouter un token Bearer à chaque requête.
 
 ```typescript
 // auth.interceptor.ts
@@ -198,7 +198,7 @@ export const retryInterceptor: HttpInterceptorFn = (req, next) => {
 
 ### Intercepteur de loading
 
-Afficher/masquer un spinner global pendant les requetes :
+Afficher/masquer un spinner global pendant les requêtes :
 
 ```typescript
 // loading.service.ts
@@ -265,7 +265,7 @@ export class SpinnerComponent {
 
 ### Intercepteur de logging (dev)
 
-Pour debugger les requetes en developpement :
+Pour debugger les requêtes en développement :
 
 ```typescript
 // logging.interceptor.ts
@@ -304,7 +304,7 @@ export const loggingInterceptor: HttpInterceptorFn = (req, next) => {
 
 ### Ordre des intercepteurs
 
-Les intercepteurs s'executent dans l'ordre du tableau pour la **requete**, et en ordre **inverse** pour la reponse :
+Les intercepteurs s'executent dans l'ordre du tableau pour la **requête**, et en ordre **inverse** pour la réponse :
 
 ```
 Requete → [auth] → [loading] → [logging] → Serveur
@@ -350,10 +350,10 @@ provideHttpClient(
 ## Pratique
 
 Creez un intercepteur fonctionnel `cacheInterceptor` qui :
-1. Intercepte uniquement les requetes GET
-2. Stocke les reponses dans une `Map<string, any>`
-3. Retourne la reponse cachee si elle existe (sans appeler le serveur)
-4. Sinon, appelle le serveur et stocke la reponse
+1. Intercepte uniquement les requêtes GET
+2. Stocke les réponses dans une `Map<string, any>`
+3. Retourne la réponse cachee si elle existe (sans appeler le serveur)
+4. Sinon, appelle le serveur et stocke la réponse
 
 <details>
 <summary>Solution</summary>
@@ -409,19 +409,19 @@ provideHttpClient(
 
 ---
 
-## Resume
+## Résumé
 
-| Point cle | A retenir |
+| Point clé | A retenir |
 |-----------|-----------|
 | `HttpInterceptorFn` | Fonction `(req, next) => Observable` |
-| `req.clone()` | Les requetes sont immutables, toujours cloner |
+| `req.clone()` | Les requêtes sont immutables, toujours cloner |
 | `withInterceptors([...])` | Enregistrement dans `provideHttpClient()` |
 | Auth interceptor | Ajoute `Bearer token` via `setHeaders` |
 | Error interceptor | `catchError` global avec switch sur `status` |
-| Loading interceptor | Compteur + `finalize()` pour gerer le spinner |
+| Loading interceptor | Compteur + `finalize()` pour gérer le spinner |
 | Logging interceptor | `tap` + `performance.now()` pour le debug |
 | Ordre | Auth → Retry → Error → Loading → Logging |
-| Legacy | `withInterceptorsFromDi()` pour les classes (a eviter) |
+| Legacy | `withInterceptorsFromDi()` pour les classes (a éviter) |
 
 ---
 

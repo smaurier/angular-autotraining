@@ -28,7 +28,7 @@ On crée une fonction qui retourne un `CanActivateFn` : `function requiertRole(r
 
 ## Analogie
 
-En Vue Router, tu utilises `() => import('./pages/Admin.vue')` pour charger une page à la demande. Angular propose exactement le même concept avec `loadComponent` (pour un composant) et `loadChildren` (pour un groupe de routes). Le résultat est identique : un fichier JavaScript séparé chargé uniquement quand l'utilisateur navigue vers cette route.
+En Vue Router, tu utilises `() => import('./pages/Admin.vue')` pour charger une page à la demandé. Angular propose exactement le même concept avec `loadComponent` (pour un composant) et `loadChildren` (pour un groupe de routes). Le résultat est identique : un fichier JavaScript séparé chargé uniquement quand l'utilisateur navigue vers cette route.
 
 `@defer` dans les templates Angular est comparable au composant `<Suspense>` de Vue combiné avec `defineAsyncComponent()` — mais avec une syntaxe déclarative plus puissante et des conditions de déclenchement variées.
 
@@ -71,7 +71,7 @@ En ESN, le lazy loading est **attendu** sur tout projet Angular professionnel. L
 
 ### loadComponent — Lazy loading d'un composant
 
-Pour charger un composant à la demande, on utilise `loadComponent` avec un import dynamique.
+Pour charger un composant à la demandé, on utilise `loadComponent` avec un import dynamique.
 
 ```typescript
 // app.routes.ts
@@ -567,12 +567,21 @@ export class AdminDashboardComponent {
 | `PreloadAllModules` | Précharge tout en arrière-plan | Global |
 | Stratégie personnalisée | Précharge sélective (`data.preload`) | Par route |
 
-- **loadChildren** pour les sections de l'app (admin, client, parametres).
+- **loadChildren** pour les sections de l'app (admin, client, paramètres).
 - **loadComponent** pour les pages individuelles peu visitées.
 - **@defer** pour les composants lourds dans une page (graphiques, tableaux, chat).
-- Le preloading sélectif est le meilleur compromis : précharger les sections critiques, laisser les autres à la demande.
+- Le preloading sélectif est le meilleur compromis : précharger les sections critiques, laisser les autres à la demandé.
 - En ESN, le lazy loading est un **minimum attendu** — analyse toujours la taille du bundle initial avec `ng build` et l'onglet Network des DevTools.
 
 ---
 
 > **Prochain cours** : [Cours 21 — Introduction à RxJS](../05-rxjs-essentiel/01-introduction-rxjs.md)
+
+---
+
+<!-- parcours-recommande -->
+
+::: tip Parcours recommandé
+1. **Exercice** : [11-app-multi-pages](../../exercices/11-app-multi-pages/ENONCE)
+2. **Exercice** : [12-guards-et-lazy](../../exercices/12-guards-et-lazy/ENONCE)
+:::

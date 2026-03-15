@@ -1,6 +1,6 @@
 # Correction — Exercice 03 : Liste de taches
 
-## Resultat attendu
+## Résultat attendu
 
 Une application de todo list avec :
 - Un champ de saisie pour ajouter de nouvelles taches
@@ -319,25 +319,25 @@ export class TodoListComponent {
 
 ### 1. Oublier `track` dans `@for`
 - ❌ `@for (todo of todos())` → erreur de compilation, `track` est obligatoire
-- ✅ `@for (todo of todos(); track todo.id)` → Angular identifie chaque element
+- ✅ `@for (todo of todos(); track todo.id)` → Angular identifie chaque élément
 
 ### 2. Muter le tableau directement
-- ❌ `this.todos().push(newTodo)` → le signal ne detecte pas le changement (meme reference)
-- ✅ `this.todos.update(prev => [...prev, newTodo])` → nouveau tableau = nouvelle reference = detection
+- ❌ `this.todos().push(newTodo)` → le signal ne détecté pas le changement (même référence)
+- ✅ `this.todos.update(prev => [...prev, newTodo])` → nouveau tableau = nouvelle référence = detection
 
-### 3. Oublier de vider le champ apres ajout
+### 3. Oublier de vider le champ après ajout
 - ❌ Ne pas appeler `this.newTodoTitle.set('')` → le texte reste dans l'input
-- ✅ Remettre le signal a `''` apres l'ajout pour vider le champ
+- ✅ Remettre le signal a `''` après l'ajout pour vider le champ
 
 ### 4. Ne pas typer l'interface Todo
-- ❌ Utiliser un objet `{ id, title, completed }` sans interface → pas de verification de type
-- ✅ Definir `interface Todo` et typer le signal `signal<Todo[]>`
+- ❌ Utiliser un objet `{ id, title, completed }` sans interface → pas de vérification de type
+- ✅ Définir `interface Todo` et typer le signal `signal<Todo[]>`
 
 ### 5. Oublier le spread pour la modification
 - ❌ `todo.completed = !todo.completed` → mutation directe, pas de detection
 - ✅ `{ ...todo, completed: !todo.completed }` → nouvel objet, detection du changement
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|

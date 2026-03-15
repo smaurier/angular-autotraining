@@ -2,14 +2,14 @@
 
 ## QCM
 
-- [ ] Les 20 questions ont ete lues et les reponses notees AVANT de consulter la correction
+- [ ] Les 20 questions ont ete lues et les réponses notees AVANT de consulter la correction
 - [ ] Le score a ete calcule et le bareme consulte
 - [ ] Les questions ratees ont ete identifiees et les cours correspondants relus
-- [ ] Capable d'expliquer pourquoi chaque reponse incorrecte est fausse
+- [ ] Capable d'expliquer pourquoi chaque réponse incorrecte est fausse
 
 ## LC1 — Compteur (5 min)
 
-- [ ] Le signal `count` est cree avec `signal<number>(0)`
+- [ ] Le signal `count` est créé avec `signal<number>(0)`
 - [ ] Le computed `doubleCount` retourne `count() * 2`
 - [ ] Le computed `isEven` retourne "Pair" ou "Impair"
 - [ ] Les boutons +1, -1 et Reset fonctionnent correctement
@@ -17,10 +17,10 @@
 
 ## LC2 — Recherche debounce (10 min)
 
-- [ ] Le signal `searchTerm` est mis a jour a chaque frappe
+- [ ] Le signal `searchTerm` est mis a jour à chaque frappe
 - [ ] `toObservable()` convertit le signal en Observable
 - [ ] `debounceTime(300)` et `distinctUntilChanged()` sont appliques dans le pipe
-- [ ] `toSignal()` reconvertit le resultat en signal avec `{ initialValue: '' }`
+- [ ] `toSignal()` reconvertit le résultat en signal avec `{ initialValue: '' }`
 - [ ] Le computed `filteredProducts` filtre sur le terme debouncé (pas le terme brut)
 - [ ] Realise en moins de 10 minutes
 
@@ -28,9 +28,9 @@
 
 - [ ] Le signal `_products` est prive et de type `WritableSignal<Product[]>`
 - [ ] Le signal est expose en lecture seule via `.asReadonly()`
-- [ ] `add()` utilise le spread operator pour creer un nouveau tableau
-- [ ] `update()` utilise `map()` + spread pour modifier un element de maniere immutable
-- [ ] `delete()` utilise `filter()` pour supprimer un element
+- [ ] `add()` utilise le spread operator pour créer un nouveau tableau
+- [ ] `update()` utilise `map()` + spread pour modifier un élément de manière immutable
+- [ ] `delete()` utilise `filter()` pour supprimer un élément
 - [ ] `getById()` retourne un `computed` (pas une valeur statique)
 - [ ] Les types utilitaires (`Omit`, `Partial`) sont utilises pour le typage
 - [ ] Realise en moins de 10 minutes

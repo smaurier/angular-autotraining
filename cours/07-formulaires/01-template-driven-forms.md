@@ -1,10 +1,10 @@
 # Cours 28 — Formulaires template-driven
 
-> **Objectif** : Comprendre les formulaires template-driven en Angular 19+ avec `FormsModule` et `ngModel`. Maitriser le two-way binding, la validation dans le template, et l'acces a l'etat du formulaire. Savoir quand choisir cette approche et la comparer avec Vue 3 `v-model`.
+> **Objectif** : Comprendre les formulaires template-driven en Angular 19+ avec `FormsModule` et `ngModel`. Maîtriser le two-way binding, la validation dans le template, et l'acces a l'état du formulaire. Savoir quand choisir cette approche et la comparer avec Vue 3 `v-model`.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
 <summary>1. Comment implementer un retry avec backoff exponentiel en Angular ?</summary>
@@ -15,13 +15,13 @@ Avec l'operateur `retry({ count: 3, delay: (err, n) => timer(Math.pow(2, n) * 10
 <details>
 <summary>2. A quoi sert shareReplay et quelle option est obligatoire ?</summary>
 
-`shareReplay` partage une seule souscription entre plusieurs abonnes et rejoue les derniers resultats. L'option `refCount: true` est obligatoire pour eviter les fuites memoire en se desabonnant de la source quand plus personne n'ecoute.
+`shareReplay` partage une seule souscription entre plusieurs abonnes et rejoue les derniers résultats. L'option `refCount: true` est obligatoire pour éviter les fuites mémoire en se desabonnant de la source quand plus personne n'ecoute.
 </details>
 
 <details>
-<summary>3. Quels etats sont disponibles avec resource() d'Angular 19+ ?</summary>
+<summary>3. Quels états sont disponibles avec resource() d'Angular 19+ ?</summary>
 
-`resource()` fournit : `isLoading()` (chargement en cours), `value()` (donnees recues), `error()` (erreur eventuelle), et la methode `reload()` pour relancer le chargement.
+`resource()` fournit : `isLoading()` (chargement en cours), `value()` (donnees recues), `error()` (erreur eventuelle), et la méthode `reload()` pour relancer le chargement.
 </details>
 
 ---
@@ -31,13 +31,13 @@ Avec l'operateur `retry({ count: 3, delay: (err, n) => timer(Math.pow(2, n) * 10
 Imaginez un **formulaire papier** dans une administration :
 
 - **Template-driven** : le formulaire est pre-imprime avec des cases a cocher et des champs a remplir. Les regles de validation sont ecrites sur le papier ("champ obligatoire", "8 caracteres minimum"). C'est simple, visuel, direct.
-- **Reactive forms** : vous recevez une feuille blanche et un cahier des charges separe qui definit programmatiquement chaque champ, chaque regle, chaque dependance.
+- **Reactive forms** : vous recevez une feuille blanche et un cahier des charges separe qui définit programmatiquement chaque champ, chaque regle, chaque dépendance.
 
 Les formulaires template-driven sont le formulaire pre-imprime : tout est dans le template HTML, ideal pour les formulaires simples.
 
 ---
 
-## Theorie
+## Théorie
 
 ### Configuration : FormsModule
 
@@ -78,7 +78,7 @@ export class LoginComponent {
 }
 ```
 
-> **Attention** : chaque `ngModel` dans un `<form>` necessite un attribut `name` unique. Sans `name`, Angular ne peut pas enregistrer le champ dans le formulaire.
+> **Attention** : chaque `ngModel` dans un `<form>` nécessité un attribut `name` unique. Sans `name`, Angular ne peut pas enregistrer le champ dans le formulaire.
 
 ```typescript
 // ❌ Mauvais : ngModel sans name dans un form
@@ -220,9 +220,9 @@ export class InscriptionComponent {
 
 ### Etats du formulaire et des champs
 
-Chaque champ et le formulaire entier ont des proprietes d'etat :
+Chaque champ et le formulaire entier ont des propriétés d'état :
 
-| Propriete | Description |
+| Propriété | Description |
 |-----------|------------|
 | `valid` / `invalid` | Le champ passe-t-il toutes les validations ? |
 | `pristine` / `dirty` | L'utilisateur a-t-il modifie le champ ? |
@@ -236,9 +236,9 @@ Chaque champ et le formulaire entier ont des proprietes d'etat :
 }
 ```
 
-**Classes CSS automatiques** : Angular ajoute des classes CSS selon l'etat :
+**Classes CSS automatiques** : Angular ajoute des classes CSS selon l'état :
 
-| Etat | Classe CSS ajoutee |
+| État | Classe CSS ajoutee |
 |------|-------------------|
 | Valide | `ng-valid` |
 | Invalide | `ng-invalid` |
@@ -258,7 +258,7 @@ input.ng-valid.ng-touched {
 }
 ```
 
-### References template : #ngForm et #ngModel
+### Références template : #ngForm et #ngModel
 
 ```html
 <!-- Reference au formulaire entier -->
@@ -282,7 +282,7 @@ input.ng-valid.ng-touched {
 | Formulaire dynamique (champs generes) | ❌ |
 | Validation cross-field | ❌ |
 | Tests unitaires pousses | ❌ |
-| Projet ESN critique | ❌ (preferer Reactive Forms) |
+| Projet ESN critique | ❌ (préférer Reactive Forms) |
 
 ---
 
@@ -292,8 +292,8 @@ Creez un formulaire de contact template-driven avec :
 1. Champ **nom** (obligatoire, min 2 caracteres)
 2. Champ **email** (obligatoire, format email)
 3. Champ **message** (textarea, obligatoire, min 10 caracteres)
-4. Bouton submit desactive si le formulaire est invalide
-5. Messages d'erreur affiches seulement apres interaction (touched)
+4. Bouton submit désactivé si le formulaire est invalide
+5. Messages d'erreur affiches seulement après interaction (touched)
 
 <details>
 <summary>Solution</summary>
@@ -401,14 +401,14 @@ export class ContactComponent {
 
 ---
 
-## Resume
+## Résumé
 
-| Point cle | A retenir |
+| Point clé | A retenir |
 |-----------|-----------|
 | `FormsModule` | A importer dans le composant pour utiliser `ngModel` |
-| `[(ngModel)]` | Two-way binding, equivalent de `v-model` en Vue |
+| `[(ngModel)]` | Two-way binding, équivalent de `v-model` en Vue |
 | `name` obligatoire | Chaque `ngModel` dans un `<form>` doit avoir un `name` |
-| `#ref="ngModel"` | Acces aux proprietes du champ (valid, errors, touched) |
+| `#ref="ngModel"` | Acces aux propriétés du champ (valid, errors, touched) |
 | `#form="ngForm"` | Acces au formulaire entier (valid, value, controls) |
 | Validation | `required`, `minlength`, `email`, `pattern` en attributs HTML |
 | Classes CSS | `ng-valid`, `ng-invalid`, `ng-touched`, `ng-dirty` |

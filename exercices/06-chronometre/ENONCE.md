@@ -10,15 +10,15 @@ Construire un chronometre fonctionnel avec affichage MM:SS:ms, gestion du cycle 
 
 ## Consignes
 
-1. Creer un fichier `stopwatch.component.ts` dans `src/app/exercises/ex06/`
+1. Créer un fichier `stopwatch.component.ts` dans `src/app/exercises/ex06/`
 2. Declarer un signal `elapsedMs` de type `number` (millisecondes ecoulees, demarre a 0)
 3. Declarer un signal `isRunning` de type `boolean` (le chronometre tourne-t-il ?)
-4. Creer un **computed** `formattedTime` qui transforme `elapsedMs` en format `MM:SS:ms` :
+4. Créer un **computed** `formattedTime` qui transforme `elapsedMs` en format `MM:SS:ms` :
    - Minutes : `Math.floor(elapsed / 60000)`
    - Secondes : `Math.floor((elapsed % 60000) / 1000)`
    - Millisecondes : `Math.floor((elapsed % 1000) / 10)` (2 chiffres)
    - Padder chaque valeur avec `String(val).padStart(2, '0')`
-5. Implementer les methodes :
+5. Implementer les méthodes :
    - `start()` : lance un `setInterval` toutes les 10ms qui incremente `elapsedMs`
    - `stop()` : arrete l'intervalle avec `clearInterval`
    - `reset()` : arrete et remet `elapsedMs` a 0
@@ -38,7 +38,7 @@ Construire un chronometre fonctionnel avec affichage MM:SS:ms, gestion du cycle 
 
 ## Bonus
 
-- Ajouter un systeme de "tours" (laps) : bouton "Tour" qui enregistre le temps courant
+- Ajouter un système de "tours" (laps) : bouton "Tour" qui enregistre le temps courant
 - Afficher la liste des tours avec le temps de chaque tour
 
 ## Fichiers

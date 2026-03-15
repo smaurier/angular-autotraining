@@ -1,8 +1,8 @@
 # Correction — Exercice 25 : Auth complete
 
-## Resultat attendu
+## Résultat attendu
 
-Un systeme d'authentification complet : un service AuthService avec des signaux, un intercepteur HTTP qui injecte le token Bearer, des guards fonctionnels qui protegent les routes, et des composants qui affichent du contenu en fonction du role de l'utilisateur.
+Un système d'authentification complet : un service AuthService avec des signaux, un intercepteur HTTP qui injecte le token Bearer, des guards fonctionnels qui protegent les routes, et des composants qui affichent du contenu en fonction du role de l'utilisateur.
 
 ## Code corrige
 
@@ -632,42 +632,42 @@ export class NavbarComponent {
 ## Ce que tu aurais pu oublier
 
 ### 1. Oublier `inject()` dans l'intercepteur fonctionnel
-- ❌ Declarer `authService` en parametre → les intercepteurs fonctionnels ne recoivent que `req` et `next`
-- ✅ Utiliser `inject(AuthService)` a l'interieur de la fonction — ca fonctionne car Angular cree un contexte d'injection
+- ❌ Declarer `authService` en paramètre → les intercepteurs fonctionnels ne recoivent que `req` et `next`
+- ✅ Utiliser `inject(AuthService)` a l'interieur de la fonction — ça fonctionne car Angular créé un contexte d'injection
 
-### 2. Ne pas cloner la requete HTTP avant de la modifier
-- ❌ `req.headers.set('Authorization', ...)` → les requetes HTTP sont immutables
-- ✅ `req.clone({ setHeaders: { Authorization: ... } })` → cree une copie avec les modifications
+### 2. Ne pas cloner la requête HTTP avant de la modifier
+- ❌ `req.headers.set('Authorization', ...)` → les requêtes HTTP sont immutables
+- ✅ `req.clone({ setHeaders: { Authorization: ... } })` → créé une copie avec les modifications
 
 ### 3. Rediriger avec `router.navigate()` au lieu de `createUrlTree()` dans le guard
 - ❌ `router.navigate(['/login']); return false;` → fonctionne mais n'est pas recommande
-- ✅ `return router.createUrlTree(['/login'])` → le routeur gere la redirection proprement
+- ✅ `return router.createUrlTree(['/login'])` → le routeur géré la redirection proprement
 
 ### 4. Oublier `catchError` pour intercepter les 401
-- ❌ Ne pas gerer les erreurs dans l'intercepteur → les tokens expires ne sont pas detectes
+- ❌ Ne pas gérer les erreurs dans l'intercepteur → les tokens expires ne sont pas detectes
 - ✅ `catchError` dans le pipe pour intercepter les 401 et deconnecter automatiquement
 
 ### 5. Exposer le `WritableSignal` `_state` directement
 - ❌ `readonly state = this._state` → n'importe quel composant peut appeler `state.set()`
 - ✅ Exposer des `computed()` en lecture seule (`user`, `isAuthenticated`, etc.)
 
-### 6. Oublier `checkAuth()` au demarrage
-- ❌ Pas d'appel a `checkAuth()` → l'utilisateur doit se reconnecter a chaque rechargement de page
+### 6. Oublier `checkAuth()` au démarrage
+- ❌ Pas d'appel a `checkAuth()` → l'utilisateur doit se reconnecter à chaque rechargement de page
 - ✅ Appeler `checkAuth()` dans `APP_INITIALIZER` ou le constructeur de `AppComponent`
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
-| `HttpInterceptorFn` | Intercepteur fonctionnel (Angular 19+) — fonction qui intercepte chaque requete HTTP |
-| `CanActivateFn` | Guard fonctionnel (Angular 19+) — fonction qui autorise ou bloque l'acces a une route |
-| `req.clone()` | Cree une copie immutable de la requete HTTP avec des modifications |
+| `HttpInterceptorFn` | Intercepteur fonctionnel (Angular 19+) — fonction qui intercepte chaque requête HTTP |
+| `CanActivateFn` | Guard fonctionnel (Angular 19+) — fonction qui autorise ou bloque l'acces à une route |
+| `req.clone()` | Cree une copie immutable de la requête HTTP avec des modifications |
 | `router.createUrlTree()` | Cree un arbre d'URL pour la redirection dans un guard |
-| `effect()` | Side-effect reactif pour synchroniser l'etat avec localStorage |
-| `computed()` | Signaux derives pour exposer des parties de l'etat en lecture seule |
-| `inject()` | Injection de dependance dans les fonctions (intercepteurs, guards) |
-| `FormBuilder.nonNullable.group()` | Cree un formulaire reactif avec des controles non-nullables |
+| `effect()` | Side-effect réactif pour synchroniser l'état avec localStorage |
+| `computed()` | Signaux dérivés pour exposer des parties de l'état en lecture seule |
+| `inject()` | Injection de dépendance dans les fonctions (intercepteurs, guards) |
+| `FormBuilder.nonNullable.group()` | Cree un formulaire réactif avec des controles non-nullables |
 | `loadComponent` | Lazy loading de composants dans les routes |
-| `canActivate` | Propriete de route qui reference un ou plusieurs guards |
+| `canActivate` | Propriété de route qui référence un ou plusieurs guards |
 | `@if` / `@else` | Control flow Angular 19+ pour l'affichage conditionnel |
 | `routerLinkActive` | Directive qui ajoute une classe CSS quand le lien est actif |

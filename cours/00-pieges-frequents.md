@@ -1,17 +1,17 @@
-# 15 pieges frequents en Angular 19+ (pour developpeurs Vue 3)
+# 15 pieges frequents en Angular 19+ (pour développeurs Vue 3)
 
-> **Objectif** : Ce document recense les 15 erreurs les plus courantes rencontrees par les developpeurs
-> venant de Vue 3 lorsqu'ils debutent avec Angular 19+. Pour chaque piege, vous trouverez le probleme,
+> **Objectif** : Ce document recense les 15 erreurs les plus courantes rencontrees par les développeurs
+> venant de Vue 3 lorsqu'ils debutent avec Angular 19+. Pour chaque piege, vous trouverez le problème,
 > le code incorrect, le code correct, une analogie et une explication de l'importance du sujet.
 
 ---
 
 ## Piege 1 -- Oublier d'importer les standalone components dans `imports: []`
 
-### Probleme
+### Problème
 
 En Vue, un composant importe dans le `<script>` est automatiquement disponible dans le `<template>`.
-En Angular standalone, chaque composant doit **explicitement** declarer ses dependances dans le tableau `imports`.
+En Angular standalone, chaque composant doit **explicitement** declarer ses dépendances dans le tableau `imports`.
 
 ### Code incorrect
 
@@ -50,15 +50,15 @@ C'est comme une chaine de montage en usine : chaque poste (composant) doit avoir
 
 ### Pourquoi c'est important
 
-Sans l'import, Angular ignore silencieusement le selecteur ou lance une erreur `NG8001: 'app-child' is not a known element`. C'est l'erreur numero 1 des debutants Angular.
+Sans l'import, Angular ignore silencieusement le selecteur ou lance une erreur `NG8001: 'app-child' is not a known element`. C'est l'erreur numéro 1 des débutants Angular.
 
 ---
 
 ## Piege 2 -- Utiliser `*ngIf` au lieu de `@if`
 
-### Probleme
+### Problème
 
-Angular 19+ introduit la syntaxe de control flow integree (`@if`, `@for`, `@switch`). Les anciennes directives structurelles (`*ngIf`, `*ngFor`) sont depreciees. Venant de Vue, vous chercherez l'equivalent de `v-if` -- c'est `@if`, pas `*ngIf`.
+Angular 19+ introduit la syntaxe de control flow intégrée (`@if`, `@for`, `@switch`). Les anciennes directives structurelles (`*ngIf`, `*ngFor`) sont depreciees. Venant de Vue, vous chercherez l'équivalent de `v-if` -- c'est `@if`, pas `*ngIf`.
 
 ### Code incorrect
 
@@ -86,19 +86,19 @@ Angular 19+ introduit la syntaxe de control flow integree (`@if`, `@for`, `@swit
 
 ### Analogie
 
-C'est comme passer d'un GPS avec commandes vocales compliquees (`*ngIf="condition; else tmpl"`) a un GPS moderne avec des boutons clairs (`@if / @else`). Le resultat est le meme, mais l'ergonomie est bien meilleure.
+C'est comme passer d'un GPS avec commandes vocales compliquees (`*ngIf="condition; else tmpl"`) à un GPS moderne avec des boutons clairs (`@if / @else`). Le résultat est le même, mais l'ergonomie est bien meilleure.
 
 ### Pourquoi c'est important
 
-La nouvelle syntaxe est plus lisible, mieux typee, et ne necessite pas d'importer `CommonModule` ou `NgIf`. Angular va progressivement retirer le support des anciennes directives.
+La nouvelle syntaxe est plus lisible, mieux typee, et ne nécessité pas d'importer `CommonModule` ou `NgIf`. Angular va progressivement retirer le support des anciennes directives.
 
 ---
 
 ## Piege 3 -- Muter un signal directement au lieu de `.set()` / `.update()`
 
-### Probleme
+### Problème
 
-En Vue 3, on mute `ref.value` directement. En Angular, un `signal` est une fonction : on lit avec `signal()` et on ecrit avec `.set()` ou `.update()`. Muter l'objet interne ne declenche aucune reactvite.
+En Vue 3, on mute `ref.value` directement. En Angular, un `signal` est une fonction : on lit avec `signal()` et on écrit avec `.set()` ou `.update()`. Muter l'objet interne ne declenche aucune reactvite.
 
 ### Code incorrect
 
@@ -124,17 +124,17 @@ items.set(['a', 'b', 'c']);
 
 ### Analogie
 
-Un signal, c'est comme un panneau d'affichage electronique. Pour changer le message, vous devez utiliser la telecommande (`.set()` / `.update()`). Ecrire au marqueur sur l'ecran (mutation directe) ne changera pas ce que le systeme affiche.
+Un signal, c'est comme un panneau d'affichage electronique. Pour changer le message, vous devez utiliser la telecommande (`.set()` / `.update()`). Écrire au marqueur sur l'ecran (mutation directe) ne changera pas ce que le système affiche.
 
 ### Pourquoi c'est important
 
-Angular Signals repose sur l'egalite referentielle pour detecter les changements. Si vous mutez un objet sans changer sa reference, `computed()` et `effect()` ne se re-executeront jamais. C'est une source de bugs silencieux.
+Angular Signals repose sur l'egalite referentielle pour détecter les changements. Si vous mutez un objet sans changer sa référence, `computed()` et `effect()` ne se re-executeront jamais. C'est une source de bugs silencieux.
 
 ---
 
 ## Piege 4 -- Oublier `track` dans `@for`
 
-### Probleme
+### Problème
 
 En Vue 3, `:key` est optionnel (mais recommande). En Angular 19+, `track` est **obligatoire** dans `@for`. Sans lui, Angular refuse de compiler.
 
@@ -165,19 +165,19 @@ En Vue 3, `:key` est optionnel (mais recommande). En Angular 19+, `track` est **
 
 ### Analogie
 
-`track` est comme le code-barres sur un colis. Sans code-barres, le livreur (Angular) ne peut pas savoir quel colis a change, quel colis est nouveau. Il serait oblige de tout jeter et tout re-livrer a chaque fois.
+`track` est comme le code-barres sur un colis. Sans code-barres, le livreur (Angular) ne peut pas savoir quel colis a change, quel colis est nouveau. Il serait oblige de tout jeter et tout re-livrer à chaque fois.
 
 ### Pourquoi c'est important
 
-`track` permet a Angular d'optimiser le rendu en identifiant de maniere unique chaque element. Utiliser `$index` est acceptable mais moins performant que `item.id` si la liste est reordonnee.
+`track` permet a Angular d'optimiser le rendu en identifiant de manière unique chaque élément. Utiliser `$index` est acceptable mais moins performant que `item.id` si la liste est reordonnee.
 
 ---
 
 ## Piege 5 -- Ne pas unsubscribe les Observables
 
-### Probleme
+### Problème
 
-Vue 3 gere automatiquement le nettoyage des `watch` et `watchEffect` quand le composant est detruit. En Angular, les souscriptions RxJS doivent etre nettoyees manuellement -- sinon vous avez des fuites memoire.
+Vue 3 géré automatiquement le nettoyage des `watch` et `watchEffect` quand le composant est detruit. En Angular, les souscriptions RxJS doivent etre nettoyees manuellement -- sinon vous avez des fuites mémoire.
 
 ### Code incorrect
 
@@ -219,17 +219,17 @@ export class UserComponent {
 
 ### Analogie
 
-Un Observable sans unsubscribe, c'est comme laisser un robinet ouvert. L'eau (les donnees) continue de couler meme quand vous avez quitte la piece (le composant est detruit). `takeUntilDestroyed` ferme le robinet automatiquement.
+Un Observable sans unsubscribe, c'est comme laisser un robinet ouvert. L'eau (les donnees) continue de couler même quand vous avez quitte la piece (le composant est detruit). `takeUntilDestroyed` ferme le robinet automatiquement.
 
 ### Pourquoi c'est important
 
-Les fuites memoire s'accumulent silencieusement et degradent les performances. En production, une SPA qui tourne 8h peut devenir inutilisable. `takeUntilDestroyed` (Angular 16+) est la solution moderne et elegante.
+Les fuites mémoire s'accumulent silencieusement et degradent les performances. En production, une SPA qui tourne 8h peut devenir inutilisable. `takeUntilDestroyed` (Angular 16+) est la solution moderne et elegante.
 
 ---
 
 ## Piege 6 -- Confondre `toSignal()` et `toObservable()`
 
-### Probleme
+### Problème
 
 Angular fournit deux ponts entre le monde Signals et le monde RxJS. Les confondre mene a des erreurs de typage ou des comportements inattendus.
 
@@ -263,15 +263,15 @@ const count$ = toObservable(count);
 
 ### Pourquoi c'est important
 
-Angular va de plus en plus vers les Signals, mais RxJS reste essentiel pour les flux asynchrones complexes. Maitriser ces deux ponts est indispensable pour un code Angular moderne.
+Angular va de plus en plus vers les Signals, mais RxJS reste essentiel pour les flux asynchrones complexes. Maîtriser ces deux ponts est indispensable pour un code Angular moderne.
 
 ---
 
-## Piege 7 -- Melanger template-driven et reactive forms
+## Piege 7 -- Melanger template-driven et réactive forms
 
-### Probleme
+### Problème
 
-Angular a deux approches de formulaires : template-driven (`ngModel`) et reactive (`FormControl`). Les melanger dans un meme formulaire cree des conflits et des bugs subtils.
+Angular a deux approches de formulaires : template-driven (`ngModel`) et réactive (`FormControl`). Les melanger dans un même formulaire créé des conflits et des bugs subtils.
 
 ### Code incorrect
 
@@ -300,19 +300,19 @@ myForm = new FormGroup({
 
 ### Analogie
 
-C'est comme avoir deux pilotes dans un avion qui donnent des ordres contradictoires. Le formulaire ne sait plus qui ecouter. Choisissez un seul pilote (reactive forms, de preference) et tenez-vous-y.
+C'est comme avoir deux pilotes dans un avion qui donnent des ordres contradictoires. Le formulaire ne sait plus qui ecouter. Choisissez un seul pilote (réactive forms, de préférence) et tenez-vous-y.
 
 ### Pourquoi c'est important
 
-Angular affiche un warning en dev si vous melangez les deux. En production, les valeurs peuvent se desynchroniser. La recommandation officielle pour les projets d'entreprise est d'utiliser **uniquement** les reactive forms.
+Angular affiche un warning en dev si vous melangez les deux. En production, les valeurs peuvent se desynchroniser. La recommandation officielle pour les projets d'entreprise est d'utiliser **uniquement** les réactive forms.
 
 ---
 
 ## Piege 8 -- `| async` retourne `T | null`
 
-### Probleme
+### Problème
 
-Le pipe `async` souscrit a un Observable et affiche sa derniere valeur. Mais **avant** la premiere emission, il retourne `null`. Si votre template accede a une propriete, vous obtenez une erreur.
+Le pipe `async` souscrit à un Observable et affiche sa dernière valeur. Mais **avant** la première emission, il retourne `null`. Si votre template accede à une propriété, vous obtenez une erreur.
 
 ### Code incorrect
 
@@ -339,19 +339,19 @@ Le pipe `async` souscrit a un Observable et affiche sa derniere valeur. Mais **a
 
 ### Analogie
 
-Le pipe `async` est comme un livreur qui sonne a votre porte. Avant qu'il arrive (premiere emission), il n'y a rien devant la porte (`null`). Vous devez verifier que le colis est la avant de l'ouvrir.
+Le pipe `async` est comme un livreur qui sonne a votre porte. Avant qu'il arrive (première emission), il n'y a rien devant la porte (`null`). Vous devez vérifier que le colis est la avant de l'ouvrir.
 
 ### Pourquoi c'est important
 
-En mode strict (recommande), TypeScript refuse `(obs$ | async).prop` car le type est `T | null`. Utiliser `toSignal` avec un `initialValue` ou `@if ... as` evite ce probleme proprement.
+En mode strict (recommande), TypeScript refuse `(obs$ | async).prop` car le type est `T | null`. Utiliser `toSignal` avec un `initialValue` ou `@if ... as` evite ce problème proprement.
 
 ---
 
-## Piege 9 -- HttpClient : les requetes sont cold
+## Piege 9 -- HttpClient : les requêtes sont cold
 
-### Probleme
+### Problème
 
-En Vue avec Axios ou fetch, une requete se lance des qu'on appelle la fonction. En Angular, `HttpClient` retourne un Observable **cold** : la requete ne part **qu'au moment du `.subscribe()`** (ou du `| async`, ou du `toSignal`).
+En Vue avec Axios ou fetch, une requête se lance des qu'on appelle la fonction. En Angular, `HttpClient` retourne un Observable **cold** : la requête ne part **qu'au moment du `.subscribe()`** (où du `| async`, ou du `toSignal`).
 
 ### Code incorrect
 
@@ -386,13 +386,13 @@ Un Observable cold, c'est comme un bon de commande rempli mais pas envoye. Tant 
 
 ### Pourquoi c'est important
 
-C'est LE piege classique des developpeurs venant de Vue/React ou chaque appel `fetch()` ou `axios.get()` lance immediatement la requete. En Angular, il faut toujours un consommateur.
+C'est LE piege classique des développeurs venant de Vue/React ou chaque appel `fetch()` ou `axios.get()` lance immediatement la requête. En Angular, il faut toujours un consommateur.
 
 ---
 
 ## Piege 10 -- `providedIn: 'root'` = singleton global
 
-### Probleme
+### Problème
 
 En Vue 3, `provide/inject` est scope a l'arbre de composants. En Angular, un service avec `providedIn: 'root'` est un **singleton global** partage par toute l'application. Si vous voulez une instance par composant, il faut declarer le provider autrement.
 
@@ -430,19 +430,19 @@ export class FormPageComponent {
 
 ### Analogie
 
-`providedIn: 'root'`, c'est comme un tableau blanc dans le hall d'entree -- tout le monde y accede. Un service en `providers: [...]`, c'est comme un tableau blanc dans chaque bureau -- chaque equipe a le sien.
+`providedIn: 'root'`, c'est comme un tableau blanc dans le hall d'entree -- tout le monde y accede. Un service en `providers: [...]`, c'est comme un tableau blanc dans chaque bureau -- chaque équipe a le sien.
 
 ### Pourquoi c'est important
 
-Confondre singleton et instance locale cause des bugs de partage d'etat entre pages. C'est particulierement dangereux avec les formulaires et les etats temporaires.
+Confondre singleton et instance locale cause des bugs de partage d'état entre pages. C'est particulierement dangereux avec les formulaires et les états temporaires.
 
 ---
 
 ## Piege 11 -- Change detection : composant ne se met pas a jour
 
-### Probleme
+### Problème
 
-Angular utilise Zone.js pour detecter les changements. Si vous modifiez une donnee en dehors de la zone Angular (setTimeout natif, WebSocket, librairie tierce), le composant ne se met pas a jour.
+Angular utilise Zone.js pour détecter les changements. Si vous modifiez une donnee en dehors de la zone Angular (setTimeout natif, WebSocket, librairie tierce), le composant ne se met pas a jour.
 
 ### Code incorrect
 
@@ -485,17 +485,17 @@ export class CounterComponent {
 
 ### Analogie
 
-Zone.js est comme un detecteur de mouvement dans une piece. Si vous bougez (mutation standard), il detecte. Mais si quelqu'un passe par la fenetre (hors zone), le detecteur ne voit rien. Les Signals, eux, envoient un SMS directement au systeme d'alarme.
+Zone.js est comme un detecteur de mouvement dans une piece. Si vous bougez (mutation standard), il détecté. Mais si quelqu'un passe par la fenêtre (hors zone), le detecteur ne voit rien. Les Signals, eux, envoient un SMS directement au système d'alarme.
 
 ### Pourquoi c'est important
 
-Angular se dirige vers le mode **zoneless** (sans Zone.js). Les Signals sont la solution d'avenir pour une reactivite explicite et performante. Adoptez-les des maintenant.
+Angular se dirige vers le mode **zoneless** (sans Zone.js). Les Signals sont la solution d'avenir pour une réactivité explicite et performante. Adoptez-les des maintenant.
 
 ---
 
 ## Piege 12 -- Router : chemins absolus vs relatifs
 
-### Probleme
+### Problème
 
 En Vue Router, les chemins sont simples. En Angular, la distinction entre chemin absolu (`/dashboard`) et relatif (`dashboard` ou `../settings`) dans `router.navigate()` est source de confusion.
 
@@ -526,7 +526,7 @@ this.router.navigate(['settings'], { relativeTo: this.route });
 
 ### Analogie
 
-C'est comme les chemins de fichiers. `cd settings` (relatif) depend d'ou vous etes. `cd /home/user/settings` (absolu) va toujours au meme endroit. Angular Router fonctionne exactement pareil.
+C'est comme les chemins de fichiers. `cd settings` (relatif) depend d'où vous etes. `cd /home/user/settings` (absolu) va toujours au même endroit. Angular Router fonctionne exactement pareil.
 
 ### Pourquoi c'est important
 
@@ -536,7 +536,7 @@ Une navigation incorrecte peut envoyer l'utilisateur sur une route inexistante (
 
 ## Piege 13 -- Interceptors : l'ordre compte
 
-### Probleme
+### Problème
 
 Les interceptors HTTP Angular s'executent dans l'ordre ou ils sont declares. En Angular 19+, les interceptors fonctionnels remplacent les interceptors en classe, mais l'ordre reste critique.
 
@@ -576,7 +576,7 @@ export const appConfig: ApplicationConfig = {
 
 ### Analogie
 
-Les interceptors sont comme des postes de controle sur une autoroute. La voiture (requete) passe par chaque poste dans l'ordre. Si le poste "badge de peage" est apres le poste "verification de badge", ca ne marchera pas.
+Les interceptors sont comme des postes de controle sur une autoroute. La voiture (requête) passe par chaque poste dans l'ordre. Si le poste "badge de peage" est après le poste "vérification de badge", ça ne marchera pas.
 
 ### Pourquoi c'est important
 
@@ -586,9 +586,9 @@ Un mauvais ordre d'interceptors peut faire echouer l'authentification, perdre de
 
 ## Piege 14 -- `inject()` ne marche que dans le contexte d'injection
 
-### Probleme
+### Problème
 
-La fonction `inject()` (Angular 14+) ne peut etre appelee que dans un **contexte d'injection** : constructeur de classe, champ d'initialisation, ou factory d'un provider. L'appeler dans une methode ou un callback provoque une erreur runtime.
+La fonction `inject()` (Angular 14+) ne peut etre appelee que dans un **contexte d'injection** : constructeur de classe, champ d'initialisation, ou factory d'un provider. L'appeler dans une méthode ou un callback provoque une erreur runtime.
 
 ### Code incorrect
 
@@ -629,19 +629,19 @@ export class UserComponent {
 
 ### Analogie
 
-`inject()` est comme un distributeur automatique qui ne fonctionne qu'a l'entree du batiment (constructeur). Une fois a l'interieur (methodes), le distributeur est verrouille. Prenez tout ce dont vous avez besoin a l'entree.
+`inject()` est comme un distributeur automatique qui ne fonctionne qu'a l'entree du batiment (constructeur). Une fois a l'interieur (méthodes), le distributeur est verrouille. Prenez tout ce dont vous avez besoin a l'entree.
 
 ### Pourquoi c'est important
 
-L'erreur `inject() must be called from an injection context` est cryptique pour les debutants. Regle simple : tous vos `inject()` doivent etre dans des declarations de champs ou dans le constructeur.
+L'erreur `inject() must be called from an injection context` est cryptique pour les débutants. Regle simple : tous vos `inject()` doivent etre dans des declarations de champs ou dans le constructeur.
 
 ---
 
 ## Piege 15 -- NgZone / zoneless : `setTimeout` ne trigger pas le rendu
 
-### Probleme
+### Problème
 
-Angular evolue vers un mode **zoneless** (sans Zone.js). Dans ce mode, `setTimeout`, `setInterval` et les callbacks DOM ne declenchent plus automatiquement la detection de changements. Seuls les Signals et les evenements Angular (click dans le template, etc.) le font.
+Angular evolue vers un mode **zoneless** (sans Zone.js). Dans ce mode, `setTimeout`, `setInterval` et les callbacks DOM ne declenchent plus automatiquement la detection de changements. Seuls les Signals et les événements Angular (click dans le template, etc.) le font.
 
 ### Code incorrect
 
@@ -697,7 +697,7 @@ export class NotifComponent {
 
 ### Analogie
 
-Zone.js etait comme un assistant qui surveillait tout ce que vous faisiez et prevenait Angular a chaque geste. En mode zoneless, l'assistant est parti. Vous devez envoyer un message explicite (Signal ou `markForCheck()`) pour prevenir Angular vous-meme.
+Zone.js etait comme un assistant qui surveillait tout ce que vous faisiez et prevenait Angular à chaque geste. En mode zoneless, l'assistant est parti. Vous devez envoyer un message explicite (Signal ou `markForCheck()`) pour prévenir Angular vous-même.
 
 ### Pourquoi c'est important
 
@@ -705,21 +705,21 @@ Le mode zoneless est l'avenir d'Angular : meilleures performances, bundle plus p
 
 ---
 
-## Resume : les reflexes a adopter
+## Résumé : les reflexes a adopter
 
 | # | Piege | Reflexe |
 |---|-------|---------|
-| 1 | Imports manquants | Toujours verifier `imports: []` dans `@Component` |
+| 1 | Imports manquants | Toujours vérifier `imports: []` dans `@Component` |
 | 2 | `*ngIf` deprecie | Utiliser `@if` / `@else` |
 | 3 | Mutation de signal | Toujours `.set()` ou `.update()` |
 | 4 | `track` manquant | Toujours `track item.id` ou `track $index` |
 | 5 | Fuite Observable | `takeUntilDestroyed()` ou `toSignal()` |
 | 6 | toSignal/toObservable | Observable -> Signal = `toSignal()` |
-| 7 | Mix forms | Choisir reactive forms, s'y tenir |
+| 7 | Mix forms | Choisir réactive forms, s'y tenir |
 | 8 | async null | `@if (obs$ \| async; as val)` |
-| 9 | Requete cold | Toujours subscribe (ou `toSignal` / `\| async`) |
+| 9 | Requête cold | Toujours subscribe (où `toSignal` / `\| async`) |
 | 10 | Singleton global | `providedIn: 'root'` = partage, `providers: []` = local |
-| 11 | Change detection | Utiliser Signals pour la reactivite |
+| 11 | Change detection | Utiliser Signals pour la réactivité |
 | 12 | Routes abs/rel | `relativeTo: this.route` pour relatif |
 | 13 | Ordre interceptors | Auth avant logging avant error |
 | 14 | inject() hors contexte | Uniquement dans champs ou constructeur |

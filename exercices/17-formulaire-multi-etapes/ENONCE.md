@@ -1,4 +1,4 @@
-# Exercice 17 — Formulaire multi-etapes
+# Exercice 17 — Formulaire multi-étapes
 
 **Module** : 07-Formulaires · **Difficulte** : ⭐⭐⭐
 **Duree estimee** : 75 min
@@ -6,50 +6,50 @@
 
 ## Objectif
 
-Construire un formulaire multi-etapes (wizard) avec une barre de progression, des validations par etape et un `FormArray` pour gerer plusieurs adresses.
+Construire un formulaire multi-étapes (wizard) avec une barre de progression, des validations par étape et un `FormArray` pour gérer plusieurs adresses.
 
 ## Consignes
 
-1. Creer les fichiers dans `src/app/exercises/ex17/`
-2. Creer un composant `WizardFormComponent` avec 3 etapes :
+1. Créer les fichiers dans `src/app/exercises/ex17/`
+2. Créer un composant `WizardFormComponent` avec 3 étapes :
 
-### Etape 1 — Informations personnelles
+### Étape 1 — Informations personnelles
 3. Champs : `firstName` (requis), `lastName` (requis), `email` (requis, email valide), `phone` (optionnel)
 4. Utiliser un `FormGroup` imbrique pour ces champs
 
-### Etape 2 — Adresses
+### Étape 2 — Adresses
 5. Utiliser un `FormArray` pour permettre d'ajouter **plusieurs adresses**
 6. Chaque adresse contient : `street` (requis), `city` (requis), `zipCode` (requis, pattern 5 chiffres), `country` (requis)
 7. Bouton "Ajouter une adresse" pour ajouter une nouvelle entree au `FormArray`
 8. Bouton "Supprimer" sur chaque adresse (sauf s'il n'en reste qu'une)
 9. Au minimum 1 adresse est requise
 
-### Etape 3 — Recapitulatif et soumission
-10. Afficher un resume de toutes les donnees saisies (lecture seule)
+### Étape 3 — Récapitulatif et soumission
+10. Afficher un résumé de toutes les donnees saisies (lecture seule)
 11. Bouton "Soumettre" pour finaliser
-12. Bouton "Modifier" pour revenir a une etape precedente
+12. Bouton "Modifier" pour revenir à une étape précédente
 
 ### Navigation et progression
-13. Barre de progression visuelle indiquant l'etape courante (1/3, 2/3, 3/3)
-14. Bouton "Suivant" qui valide l'etape courante avant de passer a la suivante
-15. Bouton "Precedent" pour revenir en arriere
-16. Le bouton "Suivant" est desactive si l'etape courante est invalide
-17. Signal `currentStep` pour tracker l'etape courante
+13. Barre de progression visuelle indiquant l'étape courante (1/3, 2/3, 3/3)
+14. Bouton "Suivant" qui valide l'étape courante avant de passer à la suivante
+15. Bouton "Précédent" pour revenir en arriere
+16. Le bouton "Suivant" est désactivé si l'étape courante est invalide
+17. Signal `currentStep` pour tracker l'étape courante
 
 ## Contraintes TypeScript
 
 - Zero `any` dans le code
 - TypeScript strict active
-- Definir des interfaces pour chaque etape (`PersonalInfo`, `Address`)
+- Définir des interfaces pour chaque étape (`PersonalInfo`, `Address`)
 - Le `FormArray` doit etre type correctement
-- Les methodes d'ajout/suppression d'adresse doivent etre typees
+- Les méthodes d'ajout/suppression d'adresse doivent etre typees
 
 ## Bonus
 
-- Sauvegarder l'etat du formulaire dans `localStorage` a chaque changement
-- Ajouter une animation de transition entre les etapes
-- Ajouter un validateur asynchrone sur l'email (simule la verification d'unicite)
-- Permettre de revenir directement a une etape en cliquant sur la barre de progression
+- Sauvegarder l'état du formulaire dans `localStorage` à chaque changement
+- Ajouter une animation de transition entre les étapes
+- Ajouter un validateur asynchrone sur l'email (simule la vérification d'unicite)
+- Permettre de revenir directement à une étape en cliquant sur la barre de progression
 
 ## Fichiers
 

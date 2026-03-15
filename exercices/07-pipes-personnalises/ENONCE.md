@@ -6,19 +6,19 @@
 
 ## Objectif
 
-Creer trois pipes personnalises standalone (`truncate`, `timeAgo`, `highlight`) et une directive `highlight`, puis les utiliser dans un composant de demonstration.
+Créer trois pipes personnalises standalone (`truncate`, `timeAgo`, `highlight`) et une directive `highlight`, puis les utiliser dans un composant de demonstration.
 
 ## Consignes
 
 ### Pipe 1 : `TruncatePipe`
-1. Creer `truncate.pipe.ts` dans `src/app/exercises/ex07/`
+1. Créer `truncate.pipe.ts` dans `src/app/exercises/ex07/`
 2. Transformer un texte en le coupant a `maxLength` caracteres (defaut : 50)
 3. Ajouter `'...'` si le texte a ete tronque
 4. Signature : `transform(value: string, maxLength: number = 50): string`
 
 ### Pipe 2 : `TimeAgoPipe`
-1. Creer `time-ago.pipe.ts` dans `src/app/exercises/ex07/`
-2. Transformer un `Date` en texte relatif en francais :
+1. Créer `time-ago.pipe.ts` dans `src/app/exercises/ex07/`
+2. Transformer un `Date` en texte relatif en français :
    - Moins de 60 secondes : `"a l'instant"`
    - Moins de 60 minutes : `"il y a X min"`
    - Moins de 24 heures : `"il y a X h"`
@@ -27,19 +27,19 @@ Creer trois pipes personnalises standalone (`truncate`, `timeAgo`, `highlight`) 
 3. Signature : `transform(value: Date): string`
 
 ### Pipe 3 : `HighlightPipe`
-1. Creer `highlight.pipe.ts` dans `src/app/exercises/ex07/`
+1. Créer `highlight.pipe.ts` dans `src/app/exercises/ex07/`
 2. Entourer les occurrences d'un terme de recherche avec `<mark>...</mark>`
-3. Recherche insensible a la casse
+3. Recherche insensible à la casse
 4. Signature : `transform(value: string, searchTerm: string): string`
 
 ### Directive : `HighlightDirective`
-1. Creer `highlight.directive.ts` dans `src/app/exercises/ex07/`
-2. Directive d'attribut `[appHighlight]` qui change la couleur de fond d'un element
+1. Créer `highlight.directive.ts` dans `src/app/exercises/ex07/`
+2. Directive d'attribut `[appHighlight]` qui change la couleur de fond d'un élément
 3. Accepter une couleur via un `input()` (defaut : `'yellow'`)
 4. Appliquer la couleur sur `mouseenter`, retirer sur `mouseleave`
 
 ### Composant de demonstration
-1. Creer `pipes-demo.component.ts` qui importe et utilise les 3 pipes + la directive
+1. Créer `pipes-demo.component.ts` qui importe et utilise les 3 pipes + la directive
 
 ## Contraintes TypeScript
 

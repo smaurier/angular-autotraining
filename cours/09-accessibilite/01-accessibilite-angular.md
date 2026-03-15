@@ -1,30 +1,30 @@
-# Cours — Accessibilite dans Angular
+# Cours — Accessibilité dans Angular
 
-> **Objectif** : Maitriser les techniques d'accessibilite (a11y) dans une application Angular. Comprendre les exigences WCAG 2.1 AA, utiliser le CDK A11y, gerer le focus dans un SPA, et tester l'accessibilite de maniere automatisee.
+> **Objectif** : Maîtriser les techniques d'accessibilité (a11y) dans une application Angular. Comprendre les exigences WCAG 2.1 AA, utiliser le CDK A11y, gérer le focus dans un SPA, et tester l'accessibilité de manière automatisee.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
 <summary>1. Qu'est-ce que le WCAG et quel niveau viser en entreprise ?</summary>
 
-**WCAG** (Web Content Accessibility Guidelines) est le standard international d'accessibilite. En Europe (EAA 2025) et en France (RGAA), le niveau **AA** est l'objectif legal.
+**WCAG** (Web Content Accessibility Guidelines) est le standard international d'accessibilité. En Europe (EAA 2025) et en France (RGAA), le niveau **AA** est l'objectif legal.
 </details>
 
 <details>
 <summary>2. Quels sont les 4 principes POUR du WCAG ?</summary>
 
-- **Perceptible** : l'information est presentee de maniere perceptible (alt, contrastes, sous-titres)
+- **Perceptible** : l'information est presentee de manière perceptible (alt, contrastes, sous-titres)
 - **Operable** : l'interface est utilisable au clavier et avec des technologies d'assistance
 - **Understandable** (Comprehensible) : le contenu est comprehensible (langue, erreurs claires)
 - **Robuste** : le contenu fonctionne avec les technologies d'assistance actuelles et futures
 </details>
 
 <details>
-<summary>3. Pourquoi un SPA pose-t-il des defis specifiques en accessibilite ?</summary>
+<summary>3. Pourquoi un SPA pose-t-il des defis spécifiques en accessibilité ?</summary>
 
-Un SPA ne recharge pas la page : les lecteurs d'ecran ne detectent pas automatiquement les changements de vue. Il faut gerer manuellement les annonces de navigation et le deplacement du focus.
+Un SPA ne recharge pas la page : les lecteurs d'ecran ne detectent pas automatiquement les changements de vue. Il faut gérer manuellement les annonces de navigation et le déplacement du focus.
 </details>
 
 ---
@@ -33,11 +33,11 @@ Un SPA ne recharge pas la page : les lecteurs d'ecran ne detectent pas automatiq
 
 Imaginez un **batiment public**. Les rampes d'acces, les boutons d'ascenseur en braille et les annonces sonores ne sont pas des « extras » — ce sont des obligations legales qui permettent a tous d'utiliser le batiment.
 
-Dans une application Angular, l'accessibilite joue le meme role : les attributs ARIA, la gestion du focus et les annonces pour les lecteurs d'ecran sont les **rampes et ascenseurs** de votre interface. Angular fournit des outils dedies — le **CDK A11y** — qui sont l'equivalent des normes de construction pour le numerique.
+Dans une application Angular, l'accessibilité joue le même role : les attributs ARIA, la gestion du focus et les annonces pour les lecteurs d'ecran sont les **rampes et ascenseurs** de votre interface. Angular fournit des outils dedies — le **CDK A11y** — qui sont l'équivalent des normes de construction pour le numérique.
 
 ---
 
-## Theorie
+## Théorie
 
 ### 1. WCAG 2.1 AA dans le contexte Angular
 
@@ -48,7 +48,7 @@ Dans une application Angular, l'accessibilite joue le meme role : les attributs 
 | **Comprehensible** | Messages d'erreur clairs, langue declaree | `mat-error`, `aria-describedby`, `lang` sur `<html>` |
 | **Robuste** | HTML semantique, roles ARIA corrects | Angular Material (roles integres), ESLint a11y |
 
-> **Regle d'or** : Utilisez d'abord le **HTML semantique natif** (`<button>`, `<nav>`, `<main>`, `<dialog>`). Les attributs ARIA ne sont necessaires que lorsque le HTML natif ne suffit pas.
+> **Regle d'or** : Utilisez d'abord le **HTML semantique natif** (`<button>`, `<nav>`, `<main>`, `<dialog>`). Les attributs ARIA ne sont nécessaires que lorsque le HTML natif ne suffit pas.
 
 ---
 
@@ -118,7 +118,7 @@ export class AlerteComponent {
 }
 ```
 
-> **Piege frequent** : Ne mettez `aria-hidden="true"` que sur les elements purement decoratifs. Jamais sur un element contenant du texte informatif.
+> **Piege frequent** : Ne mettez `aria-hidden="true"` que sur les éléments purement decoratifs. Jamais sur un élément contenant du texte informatif.
 
 ---
 
@@ -181,14 +181,14 @@ export class ModaleComponent {
 }
 ```
 
-**Comment ca marche :**
+**Comment ça marche :**
 - `cdkTrapFocus` empeche le focus de sortir de la modale (Tab et Shift+Tab restent a l'interieur)
 - `cdkTrapFocusAutoCapture` deplace automatiquement le focus dans la modale a l'ouverture
-- Le focus revient a l'element declencheur a la fermeture
+- Le focus revient a l'élément declencheur à la fermeture
 
 #### 3.2 FocusMonitor — Detecter l'origine du focus
 
-Le `FocusMonitor` distingue comment un element a recu le focus : clavier, souris, toucher ou programme.
+Le `FocusMonitor` distingue comment un élément a recu le focus : clavier, souris, toucher ou programme.
 
 ```typescript
 import { Component, ElementRef, inject, OnInit, OnDestroy } from '@angular/core';
@@ -319,7 +319,7 @@ export class ChampMotDePasseComponent implements OnDestroy {
 }
 ```
 
-#### 3.5 InteractivityChecker — Verifier si un element est interactif
+#### 3.5 InteractivityChecker — Vérifier si un élément est interactif
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -350,7 +350,7 @@ export class FocusHelperComponent {
 
 ### 4. Focus management dans un SPA Angular
 
-Un des plus grands defis d'accessibilite dans un SPA : le lecteur d'ecran ne sait pas qu'on a change de page. Il faut **deux choses** :
+Un des plus grands defis d'accessibilité dans un SPA : le lecteur d'ecran ne sait pas qu'on a change de page. Il faut **deux choses** :
 
 1. **Annoncer la navigation** au lecteur d'ecran
 2. **Deplacer le focus** vers le contenu principal
@@ -407,7 +407,7 @@ export class AppComponent {
 }
 ```
 
-#### 4.2 Deplacer le focus apres navigation avec `afterNextRender`
+#### 4.2 Deplacer le focus après navigation avec `afterNextRender`
 
 ```typescript
 import { Component, afterNextRender, inject, ElementRef, viewChild } from '@angular/core';
@@ -444,7 +444,7 @@ export class PageLayoutComponent {
 }
 ```
 
-> **Pourquoi `afterNextRender` ?** Apres une navigation, le nouveau composant n'est pas encore dans le DOM. `afterNextRender` garantit que le DOM est pret avant de deplacer le focus.
+> **Pourquoi `afterNextRender` ?** Après une navigation, le nouveau composant n'est pas encore dans le DOM. `afterNextRender` garantit que le DOM est pret avant de deplacer le focus.
 
 ---
 
@@ -603,7 +603,7 @@ export class OngletsComponent {
 }
 ```
 
-**Roving tabindex** : un seul element du groupe a `tabindex="0"` (celui qui est actif). Les autres ont `tabindex="-1"`. Les fleches deplacent le focus a l'interieur du groupe.
+**Roving tabindex** : un seul élément du groupe a `tabindex="0"` (celui qui est actif). Les autres ont `tabindex="-1"`. Les fleches deplacent le focus a l'interieur du groupe.
 
 ---
 
@@ -670,7 +670,7 @@ export class FormulaireInscriptionComponent {
 }
 ```
 
-> **Pourquoi Material est un bon choix pour l'a11y ?** `mat-form-field` genere automatiquement les `id`, `aria-describedby`, `aria-invalid` et les associations label/input. Vous n'avez pas a le faire manuellement.
+> **Pourquoi Material est un bon choix pour l'a11y ?** `mat-form-field` généré automatiquement les `id`, `aria-describedby`, `aria-invalid` et les associations label/input. Vous n'avez pas a le faire manuellement.
 
 #### 6.2 Formulaire sans Material — les associations manuelles
 
@@ -721,16 +721,16 @@ export class FormulaireNatifComponent {
 ```
 
 **Checklist formulaire accessible :**
-- Chaque `<input>` a un `<label>` associe (via `for`/`id`)
+- Chaque `<input>` à un `<label>` associe (via `for`/`id`)
 - Les champs obligatoires ont `aria-required="true"` ET un indicateur visuel
 - Les erreurs sont liees via `aria-describedby` et annoncees via `role="alert"`
 - Le bouton submit utilise `aria-disabled` plutot que `disabled` (pour rester focusable)
 
 ---
 
-### 7. Angular Material et accessibilite
+### 7. Angular Material et accessibilité
 
-Angular Material est concu avec l'accessibilite en tete. La plupart des composants implementent deja les patterns ARIA WAI :
+Angular Material est concu avec l'accessibilité en tete. La plupart des composants implementent déjà les patterns ARIA WAI :
 
 | Composant | Pattern ARIA | Ce qui est automatique |
 |-----------|-------------|----------------------|
@@ -789,7 +789,7 @@ template: `
 
 ---
 
-### 8. Testing de l'accessibilite
+### 8. Testing de l'accessibilité
 
 #### 8.1 ESLint — regles @angular-eslint/template
 
@@ -922,7 +922,7 @@ test.describe('Accessibilite', () => {
 
 ---
 
-## Resume
+## Résumé
 
 | Outil | Usage | Quand l'utiliser |
 |-------|-------|-----------------|
@@ -930,7 +930,7 @@ test.describe('Accessibilite', () => {
 | `FocusMonitor` | Detecter clavier/souris/touch | Style de focus conditionnel |
 | `LiveAnnouncer` | Annonces pour lecteurs d'ecran | Actions, navigation, mises a jour |
 | `AriaDescriber` | Descriptions ARIA dynamiques | Tooltips, validations |
-| `InteractivityChecker` | Verifier focusabilite | Logique de focus custom |
+| `InteractivityChecker` | Vérifier focusabilite | Logique de focus custom |
 | `@angular-eslint` | Linting a11y | CI, pre-commit |
 | `axe-core/playwright` | Audit WCAG automatise | Tests e2e |
 
@@ -942,15 +942,15 @@ test.describe('Accessibilite', () => {
 
 Creez un `AppComponent` qui :
 1. Affiche un **skip link** "Aller au contenu principal" visible uniquement au focus clavier
-2. Utilise `LiveAnnouncer` pour annoncer le titre de chaque page apres navigation
-3. Deplace le focus vers le `<h1>` de la page apres navigation avec `afterNextRender`
+2. Utilise `LiveAnnouncer` pour annoncer le titre de chaque page après navigation
+3. Deplace le focus vers le `<h1>` de la page après navigation avec `afterNextRender`
 
 ### Exercice 2 — Modale accessible (30 min)
 
 Creez un composant `ConfirmationModaleComponent` qui :
 1. Utilise `cdkTrapFocus` pour pieger le focus
 2. Se ferme avec la touche Escape
-3. Retourne le focus au bouton declencheur a la fermeture
+3. Retourne le focus au bouton declencheur à la fermeture
 4. A les attributs `role="dialog"`, `aria-modal="true"`, `aria-labelledby`
 5. Le premier bouton focusable recoit le focus a l'ouverture
 
@@ -960,14 +960,14 @@ Creez un composant `OngletsComponent` avec :
 1. Navigation par fleches gauche/droite
 2. Home/End pour aller au premier/dernier onglet
 3. `role="tablist"`, `role="tab"`, `role="tabpanel"` correctement associes
-4. Les signaux Angular pour l'etat
+4. Les signaux Angular pour l'état
 
 ### Exercice 4 — Audit a11y complet (45 min)
 
 1. Ecrivez un test Playwright avec `@axe-core/playwright` qui :
    - Audite 3 pages de votre application
    - Verifie le score WCAG 2.1 AA
-   - Verifie que le focus est toujours visible apres 10 tabulations
+   - Verifie que le focus est toujours visible après 10 tabulations
 2. Configurez les regles `@angular-eslint/template/accessibility-*` dans votre projet
 3. Corrigez toutes les violations detectees
 
@@ -977,6 +977,14 @@ Creez un composant `OngletsComponent` avec :
 
 - [Angular CDK A11y — Documentation officielle](https://material.angular.io/cdk/a11y/overview)
 - [WAI-ARIA Authoring Practices 1.2](https://www.w3.org/WAI/ARIA/apg/)
-- [RGAA — Referentiel General d'Amelioration de l'Accessibilite](https://accessibilite.numerique.gouv.fr/)
+- [RGAA — Referentiel General d'Amelioration de l'Accessibilité](https://accessibilite.numerique.gouv.fr/)
 - [Axe-core Playwright](https://github.com/dequelabs/axe-core-npm/tree/develop/packages/playwright)
 - [Angular ESLint Template Rules](https://github.com/angular-eslint/angular-eslint)
+
+---
+
+<!-- parcours-recommande -->
+
+::: tip Parcours recommandé
+1. **Quiz** : [quiz accessibilité cdk a11y](../../quizzes/quiz-accessibilite-cdk-a11y.html)
+:::

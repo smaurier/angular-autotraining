@@ -1,6 +1,6 @@
 # Correction — Exercice 02 : Compteur avec signaux
 
-## Resultat attendu
+## Résultat attendu
 
 Un compteur affichant :
 - La valeur courante (ex: 5)
@@ -207,10 +207,10 @@ export class CounterComponent {
 - ✅ Declarer l'effect dans le `constructor()` — le contexte d'injection est disponible
 
 ### 2. Oublier les parentheses sur isEven dans le template
-- ❌ `@if (isEven)` → evalue l'objet Signal (toujours truthy), le bloc s'affiche toujours
+- ❌ `@if (isEven)` → évalué l'objet Signal (toujours truthy), le bloc s'affiche toujours
 - ✅ `@if (isEven())` → appelle le computed et utilise la valeur booleenne
 
-### 3. Ne pas desactiver le bouton -
+### 3. Ne pas désactiver le bouton -
 - ❌ Pas de `[disabled]` → l'utilisateur peut passer en negatif sans le vouloir
 - ✅ `[disabled]="count() === 0"` → le bouton est grise quand count vaut 0
 
@@ -222,14 +222,14 @@ export class CounterComponent {
 - ❌ S'inquieter du nettoyage manuel → inutile dans un composant
 - ✅ Angular nettoie automatiquement les effects crees dans le constructeur quand le composant est detruit
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
 | `signal<number>(0)` | Cree un signal mutable de type number initialise a 0 |
-| `computed<T>(() => ...)` | Signal derive en lecture seule, recalcule quand ses dependances changent |
-| `effect(() => ...)` | Effet de bord execute a chaque changement des signaux lus a l'interieur |
+| `computed<T>(() => ...)` | Signal dérivé en lecture seule, recalcule quand ses dépendances changent |
+| `effect(() => ...)` | Effet de bord exécuté à chaque changement des signaux lus a l'interieur |
 | `signal.update(fn)` | Met a jour le signal en appliquant une fonction de transformation |
 | `@if / @else` | Nouvelle syntaxe de control flow Angular 17+ (remplace `*ngIf`) |
-| `[disabled]="expr"` | Property binding qui desactive un element HTML quand l'expression est true |
-| `[style.color]="expr"` | Style binding qui lie dynamiquement une propriete CSS |
+| `[disabled]="expr"` | Property binding qui désactivé un élément HTML quand l'expression est true |
+| `[style.color]="expr"` | Style binding qui lie dynamiquement une propriété CSS |

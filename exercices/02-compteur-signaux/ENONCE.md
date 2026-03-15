@@ -6,16 +6,16 @@
 
 ## Objectif
 
-Construire un compteur interactif exploitant les trois primitives reactives d'Angular : `signal`, `computed` et `effect`.
+Construire un compteur interactif exploitant les trois primitives réactives d'Angular : `signal`, `computed` et `effect`.
 
 ## Consignes
 
-1. Creer un fichier `counter.component.ts` dans `src/app/exercises/ex02/`
-2. Definir un composant standalone `CounterComponent`
+1. Créer un fichier `counter.component.ts` dans `src/app/exercises/ex02/`
+2. Définir un composant standalone `CounterComponent`
 3. Declarer un **signal** `count` initialise a `0` (type `number`)
-4. Creer un **computed** `double` qui retourne `count() * 2`
-5. Creer un **computed** `isEven` qui retourne `true` si `count()` est pair
-6. Creer un **effect** qui affiche dans la console : `"Compteur : {valeur}"` a chaque changement
+4. Créer un **computed** `double` qui retourne `count() * 2`
+5. Créer un **computed** `isEven` qui retourne `true` si `count()` est pair
+6. Créer un **effect** qui affiche dans la console : `"Compteur : {valeur}"` à chaque changement
 7. Dans le template :
    - Afficher la valeur du compteur : `{{ count() }}`
    - Afficher le double : `{{ double() }}`

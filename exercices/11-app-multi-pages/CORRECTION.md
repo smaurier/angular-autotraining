@@ -1,6 +1,6 @@
 # Correction — Exercice 11 : App multi-pages
 
-## Resultat attendu
+## Résultat attendu
 
 Une application Angular avec 5 pages navigables via une barre de navigation. Le lien actif est visuellement mis en evidence. La page produits affiche une liste cliquable, chaque clic mene vers la page detail du produit correspondant. Les URLs inconnues redirigent vers une page 404.
 
@@ -480,11 +480,11 @@ export class NotFoundComponent {}
 
 ### 1. Oublier `withComponentInputBinding()` dans la config
 
-- ❌ Ne pas activer le binding des parametres de route vers les inputs :
+- ❌ Ne pas activer le binding des paramètres de route vers les inputs :
   ```typescript
   provideRouter(routes)
   ```
-- ✅ Activer le binding pour que `input()` recoive les parametres de route :
+- ✅ Activer le binding pour que `input()` recoive les paramètres de route :
   ```typescript
   provideRouter(routes, withComponentInputBinding())
   ```
@@ -520,16 +520,16 @@ export class NotFoundComponent {}
 
 ### 5. Ne pas convertir l'id (string) en number pour la recherche
 
-- ❌ Comparer directement le parametre string avec un id number :
+- ❌ Comparer directement le paramètre string avec un id number :
   ```typescript
   PRODUCTS.find(p => p.id === this.id())
   ```
-- ✅ Convertir le parametre en number avant la comparaison :
+- ✅ Convertir le paramètre en number avant la comparaison :
   ```typescript
   PRODUCTS.find(p => p.id === Number(this.id()))
   ```
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
@@ -537,9 +537,9 @@ export class NotFoundComponent {}
 | `routerLink` | Directive pour naviguer sans recharger la page |
 | `routerLinkActive` | Directive qui ajoute une classe CSS quand la route est active |
 | `router-outlet` | Emplacement ou le composant route est rendu |
-| `input()` pour params | Angular 19+ : les parametres de route sont injectes comme inputs |
-| `withComponentInputBinding()` | Active le mapping automatique parametres → inputs |
+| `input()` pour params | Angular 19+ : les paramètres de route sont injectes comme inputs |
+| `withComponentInputBinding()` | Active le mapping automatique paramètres → inputs |
 | `loadComponent` | Lazy loading d'un composant standalone |
-| `computed()` | Signal derive qui se recalcule quand ses dependances changent |
+| `computed()` | Signal dérivé qui se recalcule quand ses dépendances changent |
 | Wildcard `**` | Route qui capture toutes les URLs non reconnues |
 | `pathMatch: 'full'` | La redirection ne se declenche que si le chemin complet correspond |

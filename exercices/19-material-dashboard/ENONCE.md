@@ -10,22 +10,22 @@ Construire un tableau de bord complet de gestion de taches en utilisant les comp
 
 ## Consignes
 
-1. **Layout principal** : creer un composant `DashboardComponent` dans `src/app/exercises/ex19/` avec :
+1. **Layout principal** : créer un composant `DashboardComponent` dans `src/app/exercises/ex19/` avec :
    - `MatToolbar` : titre de l'application + bouton menu hamburger
    - `MatSidenav` : menu lateral responsive (ouvert sur desktop, ferme sur mobile via `BreakpointObserver`)
    - Le sidenav contient une `MatNavList` avec 3 liens : "Tableau de bord", "Taches", "Parametres"
-2. **Table de taches** : creer un composant `TaskTableComponent` avec :
+2. **Table de taches** : créer un composant `TaskTableComponent` avec :
    - `MatTable` alimentee par un `MatTableDataSource<Task>`
    - Colonnes : id, titre, statut (badge colore), priorite, date d'echeance, actions
    - `MatSort` sur les colonnes titre, statut et date
-   - `MatPaginator` avec 5/10/25 elements par page
+   - `MatPaginator` avec 5/10/25 éléments par page
    - Un champ `<input matInput>` au-dessus de la table pour filtrer les taches
-3. **Dialog creation/edition** : creer un composant `TaskDialogComponent` avec :
+3. **Dialog création/edition** : créer un composant `TaskDialogComponent` avec :
    - `MatDialog` qui s'ouvre au clic sur "Nouvelle tache" ou "Modifier"
-   - Formulaire reactif avec : titre (`MatFormField`), description (`MatFormField textarea`), priorite (`MatSelect`), date d'echeance (`MatDatepicker`)
+   - Formulaire réactif avec : titre (`MatFormField`), description (`MatFormField textarea`), priorite (`MatSelect`), date d'echeance (`MatDatepicker`)
    - Boutons "Annuler" et "Sauvegarder" dans `mat-dialog-actions`
 4. **Notifications** : utiliser `MatSnackBar` pour afficher :
-   - "Tache creee avec succes" (duree : 3s)
+   - "Tache créée avec succes" (duree : 3s)
    - "Tache supprimee" avec un bouton "Annuler" (duree : 5s)
    - "Erreur lors de la sauvegarde" en cas d'echec
 5. **Cards de statistiques** : afficher 4 `MatCard` en haut du dashboard :
@@ -33,7 +33,7 @@ Construire un tableau de bord complet de gestion de taches en utilisant les comp
    - Taches terminees (icone `check_circle`, couleur verte)
    - Taches en cours (icone `pending`, couleur orange)
    - Taches en retard (icone `warning`, couleur rouge)
-   - Les valeurs sont des `computed()` derives du signal de taches
+   - Les valeurs sont des `computed()` dérivés du signal de taches
 6. **Theme personnalise** : configurer un theme Material avec :
    - Couleur primaire personnalisee (ex : indigo)
    - Couleur d'accentuation (ex : pink)

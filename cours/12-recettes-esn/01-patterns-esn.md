@@ -1,10 +1,10 @@
 # Cours 45 — Patterns et conventions d'entreprise (ESN)
 
-> **Objectif** : Maitriser l'architecture, les conventions et les patterns organisationnels utilises dans les projets Angular en ESN. Savoir structurer un projet maintenable par une equipe de 5 a 20 developpeurs.
+> **Objectif** : Maîtriser l'architecture, les conventions et les patterns organisationnels utilises dans les projets Angular en ESN. Savoir structurer un projet maintenable par une équipe de 5 a 20 développeurs.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
 <summary>1. Comment Angular protege-t-il contre le XSS par defaut ?</summary>
@@ -15,26 +15,26 @@ Angular sanitise automatiquement les interpolations `{{ }}` et les bindings `[in
 <details>
 <summary>2. Qu'est-ce qu'un CSP header ?</summary>
 
-Le Content Security Policy indique au navigateur quelles sources de contenu sont autorisees (scripts, styles, connexions API). Il empeche l'execution de scripts injectes.
+Le Content Security Policy indique au navigateur quelles sources de contenu sont autorisees (scripts, styles, connexions API). Il empeche l'exécution de scripts injectes.
 </details>
 
 <details>
-<summary>3. Comment Angular gere-t-il la protection CSRF ?</summary>
+<summary>3. Comment Angular géré-t-il la protection CSRF ?</summary>
 
-Avec `withXsrfConfiguration()` : le serveur envoie un cookie XSRF-TOKEN, Angular le renvoie dans un header, le serveur verifie la correspondance.
+Avec `withXsrfConfiguration()` : le serveur envoie un cookie XSRF-TOKEN, Angular le renvoie dans un header, le serveur vérifié la correspondance.
 </details>
 
 ---
 
 ## Analogie
 
-En equipe Vue 3, tu as discute structure de dossiers, conventions de nommage et workflow Git. En Angular ESN, c'est **encore plus important** : les projets sont plus gros et les equipes tournent.
+En équipe Vue 3, tu as discute structure de dossiers, conventions de nommage et workflow Git. En Angular ESN, c'est **encore plus important** : les projets sont plus gros et les équipes tournent.
 
-Pense a l'architecture comme l'**urbanisme d'une ville** : sans plan, chaque quartier se construit de maniere anarchique. Avec des conventions claires, un nouveau venu trouve n'importe quel fichier en secondes.
+Pense a l'architecture comme l'**urbanisme d'une ville** : sans plan, chaque quartier se construit de manière anarchique. Avec des conventions claires, un nouveau venu trouve n'importe quel fichier en secondes.
 
 ---
 
-## Theorie
+## Théorie
 
 ### Structure feature-based
 
@@ -208,7 +208,7 @@ git commit -m "refactor(shared): extraction du DateFrPipe"
 
 ## Pratique
 
-Vous demarrez un projet de gestion de tickets avec 4 domaines : **tickets**, **utilisateurs**, **rapports**, **parametres**. Creez la structure de dossiers, les routes avec lazy loading, et configurez les alias tsconfig.
+Vous demarrez un projet de gestion de tickets avec 4 domaines : **tickets**, **utilisateurs**, **rapports**, **paramètres**. Creez la structure de dossiers, les routes avec lazy loading, et configurez les alias tsconfig.
 
 <details>
 <summary>Solution</summary>
@@ -267,16 +267,16 @@ export const TICKETS_ROUTES: Routes = [
 
 ---
 
-## Resume
+## Résumé
 
-| Point cle | A retenir |
+| Point clé | A retenir |
 |---|---|
 | Structure | `core/` + `shared/` + `features/` — chaque domaine autonome |
 | Nommage | kebab-case fichiers, PascalCase classes, prefixe `app-` |
 | Alias | `@core/*`, `@shared/*`, `@features/*` dans tsconfig |
 | Config runtime | `APP_INITIALIZER` pour charger depuis le serveur |
 | Error handler | `GlobalErrorHandler` pour capturer toutes les erreurs |
-| Feature flags | Signal-based pour activer/desactiver des fonctionnalites |
+| Feature flags | Signal-based pour activer/désactiver des fonctionnalites |
 | Commits | `feat:`, `fix:`, `refactor:` — obligatoire en ESN |
 
 ---

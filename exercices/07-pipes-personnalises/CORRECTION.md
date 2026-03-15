@@ -1,12 +1,12 @@
 # Correction — Exercice 07 : Pipes personnalises et directive
 
-## Resultat attendu
+## Résultat attendu
 
 Une page de demonstration affichant :
-- Un texte long tronque a differentes longueurs
+- Un texte long tronque a différentes longueurs
 - Des dates affichees en format relatif ("il y a 5 min", "il y a 2 j")
 - Un texte avec les occurrences d'un terme surlignees en jaune
-- Des elements qui changent de fond au survol grace a la directive
+- Des éléments qui changent de fond au survol grâce à la directive
 
 ## Code corrige
 
@@ -314,15 +314,15 @@ export class PipesDemoComponent {
 - ❌ Utiliser un pipe pour manipuler le DOM → les pipes transforment des valeurs
 - ✅ Utiliser une directive pour manipuler le DOM (ElementRef) et un pipe pour transformer du texte
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
-| `@Pipe({ name, standalone })` | Decorateur pour definir un pipe personnalise |
-| `PipeTransform` | Interface avec la methode `transform()` a implementer |
+| `@Pipe({ name, standalone })` | Decorateur pour définir un pipe personnalise |
+| `PipeTransform` | Interface avec la méthode `transform()` a implementer |
 | `{{ value \| pipe:arg }}` | Syntaxe d'utilisation d'un pipe dans le template |
-| `@Directive({ selector })` | Decorateur pour definir une directive d'attribut |
-| `inject(ElementRef)` | Acces a l'element DOM natif sur lequel la directive est appliquee |
+| `@Directive({ selector })` | Decorateur pour définir une directive d'attribut |
+| `inject(ElementRef)` | Acces a l'élément DOM natif sur lequel la directive est appliquee |
 | `host: { '(event)': 'handler()' }` | Declaration des event listeners dans le decorateur |
-| `input()` dans une directive | Passer des parametres a une directive via un input |
-| `[innerHTML]` | Binding qui interprete le HTML (necessaire quand un pipe retourne du HTML) |
+| `input()` dans une directive | Passer des paramètres à une directive via un input |
+| `[innerHTML]` | Binding qui interprete le HTML (nécessaire quand un pipe retourne du HTML) |

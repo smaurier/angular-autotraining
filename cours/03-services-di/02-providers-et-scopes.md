@@ -29,7 +29,7 @@ Un composable (`useXxx()`). La différence : Angular gère automatiquement le cy
 ## Analogie
 
 Imagine un immeuble d'entreprise :
-- Le **hall d'entrée** (root) a une machine à café partagée par tout le monde.
+- Le **hall d'entrée** (root) à une machine à café partagée par tout le monde.
 - Chaque **étage** (route) a sa propre imprimante, partagée par tous les bureaux de l'étage.
 - Chaque **bureau** (component) a sa propre corbeille à papier, pas partagée.
 
@@ -67,7 +67,7 @@ Angular possède un arbre d'injecteurs qui suit la structure de l'application :
 └──────────┘   └──────────┘
 ```
 
-Quand un composant demande un service via `inject()`, Angular cherche **de bas en haut** :
+Quand un composant demandé un service via `inject()`, Angular cherche **de bas en haut** :
 1. D'abord dans le composant lui-même
 2. Puis dans la route parente
 3. Puis dans le root injector
@@ -391,7 +391,7 @@ export class DashboardComponent {
 
 ## Résumé
 
-- Angular a une **hiérarchie d'injecteurs** : root (singleton global), route (section), component (instance par composant).
+- Angular à une **hiérarchie d'injecteurs** : root (singleton global), route (section), component (instance par composant).
 - `providedIn: 'root'` est le choix par défaut pour les services partagés. C'est tree-shakable.
 - `providers: [...]` dans `@Component` crée une **instance isolée** par composant — essentiel pour les formulaires et composants réutilisables.
 - `useClass` : remplacer l'implémentation. `useValue` : fournir une constante. `useFactory` : créer dynamiquement. `useExisting` : alias.

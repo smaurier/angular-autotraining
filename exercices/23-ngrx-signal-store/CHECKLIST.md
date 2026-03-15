@@ -1,16 +1,16 @@
 # Checklist — Exercice 23 : NgRx SignalStore
 
-## Installation et modele
+## Installation et modèle
 
-- [ ] La dependance `@ngrx/signals` est installee (`npm install @ngrx/signals`)
+- [ ] La dépendance `@ngrx/signals` est installee (`npm install @ngrx/signals`)
 - [ ] L'interface `Task` est definie avec `id: string` (obligatoire pour withEntities)
 - [ ] Le type `TaskFilter` et l'interface `TaskState` sont exportes
 
 ## Store classique (signalStore + withState)
 
-- [ ] Le store est cree avec `signalStore({ providedIn: 'root' }, ...)`
-- [ ] `withState()` definit l'etat initial avec `tasks`, `filter` et `loading`
-- [ ] `withComputed()` cree `filteredTasks`, `taskCount`, `completedCount`, `activeCount`
+- [ ] Le store est créé avec `signalStore({ providedIn: 'root' }, ...)`
+- [ ] `withState()` définit l'état initial avec `tasks`, `filter` et `loading`
+- [ ] `withComputed()` créé `filteredTasks`, `taskCount`, `completedCount`, `activeCount`
 - [ ] `withMethods()` implemente `addTask`, `toggleTask`, `deleteTask`, `setFilter`, `clearCompleted`
 - [ ] Toutes les mutations utilisent `patchState()` (pas de `.set()` direct sur les signaux)
 - [ ] `withHooks()` charge des taches d'exemple dans `onInit`
@@ -26,7 +26,7 @@
 
 - [ ] Le composant injecte le store avec `inject(TaskStore)`
 - [ ] Le template affiche les statistiques via les computed du store
-- [ ] Les filtres et les actions appellent directement les methodes du store
+- [ ] Les filtres et les actions appellent directement les méthodes du store
 
 ## Comparaison
 

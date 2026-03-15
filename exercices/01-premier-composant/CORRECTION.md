@@ -1,9 +1,9 @@
 # Correction — Exercice 01 : Premier composant
 
-## Resultat attendu
+## Résultat attendu
 
 Une page affichant un message de bienvenue (ex: "Bonjour, Sophie !") avec :
-- Un champ de saisie permettant de changer le prenom en temps reel
+- Un champ de saisie permettant de changer le prenom en temps réel
 - Un bouton "Passer en EN" / "Passer en FR" qui bascule la langue
 - Le message se met a jour automatiquement grace aux signaux
 
@@ -153,14 +153,14 @@ export class HelloComponent {
 ## Ce que tu aurais pu oublier
 
 ### 1. Oublier `standalone: true`
-- ❌ Ne pas mettre `standalone: true` → le composant necessite un NgModule pour fonctionner
-- ✅ Toujours ajouter `standalone: true` (ou compter sur le defaut Angular 19+)
+- ❌ Ne pas mettre `standalone: true` → le composant nécessité un NgModule pour fonctionner
+- ✅ Toujours ajouter `standalone: true` (où compter sur le defaut Angular 19+)
 
 ### 2. Appeler le signal sans parentheses dans le template
 - ❌ `{{ greeting }}` → affiche `[Signal]` ou `function`
 - ✅ `{{ greeting() }}` → appelle le signal et affiche sa valeur
 
-### 3. Utiliser `any` pour l'evenement
+### 3. Utiliser `any` pour l'événement
 - ❌ `onNameChange(event: any)` → viole la contrainte zero `any`
 - ✅ `onNameChange(event: Event)` puis cast `event.target as HTMLInputElement`
 
@@ -169,20 +169,20 @@ export class HelloComponent {
 - ✅ `this.lang.set('en')` ou `this.lang.update(l => l === 'fr' ? 'en' : 'fr')`
 
 ### 5. Oublier de typer le signal lang
-- ❌ `signal('fr')` → TypeScript infere `string`, on peut ecrire n'importe quoi
+- ❌ `signal('fr')` → TypeScript infere `string`, on peut écrire n'importe quoi
 - ✅ `signal<'fr' | 'en'>('fr')` → seules les valeurs `'fr'` et `'en'` sont acceptees
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
-| `@Component` | Decorateur qui definit les metadonnees d'un composant Angular (selecteur, template, styles) |
+| `@Component` | Decorateur qui définit les metadonnees d'un composant Angular (selecteur, template, styles) |
 | `standalone: true` | Le composant est autonome, pas besoin de NgModule |
 | `signal<T>(value)` | Cree un signal mutable de type T avec une valeur initiale |
-| `computed<T>(() => ...)` | Cree un signal derive en lecture seule qui se recalcule automatiquement |
+| `computed<T>(() => ...)` | Cree un signal dérivé en lecture seule qui se recalcule automatiquement |
 | `signal.set(value)` | Remplace la valeur du signal par `value` |
-| `signal.update(fn)` | Met a jour le signal en appliquant une fonction sur la valeur precedente |
+| `signal.update(fn)` | Met a jour le signal en appliquant une fonction sur la valeur précédente |
 | `{{ expr() }}` | Interpolation dans le template — les signaux necessitent les `()` |
-| `(click)="method()"` | Event binding — ecoute un evenement DOM et appelle une methode |
-| `(input)="handler($event)"` | Ecoute l'evenement input et passe l'objet Event a la methode |
-| `[value]="signal()"` | Property binding — lie la propriete HTML `value` a la valeur du signal |
+| `(click)="method()"` | Event binding — ecoute un événement DOM et appelle une méthode |
+| `(input)="handler($event)"` | Ecoute l'événement input et passe l'objet Event à la méthode |
+| `[value]="signal()"` | Property binding — lie la propriété HTML `value` à la valeur du signal |

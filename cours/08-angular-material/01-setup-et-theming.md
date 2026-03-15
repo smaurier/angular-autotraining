@@ -4,16 +4,16 @@
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
-<summary>1. Quelle est la difference entre un FormGroup et un FormArray dans les Reactive Forms ?</summary>
+<summary>1. Quelle est la différence entre un FormGroup et un FormArray dans les Reactive Forms ?</summary>
 
-Un `FormGroup` regroupe des controles sous des cles nommees (`{ nom: ..., email: ... }`), tandis qu'un `FormArray` gere une liste ordonnee de controles (index 0, 1, 2...) utile pour les champs dynamiques.
+Un `FormGroup` regroupe des controles sous des clés nommees (`{ nom: ..., email: ... }`), tandis qu'un `FormArray` géré une liste ordonnee de controles (index 0, 1, 2...) utile pour les champs dynamiques.
 </details>
 
 <details>
-<summary>2. Comment creer un validateur personnalise synchrone ?</summary>
+<summary>2. Comment créer un validateur personnalise synchrone ?</summary>
 
 C'est une fonction qui recoit un `AbstractControl` et retourne `null` (valide) ou un objet d'erreurs `{ cleErreur: true }` (invalide).
 </details>
@@ -21,16 +21,16 @@ C'est une fonction qui recoit un `AbstractControl` et retourne `null` (valide) o
 <details>
 <summary>3. Pourquoi typer strictement ses formulaires en Angular 19+ ?</summary>
 
-Le typage strict (`FormGroup<{ nom: FormControl<string> }>`) permet a TypeScript de detecter les erreurs a la compilation et ameliore l'autocompletion dans l'IDE.
+Le typage strict (`FormGroup<{ nom: FormControl<string> }>`) permet a TypeScript de détecter les erreurs à la compilation et ameliore l'autocompletion dans l'IDE.
 </details>
 
 ---
 
 ## Analogie
 
-En Vue 3, quand vous voulez un kit UI complet, vous installez **Vuetify** ou **Quasar**. Ces librairies fournissent un systeme de theming (couleurs, typographie), des composants prets a l'emploi et des utilitaires de layout.
+En Vue 3, quand vous voulez un kit UI complet, vous installez **Vuetify** ou **Quasar**. Ces librairies fournissent un système de theming (couleurs, typographie), des composants prets a l'emploi et des utilitaires de layout.
 
-**Angular Material** joue exactement le meme role dans l'ecosysteme Angular : c'est la librairie UI officielle, maintenue par l'equipe Angular elle-meme. Elle suit les principes Material Design de Google et s'integre nativement avec la CLI Angular.
+**Angular Material** joue exactement le même role dans l'ecosysteme Angular : c'est la librairie UI officielle, maintenue par l'équipe Angular elle-même. Elle suit les principes Material Design de Google et s'intégré nativement avec la CLI Angular.
 
 | Vue 3 | Angular |
 |-------|---------|
@@ -41,7 +41,7 @@ En Vue 3, quand vous voulez un kit UI complet, vous installez **Vuetify** ou **Q
 
 ---
 
-## Theorie
+## Théorie
 
 ### Installation avec la CLI
 
@@ -55,7 +55,7 @@ Cette commande fait tout automatiquement :
 - Configure les polices (Roboto) et les icones Material
 - Met a jour `styles.scss`
 
-> En ESN, c'est souvent la premiere commande apres `ng new` sur un projet client.
+> En ESN, c'est souvent la première commande après `ng new` sur un projet client.
 
 ### Themes predefinis vs theme personnalise
 
@@ -95,7 +95,7 @@ html {
 
 ### Palette de couleurs personnalisee
 
-En Angular Material 3 (M3), vous pouvez definir vos propres palettes :
+En Angular Material 3 (M3), vous pouvez définir vos propres palettes :
 
 ```scss
 @use '@angular/material' as mat;
@@ -131,7 +131,7 @@ $mon-theme: mat.define-theme((
 
 ### Dark mode avec Signals
 
-L'idee est de stocker l'etat du theme dans un signal et de basculer une classe CSS :
+L'idee est de stocker l'état du theme dans un signal et de basculer une classe CSS :
 
 ```typescript
 // theme.service.ts
@@ -216,10 +216,10 @@ Les icones Material sont incluses automatiquement par `ng add`. Sinon :
 
 | Critere | Angular Material | PrimeNG | Ng-Zorro |
 |---------|-----------------|---------|----------|
-| Mainteneur | Equipe Angular (Google) | PrimeTek | Alibaba |
+| Mainteneur | Équipe Angular (Google) | PrimeTek | Alibaba |
 | Design system | Material Design 3 | Propre | Ant Design |
-| Integration Angular | Native | Bonne | Bonne |
-| Popularite ESN | Tres forte | Forte | Moyenne |
+| Intégration Angular | Native | Bonne | Bonne |
+| Popularite ESN | Très forte | Forte | Moyenne |
 | CDK inclus | Oui | Non | Non |
 | Gratuit | Oui | Oui (+ templates payants) | Oui |
 
@@ -353,9 +353,9 @@ export class HeaderComponent {
 
 ---
 
-## Resume
+## Résumé
 
-| Point cle | A retenir |
+| Point clé | A retenir |
 |-----------|-----------|
 | Installation | `ng add @angular/material` configure tout automatiquement |
 | Theme personnalise | `mat.define-theme()` avec palettes, typographie et densite |

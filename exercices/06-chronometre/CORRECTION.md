@@ -1,13 +1,13 @@
 # Correction — Exercice 06 : Chronometre
 
-## Resultat attendu
+## Résultat attendu
 
 Un chronometre affichant :
 - Le temps au format `00:00:00` (MM:SS:ms)
-- Un bouton Start/Stop pour demarrer et arreter
+- Un bouton Start/Stop pour démarrer et arreter
 - Un bouton Reset pour remettre a zero
 - Le chronometre se met a jour toutes les 10ms
-- L'intervalle est proprement nettoye a la destruction du composant
+- L'intervalle est proprement nettoye à la destruction du composant
 
 ## Code corrige
 
@@ -254,14 +254,14 @@ export class StopwatchComponent {
 ## Ce que tu aurais pu oublier
 
 ### 1. Oublier le nettoyage de l'intervalle
-- ❌ Ne pas appeler `clearInterval` quand le composant est detruit → fuite memoire
+- ❌ Ne pas appeler `clearInterval` quand le composant est detruit → fuite mémoire
 - ✅ Utiliser `DestroyRef.onDestroy()` pour garantir le nettoyage
 
 ### 2. Utiliser `ngOnDestroy` au lieu de `DestroyRef`
 - ❌ `implements OnDestroy` + `ngOnDestroy()` → ancienne syntaxe, fonctionne mais moins moderne
 - ✅ `inject(DestroyRef).onDestroy(callback)` → approche moderne Angular 19+
 
-### 3. Ne pas garder la reference de l'intervalle
+### 3. Ne pas garder la référence de l'intervalle
 - ❌ `setInterval(...)` sans stocker le retour → impossible de l'arreter ensuite
 - ✅ `this.intervalId = setInterval(...)` → on peut appeler `clearInterval(this.intervalId)`
 
@@ -271,16 +271,16 @@ export class StopwatchComponent {
 
 ### 5. Pas de guard dans start()
 - ❌ Appeler `start()` deux fois → deux intervalles en parallele, le chrono accelere
-- ✅ Verifier `if (this.isRunning()) return;` avant de creer un nouvel intervalle
+- ✅ Vérifier `if (this.isRunning()) return;` avant de créer un nouvel intervalle
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
-| `inject(DestroyRef)` | Injecte la reference de destruction pour enregistrer des callbacks de nettoyage |
-| `destroyRef.onDestroy(fn)` | Execute `fn` quand le composant est detruit (equivalent de `onUnmounted` en Vue 3) |
-| `setInterval / clearInterval` | API JavaScript native pour executer du code a intervalles reguliers |
+| `inject(DestroyRef)` | Injecte la référence de destruction pour enregistrer des callbacks de nettoyage |
+| `destroyRef.onDestroy(fn)` | Execute `fn` quand le composant est detruit (équivalent de `onUnmounted` en Vue 3) |
+| `setInterval / clearInterval` | API JavaScript native pour exécuter du code a intervalles reguliers |
 | `ReturnType<typeof setInterval>` | Type TypeScript pour la valeur retournee par setInterval (compatible Node et navigateur) |
-| `computed` avec calculs | Le computed recalcule le format affiche a chaque changement de `elapsedMs` |
-| `String.padStart(2, '0')` | Methode JavaScript pour completer une chaine avec des zeros devant |
-| `@if / @else` | Bascule entre les boutons Start et Stop selon l'etat |
+| `computed` avec calculs | Le computed recalcule le format affiche à chaque changement de `elapsedMs` |
+| `String.padStart(2, '0')` | Méthode JavaScript pour completer une chaine avec des zeros devant |
+| `@if / @else` | Bascule entre les boutons Start et Stop selon l'état |

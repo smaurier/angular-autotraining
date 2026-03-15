@@ -29,7 +29,7 @@ Avec des parenthèses : `(événement)="handler()"`. Par exemple : `(click)="enr
 ## Analogie
 
 Pensez à un **distributeur automatique** :
-- **input()** : c'est la fente où vous insérez les pièces — des données entrent dans la machine (du parent vers l'enfant)
+- **input()** : c'est la fente ou vous insérez les pièces — des données entrent dans la machine (du parent vers l'enfant)
 - **output()** : c'est le mécanisme qui délivre la boisson et rend la monnaie — des événements sortent de la machine (de l'enfant vers le parent)
 - **model()** : c'est un écran tactile interactif — vous sélectionnez un produit (entrée) et l'écran se met à jour pour montrer votre choix (sortie) — communication bidirectionnelle
 

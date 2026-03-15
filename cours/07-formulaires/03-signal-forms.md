@@ -1,27 +1,27 @@
 # Cours 30 — Signal Forms (experimental)
 
-> **Objectif** : Decouvrir la nouvelle API experimentale Signal Forms d'Angular, comprendre le concept de formulaire schema-driven avec le modele comme source de verite unique, le two-way binding automatique, et savoir quand choisir entre template-driven, reactive et signal forms.
+> **Objectif** : Decouvrir la nouvelle API experimentale Signal Forms d'Angular, comprendre le concept de formulaire schema-driven avec le modèle comme source de verite unique, le two-way binding automatique, et savoir quand choisir entre template-driven, réactive et signal forms.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
-<summary>1. Quelle est la difference entre FormBuilder.group() et new FormGroup() ?</summary>
+<summary>1. Quelle est la différence entre FormBuilder.group() et new FormGroup() ?</summary>
 
-`FormBuilder.group()` est un raccourci syntaxique plus concis. `new FormGroup<T>()` permet un typage plus explicite. Les deux creent le meme resultat, mais `FormBuilder` est prefere pour la lisibilite.
+`FormBuilder.group()` est un raccourci syntaxique plus concis. `new FormGroup<T>()` permet un typage plus explicite. Les deux creent le même résultat, mais `FormBuilder` est préféré pour la lisibilite.
 </details>
 
 <details>
-<summary>2. Comment creer un validateur personnalise en Angular ?</summary>
+<summary>2. Comment créer un validateur personnalise en Angular ?</summary>
 
 C'est une fonction qui retourne une `ValidatorFn`. Cette fonction recoit un `AbstractControl` et retourne `null` si valide ou un objet `{ cleErreur: true }` si invalide. Exemple : `contientChiffre(): ValidatorFn`.
 </details>
 
 <details>
-<summary>3. Comment reagir a chaque modification d'un champ reactive form ?</summary>
+<summary>3. Comment reagir à chaque modification d'un champ réactive form ?</summary>
 
-Via la propriete `valueChanges` qui retourne un Observable. On peut y appliquer des operateurs RxJS comme `debounceTime`, `distinctUntilChanged`, etc.
+Via la propriété `valueChanges` qui retourne un Observable. On peut y appliquer des operateurs RxJS comme `debounceTime`, `distinctUntilChanged`, etc.
 </details>
 
 ---
@@ -31,22 +31,22 @@ Via la propriete `valueChanges` qui retourne un Observable. On peut y appliquer 
 Imaginez trois generations d'appareils photo :
 
 - **Template-driven** = un **appareil jetable** : simple, rapide, limites fixes. Ideal pour une photo vite faite.
-- **Reactive Forms** = un **reflex professionnel** : puissant, configurable, mais il faut regler manuellement chaque parametre (FormGroup, FormControl, validateurs).
-- **Signal Forms** = un **smartphone haut de gamme** : la puissance du reflex avec l'intelligence automatique. Le modele definit tout, la validation se deduit, le binding est automatique.
+- **Reactive Forms** = un **reflex professionnel** : puissant, configurable, mais il faut regler manuellement chaque paramètre (FormGroup, FormControl, validateurs).
+- **Signal Forms** = un **smartphone haut de gamme** : la puissance du reflex avec l'intelligence automatique. Le modèle définit tout, la validation se deduit, le binding est automatique.
 
 Signal Forms represente la direction vers laquelle Angular evolue : simplifier sans perdre en puissance.
 
 ---
 
-## Theorie
+## Théorie
 
 ### Attention : API experimentale
 
 > **Important** : Signal Forms est une API **experimentale** introduite progressivement dans Angular 19+. La syntaxe peut evoluer. Utilisez-la pour vous former et prototyper, mais en production ESN, les Reactive Forms restent le standard en 2025-2026.
 
-### Le probleme que Signal Forms resout
+### Le problème que Signal Forms resout
 
-Avec les Reactive Forms, il y a une **duplication** entre le modele et le formulaire :
+Avec les Reactive Forms, il y à une **duplication** entre le modèle et le formulaire :
 
 ```typescript
 // ❌ Reactive Forms : le modele et le form sont deux choses separees
@@ -71,7 +71,7 @@ form.patchValue(user);         // modele → form
 const updated = form.value;     // form → modele
 ```
 
-Signal Forms propose une approche ou le **modele est le formulaire** :
+Signal Forms propose une approche ou le **modèle est le formulaire** :
 
 ```typescript
 // ✅ Signal Forms : le modele EST le formulaire
@@ -80,7 +80,7 @@ Signal Forms propose une approche ou le **modele est le formulaire** :
 
 ### Concept : schema-based validation
 
-Signal Forms utilise un **schema** qui definit la structure, les valeurs par defaut et les regles de validation en un seul endroit :
+Signal Forms utilise un **schema** qui définit la structure, les valeurs par defaut et les regles de validation en un seul endroit :
 
 ```typescript
 import { SignalFormBuilder } from '@angular/forms';
@@ -102,9 +102,9 @@ const userFormSchema = {
 };
 ```
 
-### SignalForm : le modele comme source de verite
+### SignalForm : le modèle comme source de verite
 
-Le concept central : au lieu de manipuler des `FormControl`, on manipule directement un **modele reactif** base sur des Signals :
+Le concept central : au lieu de manipuler des `FormControl`, on manipule directement un **modèle réactif** base sur des Signals :
 
 ```typescript
 import { Component, signal, computed } from '@angular/core';
@@ -201,9 +201,9 @@ export class UserFormComponent {
 
 | Aspect | Reactive Forms | Signal Forms (pattern) |
 |--------|---------------|----------------------|
-| Source de verite | FormGroup (separe du modele) | Modele directement (Signals) |
-| Validation | Validators attaches aux FormControl | `computed()` derive du modele |
-| Reactivite | `valueChanges` (Observable) | Signals (synchrone, granulaire) |
+| Source de verite | FormGroup (separe du modèle) | Modèle directement (Signals) |
+| Validation | Validators attaches aux FormControl | `computed()` dérivé du modèle |
+| Réactivité | `valueChanges` (Observable) | Signals (synchrone, granulaire) |
 | Typage | `FormGroup<T>` depuis Angular 14 | Natif TypeScript via Signals |
 | Boilerplate | Moyen (FormBuilder, formControlName) | Minimal |
 | Tests | TestBed + fixture | Tester les Signals directement |
@@ -301,7 +301,7 @@ Creez un formulaire de profil utilisateur en utilisant le pattern Signal Forms (
 1. Champs : `prenom`, `nom`, `email`, `bio` (textarea)
 2. Validation derivee via `computed()` : prenom et nom requis, email format valide, bio max 200 caracteres
 3. Un compteur de caracteres pour la bio
-4. Signal `isValid` derive
+4. Signal `isValid` dérivé
 5. Affichage conditionnel des erreurs
 
 <details>
@@ -406,18 +406,18 @@ export class ProfilFormComponent {
 
 ---
 
-## Resume
+## Résumé
 
-| Point cle | A retenir |
+| Point clé | A retenir |
 |-----------|-----------|
 | Signal Forms | API experimentale, pattern base sur Signals purs |
-| Source de verite | Le modele (Signals) est directement le formulaire |
-| Validation | Via `computed()`, derive automatiquement du modele |
+| Source de verite | Le modèle (Signals) est directement le formulaire |
+| Validation | Via `computed()`, dérivé automatiquement du modèle |
 | `model()` | Two-way binding Signal natif (Angular 19+) |
 | Migration | `toSignal(form.valueChanges)` pour une transition progressive |
 | Production ESN | Reactive Forms reste le standard, Signal Forms en anticipation |
 | Avantages | Moins de boilerplate, typage natif, pas de TestBed |
-| Limites actuelles | Pas d'equivalent FormArray, pas de validators standardises |
+| Limites actuelles | Pas d'équivalent FormArray, pas de validators standardises |
 
 ---
 

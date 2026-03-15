@@ -1,12 +1,12 @@
 # Correction — Exercice 20 : Tests complets
 
-## Resultat attendu
+## Résultat attendu
 
 Une application Todo avec un service (`TodoService`), un composant (`TodoListComponent`) et une suite de 13 tests couvrant les tests unitaires du service, les tests du composant et les tests HTTP avec mocks. Tous les tests passent au vert.
 
 ## Code corrige
 
-### Modele
+### Modèle
 
 ```typescript
 // src/app/exercises/ex20/todo.model.ts
@@ -490,38 +490,38 @@ describe('TodoService - HTTP', () => {
 ## Ce que tu aurais pu oublier
 
 ### 1. Oublier `provideHttpClientTesting()` dans les tests HTTP
-- ❌ Utiliser `provideHttpClient()` seul → les vraies requetes HTTP sont envoyees
-- ✅ Ajouter `provideHttpClientTesting()` pour intercepter les requetes avec `HttpTestingController`
+- ❌ Utiliser `provideHttpClient()` seul → les vraies requêtes HTTP sont envoyees
+- ✅ Ajouter `provideHttpClientTesting()` pour intercepter les requêtes avec `HttpTestingController`
 
 ### 2. Ne pas appeler `httpMock.verify()` dans `afterEach`
-- ❌ Des requetes non traitees passent inapercues → faux positifs
-- ✅ Toujours appeler `httpMock.verify()` dans `afterEach()` pour detecter les requetes oubliees
+- ❌ Des requêtes non traitees passent inapercues → faux positifs
+- ✅ Toujours appeler `httpMock.verify()` dans `afterEach()` pour détecter les requêtes oubliees
 
-### 3. Oublier `fixture.detectChanges()` apres une action
-- ❌ Modifier le service puis verifier le DOM sans `detectChanges()` → le DOM n'est pas mis a jour
-- ✅ Appeler `fixture.detectChanges()` apres chaque action pour declencher le change detection
+### 3. Oublier `fixture.detectChanges()` après une action
+- ❌ Modifier le service puis vérifier le DOM sans `detectChanges()` → le DOM n'est pas mis a jour
+- ✅ Appeler `fixture.detectChanges()` après chaque action pour declencher le change detection
 
-### 4. Ne pas gerer le retry dans les tests d'erreur
-- ❌ S'attendre a une seule requete quand `retry(1)` est configure → le test echoue
-- ✅ Avec `retry(1)`, il y a 2 requetes en cas d'erreur : la premiere + le retry
+### 4. Ne pas gérer le retry dans les tests d'erreur
+- ❌ S'attendre à une seule requête quand `retry(1)` est configure → le test echoue
+- ✅ Avec `retry(1)`, il y a 2 requêtes en cas d'erreur : la première + le retry
 
 ### 5. Utiliser `any` dans les tests
 - ❌ `const items = el.querySelectorAll('.item') as any` → viole la contrainte
 - ✅ `const items = el.querySelectorAll('.item') as NodeListOf<HTMLElement>` → type correct
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
-| `TestBed.configureTestingModule` | Configure le module de test avec les providers et imports necessaires |
+| `TestBed.configureTestingModule` | Configure le module de test avec les providers et imports nécessaires |
 | `TestBed.inject(Service)` | Recupere une instance du service depuis l'injecteur de test |
 | `fixture.detectChanges()` | Declenche le change detection pour mettre a jour le DOM du composant |
 | `fixture.nativeElement` | Acces au DOM natif du composant pour les assertions |
-| `provideHttpClientTesting()` | Remplace le HttpClient reel par un mock pour les tests |
-| `HttpTestingController` | Permet d'intercepter, verifier et repondre aux requetes HTTP dans les tests |
-| `httpMock.expectOne(url)` | Verifie qu'exactement une requete a ete faite vers l'URL donnee |
-| `req.flush(data)` | Simule une reponse HTTP avec les donnees fournies |
-| `req.flush(body, { status })` | Simule une reponse HTTP avec un code d'erreur |
-| `httpMock.verify()` | Verifie qu'il ne reste aucune requete en attente non traitee |
-| `data-testid` | Attribut HTML pour identifier les elements dans les tests (meilleure pratique) |
+| `provideHttpClientTesting()` | Remplace le HttpClient réel par un mock pour les tests |
+| `HttpTestingController` | Permet d'intercepter, vérifier et repondre aux requêtes HTTP dans les tests |
+| `httpMock.expectOne(url)` | Verifie qu'exactement une requête a ete faite vers l'URL donnee |
+| `req.flush(data)` | Simule une réponse HTTP avec les donnees fournies |
+| `req.flush(body, { status })` | Simule une réponse HTTP avec un code d'erreur |
+| `httpMock.verify()` | Verifie qu'il ne reste aucune requête en attente non traitee |
+| `data-testid` | Attribut HTML pour identifier les éléments dans les tests (meilleure pratique) |
 | `retry(n)` | Operateur RxJS qui relance l'observable n fois en cas d'erreur |

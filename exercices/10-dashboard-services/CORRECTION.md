@@ -1,12 +1,12 @@
 # Correction — Exercice 10 : Dashboard avec services multiples
 
-## Resultat attendu
+## Résultat attendu
 
 Un dashboard affichant :
 - Un champ de recherche et un filtre par categorie
 - Un tableau de produits triable par colonne (clic sur l'en-tete)
-- Le nombre de resultats et les filtres actifs
-- Tout est reactif : changer un filtre ou un tri met a jour la liste instantanement
+- Le nombre de résultats et les filtres actifs
+- Tout est réactif : changer un filtre ou un tri met a jour la liste instantanement
 - Les trois services sont independants mais composes ensemble dans le composant
 
 ## Code corrige
@@ -564,33 +564,33 @@ export class DashboardComponent {
 ## Ce que tu aurais pu oublier
 
 ### 1. Mettre toute la logique dans un seul service
-- ❌ Un service "DashboardService" qui gere donnees + filtres + tri → trop de responsabilites
+- ❌ Un service "DashboardService" qui géré donnees + filtres + tri → trop de responsabilites
 - ✅ Trois services specialises composes ensemble dans le composant → separation des responsabilites
 
 ### 2. Filtrer et trier dans le template
 - ❌ Boucler sur `products()` et filtrer dans le template → illisible et non performant
-- ✅ Un `computed` qui filtre et trie → calcul reactif cache, recalcule seulement quand necessaire
+- ✅ Un `computed` qui filtre et trie → calcul réactif cache, recalcule seulement quand nécessaire
 
 ### 3. Muter le tableau dans le computed
 - ❌ `this.dataService.products().sort(...)` → `.sort()` mute le tableau original
 - ✅ `[...this.dataService.products()].sort(...)` → on travaille sur une copie
 
-### 4. Ne pas gerer le cas "aucun resultat"
+### 4. Ne pas gérer le cas "aucun résultat"
 - ❌ Pas de `@empty` dans le `@for` → tableau vide sans indication
 - ✅ `@empty` affiche un message quand la liste filtree est vide
 
-### 5. Oublier que getSortIndicator est reactif dans le template
-- ❌ Croire qu'il faut un computed pour l'indicateur de tri → la methode est appelee dans le template
-- ✅ Les methodes appelees dans le template qui lisent des signaux sont reactives grace au template
+### 5. Oublier que getSortIndicator est réactif dans le template
+- ❌ Croire qu'il faut un computed pour l'indicateur de tri → la méthode est appelee dans le template
+- ✅ Les méthodes appelees dans le template qui lisent des signaux sont réactives grace au template
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
-| Separation des responsabilites | Chaque service gere un aspect (donnees, filtrage, tri) |
-| Composition de services | Le composant compose les trois services pour creer la logique complete |
-| `computed` multi-services | Un computed peut dependre de signaux provenant de plusieurs services |
-| `inject()` multiple | Un composant peut injecter autant de services que necessaire |
+| Separation des responsabilites | Chaque service géré un aspect (donnees, filtrage, tri) |
+| Composition de services | Le composant compose les trois services pour créer la logique complete |
+| `computed` multi-services | Un computed peut dépendre de signaux provenant de plusieurs services |
+| `inject()` multiple | Un composant peut injecter autant de services que nécessaire |
 | Singleton partage | Les composants enfants (filters, table) partagent les memes instances de service |
 | `input.required` pour les donnees | Le tableau recoit les donnees filtrees/triees via input (pas en injectant le service) |
 | Tri avec `localeCompare` | Pour trier des chaines de caracteres correctement (accents, etc.) |

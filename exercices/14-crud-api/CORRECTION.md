@@ -1,8 +1,8 @@
 # Correction — Exercice 14 : CRUD API
 
-## Resultat attendu
+## Résultat attendu
 
-Une application complete qui communique avec json-server pour lister, creer, modifier et supprimer des produits. Chaque operation met a jour la liste. Les erreurs reseau sont capturees et affichees. Un indicateur de chargement s'affiche pendant les requetes.
+Une application complete qui communique avec json-server pour lister, créer, modifier et supprimer des produits. Chaque operation met a jour la liste. Les erreurs réseau sont capturees et affichees. Un indicateur de chargement s'affiche pendant les requêtes.
 
 ## Code corrige
 
@@ -618,7 +618,7 @@ export const appConfig: ApplicationConfig = {
   ```
 - ✅ Ajouter `provideHttpClient()` dans `app.config.ts`
 
-### 2. Ne pas typer les methodes HTTP
+### 2. Ne pas typer les méthodes HTTP
 
 - ❌ Appels HTTP sans generic (type `Object` par defaut) :
   ```typescript
@@ -631,29 +631,29 @@ export const appConfig: ApplicationConfig = {
 
 ### 3. Ne pas centraliser la gestion d'erreur
 
-- ❌ Dupliquer `catchError` avec la meme logique dans chaque methode
-- ✅ Extraire une methode `handleError` privee et reutilisable
+- ❌ Dupliquer `catchError` avec la même logique dans chaque méthode
+- ✅ Extraire une méthode `handleError` privee et réutilisable
 
-### 4. Oublier de rafraichir la liste apres une operation
+### 4. Oublier de rafraichir la liste après une operation
 
-- ❌ Creer/modifier/supprimer sans mettre a jour la liste affichee
+- ❌ Créer/modifier/supprimer sans mettre a jour la liste affichee
 - ✅ Appeler `loadProducts()` dans le callback `next` de chaque operation
 
-### 5. Utiliser `any` pour le type de creation
+### 5. Utiliser `any` pour le type de création
 
 - ❌ `create(product: any)` — perd tout le benefice du typage
 - ✅ `create(product: Omit<Product, 'id'>)` — type strict sans l'id
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
-| `HttpClient` | Service Angular pour les requetes HTTP |
+| `HttpClient` | Service Angular pour les requêtes HTTP |
 | `provideHttpClient()` | Fournit HttpClient dans la configuration standalone |
 | `Observable<T>` | Flux asynchrone type retourne par HttpClient |
 | `catchError` | Operateur RxJS pour intercepter et transformer les erreurs |
-| `Omit<T, K>` | Type utilitaire TypeScript qui exclut des proprietes |
-| `Partial<T>` | Type utilitaire TypeScript qui rend toutes les proprietes optionnelles |
+| `Omit<T, K>` | Type utilitaire TypeScript qui exclut des propriétés |
+| `Partial<T>` | Type utilitaire TypeScript qui rend toutes les propriétés optionnelles |
 | `json-server` | Serveur REST mock base sur un fichier JSON |
-| `signal()` | Etat reactif pour l'UI (loading, error, products) |
+| `signal()` | État réactif pour l'UI (loading, error, products) |
 | `input()` / `output()` | Communication parent-enfant en Angular 19+ |

@@ -1,15 +1,15 @@
-# Cours 46 — Entretien technique Angular : 30 questions et reponses
+# Cours 46 — Entretien technique Angular : 30 questions et réponses
 
-> **Objectif** : Se preparer aux entretiens techniques Angular en ESN avec 30 questions classees par difficulte, des reponses synthetiques, et une checklist "pret pour une mission".
+> **Objectif** : Se preparer aux entretiens techniques Angular en ESN avec 30 questions classees par difficulte, des réponses synthetiques, et une checklist "pret pour une mission".
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
 <summary>1. Quels sont les trois dossiers principaux de la structure feature-based ?</summary>
 
-`core/` (singletons : services, guards, interceptors), `shared/` (composants, pipes, directives reutilisables), `features/` (domaines metier autonomes).
+`core/` (singletons : services, guards, interceptors), `shared/` (composants, pipes, directives réutilisables), `features/` (domaines metier autonomes).
 </details>
 
 <details>
@@ -19,57 +19,57 @@
 </details>
 
 <details>
-<summary>3. Comment charger une configuration au demarrage ?</summary>
+<summary>3. Comment charger une configuration au démarrage ?</summary>
 
-Avec `APP_INITIALIZER` : un provider qui execute un `fetch()` vers un fichier JSON ou endpoint. Angular attend la resolution avant de demarrer.
+Avec `APP_INITIALIZER` : un provider qui exécuté un `fetch()` vers un fichier JSON ou endpoint. Angular attend la résolution avant de démarrer.
 </details>
 
 ---
 
 ## Analogie
 
-Les entretiens Angular suivent la meme structure que Vue.js : fondamentaux, patterns, tests. La difference en ESN : l'accent sur la **rigueur architecturale** (DI, guards, interceptors). Pense a l'entretien comme un **match d'echecs** : prepare tes ouvertures (fondamentaux) et tes strategies (patterns avances).
+Les entretiens Angular suivent la même structure que Vue.js : fondamentaux, patterns, tests. La différence en ESN : l'accent sur la **rigueur architecturale** (DI, guards, interceptors). Pense a l'entretien comme un **match d'echecs** : prepare tes ouvertures (fondamentaux) et tes stratégies (patterns avances).
 
 ---
 
-## Theorie
+## Théorie
 
 ### Groupe 1 — Fondamentaux
 
 <details>
 <summary><strong>Q1. Qu'est-ce qu'un composant standalone ?</strong></summary>
 
-Composant qui n'a pas besoin de `NgModule`. Par defaut depuis Angular 17+. Il declare ses dependances dans `imports: [...]`. Avantage : meilleur tree-shaking, imports explicites.
+Composant qui n'a pas besoin de `NgModule`. Par defaut depuis Angular 17+. Il declare ses dépendances dans `imports: [...]`. Avantage : meilleur tree-shaking, imports explicites.
 </details>
 
 <details>
 <summary><strong>Q2. signal() vs Observable ?</strong></summary>
 
-`signal()` = valeur synchrone reactive, lecture via `()`, ecriture via `.set()/.update()`. `Observable` = flux asynchrone, lecture via `.subscribe()`. **Signals pour l'etat UI, Observables pour les flux async (HTTP, WebSocket).**
+`signal()` = valeur synchrone réactive, lecture via `()`, écriture via `.set()/.update()`. `Observable` = flux asynchrone, lecture via `.subscribe()`. **Signals pour l'état UI, Observables pour les flux async (HTTP, WebSocket).**
 </details>
 
 <details>
-<summary><strong>Q3. L'injection de dependances ?</strong></summary>
+<summary><strong>Q3. L'injection de dépendances ?</strong></summary>
 
-`@Injectable({ providedIn: 'root' })` = singleton global. `inject(MonService)` pour recuperer l'instance. L'injecteur est hierarchique : composant → parent → root. Equivalent Vue : `provide/inject` mais automatique.
+`@Injectable({ providedIn: 'root' })` = singleton global. `inject(MonService)` pour récupérer l'instance. L'injecteur est hiérarchique : composant → parent → root. Equivalent Vue : `provide/inject` mais automatique.
 </details>
 
 <details>
 <summary><strong>Q4. Le change detection ?</strong></summary>
 
-**Default** : verifie tout l'arbre apres chaque evenement. **OnPush** : verifie uniquement si les inputs changent ou si un signal est lu. Avec Signals, Angular sait exactement quelles vues mettre a jour (base du mode zoneless).
+**Default** : vérifié tout l'arbre après chaque événement. **OnPush** : vérifié uniquement si les inputs changent ou si un signal est lu. Avec Signals, Angular sait exactement quelles vues mettre a jour (base du mode zoneless).
 </details>
 
 <details>
 <summary><strong>Q5. @if vs *ngIf ?</strong></summary>
 
-Meme fonction, syntaxe differente. `@if` (Angular 17+) : meilleure lisibilite, pas besoin de `ng-template`, meilleure performance. `*ngIf` : ancien style avec structural directive. `@if` est recommande.
+Même fonction, syntaxe différente. `@if` (Angular 17+) : meilleure lisibilite, pas besoin de `ng-template`, meilleure performance. `*ngIf` : ancien style avec structural directive. `@if` est recommande.
 </details>
 
 <details>
-<summary><strong>Q6. Creer un pipe custom ?</strong></summary>
+<summary><strong>Q6. Créer un pipe custom ?</strong></summary>
 
-`@Pipe({ name: 'tronquer' })` + `implements PipeTransform` + methode `transform(value, ...args)`. Usage : `{{ texte | tronquer:100 }}`. Pure par defaut (recalcule uniquement si l'input change).
+`@Pipe({ name: 'tronquer' })` + `implements PipeTransform` + méthode `transform(value, ...args)`. Usage : `{{ texte | tronquer:100 }}`. Pure par defaut (recalcule uniquement si l'input change).
 </details>
 
 <details>
@@ -93,15 +93,15 @@ Charge un composant/feature **uniquement quand la route est visitee**. `loadComp
 <details>
 <summary><strong>Q10. Le two-way binding ?</strong></summary>
 
-`[(ngModel)]="nom"` = binding de propriete + binding d'evenement. Avec Signals : `model()` cree un signal bidirectionnel. `<app-input [(valeur)]="monSignal" />`.
+`[(ngModel)]="nom"` = binding de propriété + binding d'événement. Avec Signals : `model()` créé un signal bidirectionnel. `<app-input [(valeur)]="monSignal" />`.
 </details>
 
-### Groupe 2 — Intermediaire
+### Groupe 2 — Intermédiaire
 
 <details>
 <summary><strong>Q11. switchMap vs mergeMap vs concatMap ?</strong></summary>
 
-`switchMap` : annule le precedent (autocomplete). `mergeMap` : parallele (telechargements). `concatMap` : sequentiel dans l'ordre (sauvegardes).
+`switchMap` : annule le précédent (autocomplete). `mergeMap` : parallele (telechargements). `concatMap` : sequentiel dans l'ordre (sauvegardes).
 </details>
 
 <details>
@@ -137,7 +137,7 @@ Convertit un Observable en Signal : `users = toSignal(this.http.get<User[]>('/ap
 <details>
 <summary><strong>Q17. Erreurs HTTP globales ?</strong></summary>
 
-Interceptor d'erreurs avec `catchError` : gerer 401 (redirect login), 403 (unauthorized), 500+ (notification). Plus `ErrorHandler` global pour les erreurs non HTTP.
+Interceptor d'erreurs avec `catchError` : gérer 401 (redirect login), 403 (unauthorized), 500+ (notification). Plus `ErrorHandler` global pour les erreurs non HTTP.
 </details>
 
 <details>
@@ -163,31 +163,31 @@ State management base sur Signals. `signalStore()` + `withState()`, `withCompute
 <details>
 <summary><strong>Q21. Le zoneless ?</strong></summary>
 
-Supprime Zone.js. Angular ne detecte les changements que via les Signals. `provideExperimentalZonelessChangeDetection()`. Bundle plus petit, meilleure performance.
+Supprime Zone.js. Angular ne détecté les changements que via les Signals. `provideExperimentalZonelessChangeDetection()`. Bundle plus petit, meilleure performance.
 </details>
 
 <details>
 <summary><strong>Q22. Le pattern facade ?</strong></summary>
 
-Service qui simplifie l'acces a un sous-systeme (store + API + cache). Le composant n'interagit qu'avec la facade, sans connaitre les details d'implementation.
+Service qui simplifie l'acces à un sous-système (store + API + cache). Le composant n'interagit qu'avec la facade, sans connaître les details d'implementation.
 </details>
 
 <details>
 <summary><strong>Q23. RBAC cote front ?</strong></summary>
 
-Directive structurelle `*appHasRole="'admin'"` ou guard avec `route.data['role']`. **Important** : le RBAC front est un confort UX, la vraie securite est cote serveur.
+Directive structurelle `*appHasRole="'admin'"` ou guard avec `route.data['role']`. **Important** : le RBAC front est un confort UX, la vraie sécurité est cote serveur.
 </details>
 
 <details>
 <summary><strong>Q24. Angular SSR ?</strong></summary>
 
-`ng add @angular/ssr`. Genere le HTML cote serveur (SEO, premier rendu rapide). **Quand** : sites publics, e-commerce. **Pas necessaire** : dashboards internes.
+`ng add @angular/ssr`. Genere le HTML cote serveur (SEO, premier rendu rapide). **Quand** : sites publics, e-commerce. **Pas nécessaire** : dashboards internes.
 </details>
 
 <details>
 <summary><strong>Q25. State dans une grande app ?</strong></summary>
 
-4 niveaux : etat local (Signals composant), etat feature (service signal-based), etat global (SignalStore), etat serveur (cache HTTP). Chaque donnee au niveau le plus bas possible.
+4 niveaux : état local (Signals composant), état feature (service signal-based), état global (SignalStore), état serveur (cache HTTP). Chaque donnee au niveau le plus bas possible.
 </details>
 
 <details>
@@ -203,9 +203,9 @@ Interface pour qu'un composant custom fonctionne avec Reactive Forms. Implemente
 </details>
 
 <details>
-<summary><strong>Q28. Strategie de test ESN ?</strong></summary>
+<summary><strong>Q28. Stratégie de test ESN ?</strong></summary>
 
-Pyramide : unitaire (services, 70%) → composant (TestBed, 20%) → integration (8%) → E2E (Playwright, 2%). Priorite : tester la logique metier, pas l'UI simple.
+Pyramide : unitaire (services, 70%) → composant (TestBed, 20%) → intégration (8%) → E2E (Playwright, 2%). Priorite : tester la logique metier, pas l'UI simple.
 </details>
 
 <details>
@@ -258,7 +258,7 @@ Sanitization DOM, httpOnly cookies, CSP, guards, validation front+back, `npm aud
 
 ### Simulation d'entretien (5 questions, 2 min/question)
 
-1. Difference entre `signal()` et `computed()` ?
+1. Différence entre `signal()` et `computed()` ?
 2. Comment proteger une route pour les non-authentifies ?
 3. Avantage du lazy loading ?
 4. Comment fonctionne un interceptor ?
@@ -271,30 +271,50 @@ Sanitization DOM, httpOnly cookies, CSP, guards, validation front+back, `npm aud
 |---|---|
 | **3/3** | Reponse claire avec exemple de code |
 | **2/3** | Correcte mais incomplete |
-| **1/3** | Idee generale mais vague |
-| **0/3** | Incorrecte ou pas de reponse |
+| **1/3** | Idee générale mais vague |
+| **0/3** | Incorrecte ou pas de réponse |
 
-**13-15** : pret senior. **10-12** : pret intermediaire. **< 10** : revoir les modules concernes.
+**13-15** : pret senior. **10-12** : pret intermédiaire. **< 10** : revoir les modules concernes.
 </details>
 
 ---
 
-## Resume
+## Résumé
 
-| Point cle | A retenir |
+| Point clé | A retenir |
 |---|---|
 | Fondamentaux | Standalone, Signals, DI, change detection, control flow |
-| Intermediaire | HttpClient, Reactive Forms, routing, tests, RxJS |
+| Intermédiaire | HttpClient, Reactive Forms, routing, tests, RxJS |
 | Avance | Zoneless, facades, RBAC, SSR, ControlValueAccessor |
-| ESN | Architecture feature-based, conventions, securite, tests |
-| Checklist | 20 competences a maitriser avant une mission |
+| ESN | Architecture feature-based, conventions, sécurité, tests |
+| Checklist | 20 compétences à maîtriser avant une mission |
 
 ---
 
 ## Felicitations !
 
-Tu as termine les **46 cours** de cette formation Angular 19 pour developpeurs Vue 3. Tu maitrises maintenant les fondamentaux, les competences metier, les outils et les pratiques ESN.
+Tu as termine les **46 cours** de cette formation Angular 19 pour développeurs Vue 3. Tu maitrises maintenant les fondamentaux, les compétences metier, les outils et les pratiques ESN.
 
-**Prochaine etape** : construis un projet complet (CRUD + auth + tests) et deploie-le. C'est la meilleure preuve de competence pour un entretien.
+**Prochaine étape** : construis un projet complet (CRUD + auth + tests) et deploie-le. C'est la meilleure preuve de compétence pour un entretien.
 
 > Bonne chance pour ta prochaine mission Angular !
+
+---
+
+<!-- parcours-recommande -->
+
+::: tip Parcours recommandé
+1. **Exercice** : [26-entretien-angular](../../exercices/26-entretien-angular/ENONCE)
+2. **Projet fil rouge** : [README](../../projet-fil-rouge/README)
+:::
+
+---
+
+<!-- navigation-inter-cours -->
+
+::: info Cours suivant
+Bravo, tu as termine le cours **Angular** ! 
+Le prochain cours du curriculum est **React**.
+
+[Commencer React →](../../../08-react/cours/00-de-vue-angular-a-react/01-react-mental-model.md)
+:::

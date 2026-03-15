@@ -1,15 +1,15 @@
 # Cours 31 — Patterns formulaires avances
 
-> **Objectif** : Maitriser les patterns de formulaires les plus courants en entreprise : formulaire multi-etapes (wizard), formulaires dynamiques depuis un JSON, validation cross-field, controles personnalises (ControlValueAccessor), patterns de soumission et auto-save avec debounce.
+> **Objectif** : Maîtriser les patterns de formulaires les plus courants en entreprise : formulaire multi-étapes (wizard), formulaires dynamiques depuis un JSON, validation cross-field, controles personnalises (ControlValueAccessor), patterns de soumission et auto-save avec debounce.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
 <summary>1. Quel est l'avantage principal du pattern Signal Forms par rapport aux Reactive Forms ?</summary>
 
-Le modele (Signals) **est** directement le formulaire. Il n'y a pas de duplication entre un objet modele et un FormGroup. La validation est un `computed()` derive automatiquement du modele.
+Le modèle (Signals) **est** directement le formulaire. Il n'y a pas de duplication entre un objet modèle et un FormGroup. La validation est un `computed()` dérivé automatiquement du modèle.
 </details>
 
 <details>
@@ -31,17 +31,17 @@ Pour la production en ESN : ils sont stables, documentes, couverts par les tests
 Imaginez construire une **maison** :
 
 - **Formulaire simple** = une cabane de jardin : 4 murs, un toit, c'est fait.
-- **Wizard multi-etapes** = construire etage par etage : fondations (etape 1), murs (etape 2), toiture (etape 3). On ne peut pas poser le toit sans les murs.
-- **Formulaire dynamique** = une maison **modulaire** : les plans arrivent du bureau d'etude (JSON config), et les ouvriers assemblent les pieces selon le schema.
-- **ControlValueAccessor** = un sous-traitant specialise : un electricien que vous appelez comme n'importe quel ouvrier, mais qui gere son travail en interne avec ses propres regles.
+- **Wizard multi-étapes** = construire etage par etage : fondations (étape 1), murs (étape 2), toiture (étape 3). On ne peut pas poser le toit sans les murs.
+- **Formulaire dynamique** = une maison **modulaire** : les plans arrivent du bureau d'étude (JSON config), et les ouvriers assemblent les pieces selon le schema.
+- **ControlValueAccessor** = un sous-traitant specialise : un electricien que vous appelez comme n'importe quel ouvrier, mais qui géré son travail en interne avec ses propres regles.
 
 ---
 
-## Theorie
+## Théorie
 
-### Pattern 1 : Formulaire multi-etapes (Wizard)
+### Pattern 1 : Formulaire multi-étapes (Wizard)
 
-Le pattern le plus demande en ESN pour les processus complexes (inscription, commande, onboarding) :
+Le pattern le plus demandé en ESN pour les processus complexes (inscription, commande, onboarding) :
 
 ```typescript
 import { Component, inject, signal, computed } from '@angular/core';
@@ -164,7 +164,7 @@ export class WizardComponent {
 
 ### Pattern 2 : Formulaire dynamique depuis JSON
 
-Pour generer des formulaires a partir d'une configuration serveur :
+Pour générer des formulaires à partir d'une configuration serveur :
 
 ```typescript
 // Modele de configuration
@@ -298,7 +298,7 @@ form = this.fb.group({
 
 ### Pattern 4 : ControlValueAccessor (controle personnalise)
 
-Creer un composant qui se comporte comme un input natif dans un formulaire :
+Créer un composant qui se comporte comme un input natif dans un formulaire :
 
 ```typescript
 import { Component, forwardRef } from '@angular/core';
@@ -376,7 +376,7 @@ export class AvisComponent {
 }
 ```
 
-### Pattern 5 : Soumission avec etats (loading, erreur, succes)
+### Pattern 5 : Soumission avec états (loading, erreur, succes)
 
 ```typescript
 @Component({
@@ -493,11 +493,11 @@ export class AutoSaveComponent {
 
 ## Pratique
 
-Creez un formulaire d'inscription en deux etapes :
-- **Etape 1** : nom (requis), email (requis + format), mot de passe + confirmation (validation cross-field)
-- **Etape 2** : adresse (rue, ville, code postal requis au format 5 chiffres)
-- Navigation precedent/suivant, bouton submit a la derniere etape
-- Bouton suivant desactive si l'etape courante est invalide
+Creez un formulaire d'inscription en deux étapes :
+- **Étape 1** : nom (requis), email (requis + format), mot de passe + confirmation (validation cross-field)
+- **Étape 2** : adresse (rue, ville, code postal requis au format 5 chiffres)
+- Navigation précédent/suivant, bouton submit à la dernière étape
+- Bouton suivant désactivé si l'étape courante est invalide
 
 <details>
 <summary>Solution</summary>
@@ -589,17 +589,27 @@ export class InscriptionWizardComponent {
 
 ---
 
-## Resume
+## Résumé
 
-| Pattern | Cas d'usage | Elements cles |
+| Pattern | Cas d'usage | Éléments clés |
 |---------|------------|---------------|
-| **Wizard multi-etapes** | Processus complexe (commande, onboarding) | `formGroupName` par etape, navigation par Signal |
-| **Formulaire dynamique** | Config serveur, back-office generique | JSON config → `FormBuilder.group()` dynamique |
+| **Wizard multi-étapes** | Processus complexe (commande, onboarding) | `formGroupName` par étape, navigation par Signal |
+| **Formulaire dynamique** | Config serveur, back-office générique | JSON config → `FormBuilder.group()` dynamique |
 | **Validation cross-field** | Mots de passe, dates coherentes | Validateur sur le `FormGroup`, pas le `FormControl` |
 | **ControlValueAccessor** | Composant custom (rating, color picker) | `writeValue`, `registerOnChange`, `registerOnTouched` |
-| **Soumission avec etats** | UX professionnelle | Signal `idle/loading/success/error` |
+| **Soumission avec états** | UX professionnelle | Signal `idle/loading/success/error` |
 | **Auto-save debounce** | Editeur de texte, brouillon | `valueChanges` + `debounceTime` + `switchMap` |
 
 ---
 
 > **Prochain cours** : [Cours 32 — Angular Material : installation et theming](../08-angular-material/01-installation-theming.md)
+
+---
+
+<!-- parcours-recommande -->
+
+::: tip Parcours recommandé
+1. **Exercice** : [16-formulaire-réactive](../../exercices/16-formulaire-reactive/ENONCE)
+2. **Exercice** : [17-formulaire-multi-étapes](../../exercices/17-formulaire-multi-etapes/ENONCE)
+3. **Exercice** : [18-signal-forms](../../exercices/18-signal-forms/ENONCE)
+:::

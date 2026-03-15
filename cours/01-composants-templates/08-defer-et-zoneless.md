@@ -1,15 +1,15 @@
 # Cours — @defer et Zoneless Change Detection
 
-> **Objectif** : Maitriser le chargement differe de composants avec `@defer` (Angular 17+) et comprendre le mode zoneless avec les signals (Angular 18+). Ces deux fonctionnalites representent l'avenir de la performance Angular.
+> **Objectif** : Maîtriser le chargement differe de composants avec `@defer` (Angular 17+) et comprendre le mode zoneless avec les signals (Angular 18+). Ces deux fonctionnalites representent l'avenir de la performance Angular.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
-<summary>1. Qu'est-ce qu'un signal Angular et comment en creer un ?</summary>
+<summary>1. Qu'est-ce qu'un signal Angular et comment en créer un ?</summary>
 
-Un signal est une valeur reactive. On le cree avec `signal()` et on le lit en l'appelant comme une fonction :
+Un signal est une valeur réactive. On le créé avec `signal()` et on le lit en l'appelant comme une fonction :
 
 ```typescript
 const compteur = signal(0);
@@ -19,35 +19,35 @@ compteur.set(1);
 </details>
 
 <details>
-<summary>2. Quelle est la difference entre `computed` et `effect` ?</summary>
+<summary>2. Quelle est la différence entre `computed` et `effect` ?</summary>
 
-- `computed` : derive une valeur a partir d'autres signals (lecture seule, synchrone)
-- `effect` : execute un effet de bord quand un signal change (logging, localStorage, API call)
+- `computed` : dérivé une valeur à partir d'autres signals (lecture seule, synchrone)
+- `effect` : exécuté un effet de bord quand un signal change (logging, localStorage, API call)
 </details>
 
 <details>
-<summary>3. Comment Angular detecte-t-il les changements dans le template ?</summary>
+<summary>3. Comment Angular détecté-t-il les changements dans le template ?</summary>
 
-Par defaut, Angular utilise **zone.js** qui intercepte les evenements asynchrones (click, setTimeout, HTTP) et declenche un cycle de detection de changements sur tout l'arbre de composants.
+Par defaut, Angular utilise **zone.js** qui intercepte les événements asynchrones (click, setTimeout, HTTP) et declenche un cycle de detection de changements sur tout l'arbre de composants.
 </details>
 
 ---
 
 ## Analogie
 
-Imaginez un **restaurant**. Aujourd'hui, le serveur (zone.js) surveille en permanence toutes les tables : des qu'un client leve le bras, parle, ou meme respire, le serveur fait le tour de TOUTES les tables pour voir si quelqu'un a besoin de quelque chose. C'est epuisant et inefficace.
+Imaginez un **restaurant**. Aujourd'hui, le serveur (zone.js) surveille en permanence toutes les tables : des qu'un client leve le bras, parle, ou même respire, le serveur fait le tour de TOUTES les tables pour voir si quelqu'un a besoin de quelque chose. C'est epuisant et inefficace.
 
 **`@defer`**, c'est comme un menu qui ne prepare certains plats que quand le client les commande — pas avant.
 
-**Zoneless**, c'est comme remplacer le serveur hyperactif par des **boutons d'appel sur chaque table** (les signals). Chaque table signale elle-meme quand elle a besoin d'attention. Plus besoin de faire le tour en permanence.
+**Zoneless**, c'est comme remplacer le serveur hyperactif par des **boutons d'appel sur chaque table** (les signals). Chaque table signale elle-même quand elle a besoin d'attention. Plus besoin de faire le tour en permanence.
 
 ---
 
 ## Partie 1 — @defer (Angular 17+)
 
-### 1.1 Le probleme : tout charger d'un coup
+### 1.1 Le problème : tout charger d'un coup
 
-Dans une application Angular classique, tous les composants importes dans un template sont inclus dans le bundle initial, meme s'ils ne sont jamais affiches :
+Dans une application Angular classique, tous les composants importes dans un template sont inclus dans le bundle initial, même s'ils ne sont jamais affiches :
 
 ```typescript
 // ❌ Probleme : GraphiqueVentes est un composant lourd (chart.js, 200KB)
@@ -67,7 +67,7 @@ export class DashboardComponent {}
 
 ### 1.2 Syntaxe de base
 
-`@defer` cree un **lazy boundary** : le composant a l'interieur n'est charge que lorsqu'une condition est remplie.
+`@defer` créé un **lazy boundary** : le composant a l'interieur n'est charge que lorsqu'une condition est remplie.
 
 ```typescript
 @Component({
@@ -105,7 +105,7 @@ export class DashboardComponent {}
 | `@loading` | Affiche pendant le telechargement du chunk | Non |
 | `@error` | Affiche si le chargement echoue | Non |
 
-**Ordre d'affichage** : `@placeholder` → `@loading` → `@defer` (ou `@error`)
+**Ordre d'affichage** : `@placeholder` → `@loading` → `@defer` (où `@error`)
 
 ```typescript
 // Options avancees pour @loading et @placeholder
@@ -125,7 +125,7 @@ template: `
 
 ### 1.4 Les triggers
 
-#### `on viewport` — quand l'element entre dans le viewport
+#### `on viewport` — quand l'élément entre dans le viewport
 
 ```html
 <!-- Le @placeholder (ou le @defer lui-meme) sert de sentinelle -->
@@ -145,7 +145,7 @@ template: `
 }
 ```
 
-#### `on interaction` — au clic ou focus sur un element
+#### `on interaction` — au clic ou focus sur un élément
 
 ```html
 <!-- Charge le contenu quand l'utilisateur clique sur le bouton -->
@@ -158,7 +158,7 @@ template: `
 }
 ```
 
-#### `on hover` — au survol d'un element
+#### `on hover` — au survol d'un élément
 
 ```html
 <!-- Charge au survol — utile pour les previews -->
@@ -173,7 +173,7 @@ template: `
 </div>
 ```
 
-#### `on timer(duree)` — apres un delai
+#### `on timer(duree)` — après un delai
 
 ```html
 <!-- Charge apres 2 secondes -->
@@ -313,13 +313,13 @@ export class DashboardComponent {
 }
 ```
 
-**Impact sur le bundle** : chaque bloc `@defer` cree automatiquement un chunk JavaScript separe. Le bundle initial ne contient que les composants affiches immediatement.
+**Impact sur le bundle** : chaque bloc `@defer` créé automatiquement un chunk JavaScript separe. Le bundle initial ne contient que les composants affiches immediatement.
 
 ---
 
 ## Partie 2 — Zoneless Change Detection (Angular 18+)
 
-### 2.1 Pourquoi zone.js est un probleme
+### 2.1 Pourquoi zone.js est un problème
 
 **zone.js** est une librairie qui intercepte (monkey-patch) toutes les API asynchrones du navigateur :
 
@@ -333,9 +333,9 @@ zone.js intercepte :
 └── MutationObserver
 ```
 
-**Les problemes :**
+**Les problèmes :**
 
-| Probleme | Detail |
+| Problème | Detail |
 |----------|--------|
 | **Bundle size** | zone.js ajoute ~13 KB (gzipped) au bundle initial |
 | **Monkey-patching** | Modifie les API natives — source de bugs subtils |
@@ -364,7 +364,7 @@ export class HorlogeComponent {
 
 ### 2.2 Comment les signals rendent zoneless possible
 
-Les signals informent Angular **exactement** quels composants ont change. Plus besoin de verifier tout l'arbre :
+Les signals informent Angular **exactement** quels composants ont change. Plus besoin de vérifier tout l'arbre :
 
 ```
 Avec zone.js (avant) :
@@ -393,7 +393,7 @@ export class HorlogeComponent {
 
 ### 2.3 Activer le mode zoneless
 
-#### Etape 1 : Configurer le bootstrap
+#### Étape 1 : Configurer le bootstrap
 
 ```typescript
 // src/main.ts
@@ -414,7 +414,7 @@ bootstrapApplication(AppComponent, {
 });
 ```
 
-#### Etape 2 : Retirer zone.js du build
+#### Étape 2 : Retirer zone.js du build
 
 ```typescript
 // angular.json (extrait)
@@ -436,7 +436,7 @@ bootstrapApplication(AppComponent, {
 }
 ```
 
-#### Etape 3 : Verifier les tests
+#### Étape 3 : Vérifier les tests
 
 ```typescript
 // angular.json — section "test"
@@ -517,7 +517,7 @@ export class UtilisateursComponent {
 
 ### 2.5 Ce qui casse en zoneless
 
-#### Probleme 1 : `setTimeout` / `setInterval` sans signal
+#### Problème 1 : `setTimeout` / `setInterval` sans signal
 
 ```typescript
 // ❌ CASSE : la vue ne se met pas a jour
@@ -555,7 +555,7 @@ export class TimerComponent {
 }
 ```
 
-#### Probleme 2 : Mutation d'objets sans signal
+#### Problème 2 : Mutation d'objets sans signal
 
 ```typescript
 // ❌ CASSE : mutation directe d'un tableau
@@ -601,7 +601,7 @@ export class ListeComponent {
 }
 ```
 
-#### Probleme 3 : ChangeDetectorRef.detectChanges()
+#### Problème 3 : ChangeDetectorRef.detectChanges()
 
 ```typescript
 // ❌ Ne fonctionne plus comme avant en zoneless
@@ -624,9 +624,9 @@ constructor() {
 
 ### 2.6 Migration progressive
 
-Vous n'etes pas oblige de tout migrer d'un coup. Voici une strategie en 3 etapes :
+Vous n'etes pas oblige de tout migrer d'un coup. Voici une stratégie en 3 étapes :
 
-#### Etape 1 : Convertir les proprietes en signals (sans activer zoneless)
+#### Étape 1 : Convertir les propriétés en signals (sans activer zoneless)
 
 ```typescript
 // Avant
@@ -654,7 +654,7 @@ export class ProfilComponent {
 }
 ```
 
-#### Etape 2 : Convertir les Observables avec `toSignal`
+#### Étape 2 : Convertir les Observables avec `toSignal`
 
 ```typescript
 // Avant
@@ -676,7 +676,7 @@ export class DataComponent {
 }
 ```
 
-#### Etape 3 : Activer zoneless et corriger les composants qui cassent
+#### Étape 3 : Activer zoneless et corriger les composants qui cassent
 
 ```typescript
 // Chercher dans tout le projet :
@@ -844,11 +844,11 @@ export class TachesComponent {
 }
 ```
 
-> **Point cle** : dans cette application, aucun `zone.js`, aucun `ChangeDetectorRef`, aucun `async` pipe. Tout passe par les signals, et Angular sait exactement quand mettre a jour le DOM.
+> **Point clé** : dans cette application, aucun `zone.js`, aucun `ChangeDetectorRef`, aucun `async` pipe. Tout passe par les signals, et Angular sait exactement quand mettre a jour le DOM.
 
 ---
 
-## Resume
+## Résumé
 
 ### @defer
 
@@ -856,7 +856,7 @@ export class TachesComponent {
 |---------|---------------|---------|
 | `on viewport` | Contenu sous le fold | Graphiques, temoignages |
 | `on idle` | Contenu secondaire | Analytics, recommendations |
-| `on interaction` | Contenu a la demande | Panneau admin, details |
+| `on interaction` | Contenu à la demandé | Panneau admin, details |
 | `on hover` | Preview rapide | Apercu image, tooltip riche |
 | `on timer` | Contenu differe | Banniere promo, chatbot |
 | `when condition` | Contenu conditionnel | Parametres avances |
@@ -864,13 +864,13 @@ export class TachesComponent {
 
 ### Zoneless
 
-| Avant (zone.js) | Apres (zoneless + signals) |
+| Avant (zone.js) | Après (zoneless + signals) |
 |-----------------|---------------------------|
 | `this.prop = value` | `this.prop.set(value)` |
 | `this.array.push(item)` | `this.array.update(a => [...a, item])` |
 | `{{ prop }}` | `{{ prop() }}` |
 | `data \| async` | `toSignal(data$)` |
-| `ChangeDetectorRef` | Plus necessaire |
+| `ChangeDetectorRef` | Plus nécessaire |
 | ~13 KB bundle zone.js | 0 KB |
 | Verifie tout l'arbre | Verifie uniquement ce qui change |
 
@@ -880,7 +880,7 @@ export class TachesComponent {
 
 ### Exercice 1 — Dashboard avec @defer (30 min)
 
-Creez une page dashboard qui utilise `@defer` de maniere strategique :
+Creez une page dashboard qui utilise `@defer` de manière strategique :
 1. Un composant `CarteResume` charge immediatement (au-dessus du fold)
 2. Un composant `TableauDonnees` charge `on idle`
 3. Un composant `Graphique` charge `on viewport` avec `prefetch on idle`
@@ -889,9 +889,9 @@ Creez une page dashboard qui utilise `@defer` de maniere strategique :
 
 ### Exercice 2 — Migration zoneless (45 min)
 
-Prenez un composant existant avec des proprietes classiques et migrez-le en zoneless :
-1. Convertissez toutes les proprietes du template en `signal()`
-2. Convertissez les proprietes derivees en `computed()`
+Prenez un composant existant avec des propriétés classiques et migrez-le en zoneless :
+1. Convertissez toutes les propriétés du template en `signal()`
+2. Convertissez les propriétés derivees en `computed()`
 3. Remplacez `| async` par `toSignal()`
 4. Remplacez les mutations directes (`push`, `splice`) par `signal.update()`
 5. Activez `provideExperimentalZonelessChangeDetection()` et verifiez que tout fonctionne
@@ -908,8 +908,8 @@ Creez une application Todo complete sans zone.js :
 
 Dans votre Todo App zoneless :
 1. Ajoutez une section `@defer (on viewport)` pour les statistiques (nombre de taches, % completion)
-2. Ajoutez un panneau de parametres charge `on interaction`
-3. Prefetch le panneau `on hover` du bouton parametres
+2. Ajoutez un panneau de paramètres charge `on interaction`
+3. Prefetch le panneau `on hover` du bouton paramètres
 4. Verifiez que tout fonctionne correctement sans zone.js
 
 ---
@@ -921,3 +921,17 @@ Dans votre Todo App zoneless :
 - [Angular Signals — Documentation](https://angular.dev/guide/signals)
 - [Web.dev — Lazy loading best practices](https://web.dev/articles/lazy-loading)
 - [RFC Zoneless Angular](https://github.com/angular/angular/discussions/55648)
+
+---
+
+<!-- parcours-recommande -->
+
+::: tip Parcours recommandé
+1. **Exercice** : [02-compteur-signaux](../../exercices/02-compteur-signaux/ENONCE)
+2. **Exercice** : [03-liste-de-taches](../../exercices/03-liste-de-taches/ENONCE)
+3. **Exercice** : [04-formulaire-template](../../exercices/04-formulaire-template/ENONCE)
+4. **Exercice** : [05-catalogue-produits](../../exercices/05-catalogue-produits/ENONCE)
+5. **Exercice** : [06-chronometre](../../exercices/06-chronometre/ENONCE)
+6. **Exercice** : [07-pipes-personnalises](../../exercices/07-pipes-personnalises/ENONCE)
+7. **Quiz** : [quiz defer zoneless](../../quizzes/quiz-defer-zoneless.html)
+:::

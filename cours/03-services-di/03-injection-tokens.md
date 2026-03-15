@@ -248,7 +248,7 @@ export class ComposantEnfant {
 }
 ```
 
-**Cas d'usage classique** : un composant récursif (arbre) où chaque niveau a son propre service mais a aussi besoin d'accéder au service du parent.
+**Cas d'usage classique** : un composant récursif (arbre) ou chaque niveau a son propre service mais a aussi besoin d'accéder au service du parent.
 
 ---
 
@@ -446,3 +446,12 @@ export class LoggerService {
 ---
 
 > **Prochain cours** : [Cours 17 — Routing basique](../04-routing/01-routing-basique.md)
+
+---
+
+<!-- parcours-recommande -->
+
+::: tip Parcours recommandé
+1. **Exercice** : [09-theme-injection](../../exercices/09-theme-injection/ENONCE)
+2. **Exercice** : [10-dashboard-services](../../exercices/10-dashboard-services/ENONCE)
+:::

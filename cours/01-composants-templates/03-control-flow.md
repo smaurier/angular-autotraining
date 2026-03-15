@@ -15,7 +15,7 @@
 <details>
 <summary>2. Comment lit-on la valeur d'un signal dans un template Angular ?</summary>
 
-On appelle le signal comme une fonction : `{{ monSignal() }}`. C'est la différence majeure avec Vue où on écrit `.value` dans le script et rien dans le template.
+On appelle le signal comme une fonction : `{{ monSignal() }}`. C'est la différence majeure avec Vue ou on écrit `.value` dans le script et rien dans le template.
 </details>
 
 <details>

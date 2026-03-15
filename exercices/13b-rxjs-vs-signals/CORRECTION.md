@@ -1,8 +1,8 @@
 # Correction — Exercice 13b : RxJS vs Signals
 
-## Resultat attendu
+## Résultat attendu
 
-Deux implementations cote a cote de la meme recherche : une version 100% RxJS avec `async` pipe, une version Signals avec `toSignal()`. Les deux ont le meme comportement (debounce, annulation, erreurs). Un tableau comparatif aide a choisir la bonne approche selon le contexte.
+Deux implementations cote a cote de la même recherche : une version 100% RxJS avec `async` pipe, une version Signals avec `toSignal()`. Les deux ont le même comportement (debounce, annulation, erreurs). Un tableau comparatif aide a choisir la bonne approche selon le contexte.
 
 ## Code corrige
 
@@ -434,7 +434,7 @@ export class ComparisonComponent {}
   ```typescript
   toSignal(obs$.pipe(takeUntilDestroyed(destroyRef)))
   ```
-- ✅ `toSignal` gere deja le desabonnement a la destruction du composant
+- ✅ `toSignal` géré déjà le desabonnement à la destruction du composant
 
 ### 4. Ne pas utiliser `AsyncPipe` dans la version RxJS
 
@@ -447,14 +447,14 @@ export class ComparisonComponent {}
   @if (results$ | async; as results) { ... }
   ```
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
 | `toSignal()` | Convertit un Observable en Signal (desabonnement auto) |
-| `toObservable()` | Convertit un Signal en Observable (emet a chaque changement) |
-| `AsyncPipe` | Souscrit a un Observable dans le template et se desabonne automatiquement |
+| `toObservable()` | Convertit un Signal en Observable (emet à chaque changement) |
+| `AsyncPipe` | Souscrit à un Observable dans le template et se desabonne automatiquement |
 | `BehaviorSubject` | Subject avec une valeur courante accessible immediatement |
-| `switchMap` | Annule l'observable precedent et en cree un nouveau |
+| `switchMap` | Annule l'observable précédent et en créé un nouveau |
 | Interop RxJS/Signals | Pattern `signal → toObservable → operators → toSignal` |
 | Desabonnement auto | `toSignal` et `async` gèrent le cycle de vie automatiquement |

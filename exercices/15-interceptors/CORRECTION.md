@@ -1,8 +1,8 @@
 # Correction — Exercice 15 : Interceptors
 
-## Resultat attendu
+## Résultat attendu
 
-Chaque requete HTTP ajoute automatiquement un token d'authentification. Les erreurs 4xx/5xx declenchent un toast de notification. Un spinner global s'affiche tant qu'au moins une requete est en cours. Tout est configure via `withInterceptors()` dans la configuration standalone.
+Chaque requête HTTP ajoute automatiquement un token d'authentification. Les erreurs 4xx/5xx declenchent un toast de notification. Un spinner global s'affiche tant qu'au moins une requête est en cours. Tout est configure via `withInterceptors()` dans la configuration standalone.
 
 ## Code corrige
 
@@ -398,13 +398,13 @@ export const appConfig: ApplicationConfig = {
   export const authInterceptor: HttpInterceptorFn = (req, next) => { ... };
   ```
 
-### 2. Oublier de cloner la requete avant de la modifier
+### 2. Oublier de cloner la requête avant de la modifier
 
-- ❌ Modifier la requete originale (les requetes HTTP sont immutables) :
+- ❌ Modifier la requête originale (les requêtes HTTP sont immutables) :
   ```typescript
   req.headers.set('Authorization', 'Bearer ...');
   ```
-- ✅ Cloner la requete avec les modifications :
+- ✅ Cloner la requête avec les modifications :
   ```typescript
   const cloned = req.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
   ```
@@ -415,7 +415,7 @@ export const appConfig: ApplicationConfig = {
   ```typescript
   next(req).pipe(tap(() => loadingService.stop()))
   ```
-- ✅ Utiliser `finalize()` qui s'execute dans tous les cas :
+- ✅ Utiliser `finalize()` qui s'exécuté dans tous les cas :
   ```typescript
   next(req).pipe(finalize(() => loadingService.stop()))
   ```
@@ -424,18 +424,18 @@ export const appConfig: ApplicationConfig = {
 
 - ❌ Avaler l'erreur avec `catchError(() => of(...))` :
   les composants ne recoivent jamais l'erreur
-- ✅ Re-propager avec `throwError(() => error)` apres le toast :
+- ✅ Re-propager avec `throwError(() => error)` après le toast :
   les composants peuvent aussi reagir a l'erreur
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
 | `HttpInterceptorFn` | Type pour un intercepteur fonctionnel Angular 19+ |
 | `withInterceptors()` | Enregistre les intercepteurs dans `provideHttpClient()` |
-| `req.clone()` | Clone immutable d'une requete HTTP pour la modifier |
-| `finalize()` | Operateur RxJS execute a la fin (succes ou erreur) |
+| `req.clone()` | Clone immutable d'une requête HTTP pour la modifier |
+| `finalize()` | Operateur RxJS exécuté à la fin (succes ou erreur) |
 | `catchError()` | Intercepte les erreurs dans le flux Observable |
 | `throwError()` | Re-propage une erreur dans le flux |
-| Signal `requestCount` | Compteur de requetes pour le spinner global |
-| `computed` `isLoading` | Signal derive : `true` si `requestCount > 0` |
+| Signal `requestCount` | Compteur de requêtes pour le spinner global |
+| `computed` `isLoading` | Signal dérivé : `true` si `requestCount > 0` |

@@ -1,11 +1,11 @@
-# Correction — Exercice 09 : Theme et injection de dependances
+# Correction — Exercice 09 : Theme et injection de dépendances
 
-## Resultat attendu
+## Résultat attendu
 
 Une page avec :
 - Un bouton pour basculer entre theme clair et sombre
 - Les couleurs de fond et de texte changent dynamiquement dans tous les composants
-- Un composant enfant qui partage le meme theme (meme instance du service)
+- Un composant enfant qui partage le même theme (même instance du service)
 - Un composant avec override qui a son propre theme independant
 
 ## Code corrige
@@ -301,11 +301,11 @@ export class ThemeDemoComponent {
 
 ### 1. Oublier `providedIn: 'root'` sur le service
 - ❌ `@Injectable()` sans `providedIn` → le service n'est pas disponible sans declaration manuelle
-- ✅ `@Injectable({ providedIn: 'root' })` → Angular cree un singleton automatiquement
+- ✅ `@Injectable({ providedIn: 'root' })` → Angular créé un singleton automatiquement
 
 ### 2. Confondre singleton et instance locale
-- ❌ Croire que `providers: [ThemeService]` modifie le singleton → non, ca cree une nouvelle instance
-- ✅ Comprendre que `providers` au niveau composant cree une instance locale pour ce composant et ses enfants
+- ❌ Croire que `providers: [ThemeService]` modifie le singleton → non, ça créé une nouvelle instance
+- ✅ Comprendre que `providers` au niveau composant créé une instance locale pour ce composant et ses enfants
 
 ### 3. Utiliser l'injection par constructeur
 - ❌ `constructor(private themeService: ThemeService)` → fonctionne mais ancienne syntaxe
@@ -313,13 +313,13 @@ export class ThemeDemoComponent {
 
 ### 4. Ne pas typer l'objet de couleurs
 - ❌ Retourner `{ bg: '...', text: '...' }` sans interface → pas de completion automatique
-- ✅ Definir `interface ThemeColors` et typer le computed `computed<ThemeColors>(...)`
+- ✅ Définir `interface ThemeColors` et typer le computed `computed<ThemeColors>(...)`
 
 ### 5. Oublier le `readonly` sur les injections
 - ❌ `themeService = inject(ThemeService)` sans `readonly` → on pourrait reassigner par erreur
 - ✅ `readonly themeService = inject(ThemeService)` → protege contre la reassignation
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
@@ -327,6 +327,6 @@ export class ThemeDemoComponent {
 | `inject(Service)` | Fonction moderne pour injecter un service (remplace l'injection par constructeur) |
 | Singleton | Une seule instance partagee par tous les composants qui l'injectent |
 | `providers: [Service]` au composant | Cree une instance locale du service pour ce composant et ses descendants |
-| Injection hierarchique | Angular cherche le provider en remontant l'arbre des composants |
-| Signaux dans un service | Les signaux dans un service permettent un etat reactif partage |
+| Injection hiérarchique | Angular cherche le provider en remontant l'arbre des composants |
+| Signaux dans un service | Les signaux dans un service permettent un état réactif partage |
 | `computed` dans un service | Les valeurs derivees dans un service sont accessibles par tous les consommateurs |

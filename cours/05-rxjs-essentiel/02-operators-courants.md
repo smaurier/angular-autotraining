@@ -1,27 +1,27 @@
 # Cours 22 — Operateurs RxJS courants
 
-> **Objectif** : Maitriser les operateurs RxJS les plus utilises en entreprise : transformation, filtrage, combinaison, utilitaires et gestion d'erreurs. Savoir choisir le bon operateur selon le contexte grace a un arbre de decision.
+> **Objectif** : Maîtriser les operateurs RxJS les plus utilises en entreprise : transformation, filtrage, combinaison, utilitaires et gestion d'erreurs. Savoir choisir le bon operateur selon le contexte grâce à un arbre de decision.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
-<summary>1. Quelle est la difference entre un Observable lazy et une Promise eager ?</summary>
+<summary>1. Quelle est la différence entre un Observable lazy et une Promise eager ?</summary>
 
-Une Promise s'execute **immediatement** a sa creation. Un Observable ne fait rien tant que personne n'appelle `subscribe()`. C'est le subscribe qui declenche l'execution.
+Une Promise s'exécuté **immediatement** a sa création. Un Observable ne fait rien tant que personne n'appelle `subscribe()`. C'est le subscribe qui declenche l'exécution.
 </details>
 
 <details>
-<summary>2. Quelle est la difference entre Subject et BehaviorSubject ?</summary>
+<summary>2. Quelle est la différence entre Subject et BehaviorSubject ?</summary>
 
-Un `Subject` n'a pas de valeur initiale : un nouvel abonne ne recoit rien tant qu'une nouvelle emission n'a pas lieu. Un `BehaviorSubject` garde toujours la derniere valeur et la renvoie immediatement a tout nouvel abonne.
+Un `Subject` n'a pas de valeur initiale : un nouvel abonne ne recoit rien tant qu'une nouvelle emission n'a pas lieu. Un `BehaviorSubject` garde toujours la dernière valeur et la renvoie immediatement a tout nouvel abonne.
 </details>
 
 <details>
 <summary>3. Pourquoi faut-il toujours se desabonner d'un Observable dans un composant ?</summary>
 
-Si l'Observable emet indefiniment (ex : `interval`, `fromEvent`), le subscribe continue apres la destruction du composant, causant une **fuite memoire**. Il faut appeler `unsubscribe()` dans `ngOnDestroy` ou utiliser `takeUntilDestroyed()`.
+Si l'Observable emet indefiniment (ex : `interval`, `fromEvent`), le subscribe continue après la destruction du composant, causant une **fuite mémoire**. Il faut appeler `unsubscribe()` dans `ngOnDestroy` ou utiliser `takeUntilDestroyed()`.
 </details>
 
 ---
@@ -30,7 +30,7 @@ Si l'Observable emet indefiniment (ex : `interval`, `fromEvent`), le subscribe c
 
 Imaginez une **chaine de montage dans une usine** :
 
-- La **matiere premiere** arrive sur un tapis roulant (l'Observable source)
+- La **matiere première** arrive sur un tapis roulant (l'Observable source)
 - Chaque **poste de travail** modifie ou filtre la piece (un operateur)
 - A la fin de la chaine, le **produit fini** est livre (le subscribe)
 
@@ -38,7 +38,7 @@ Les operateurs RxJS sont ces postes de travail. Vous les enchainez dans un `pipe
 
 ---
 
-## Theorie
+## Théorie
 
 ### Operateurs de transformation
 
@@ -54,7 +54,7 @@ of(1, 2, 3).pipe(
 // 10, 20, 30
 ```
 
-> **Parallele Vue** : c'est l'equivalent de `.map()` sur un tableau, mais sur un flux.
+> **Parallele Vue** : c'est l'équivalent de `.map()` sur un tableau, mais sur un flux.
 
 #### Les operateurs *Map : switchMap, mergeMap, concatMap, exhaustMap
 
@@ -214,9 +214,9 @@ concat(
 
 | Operateur | Attend tout ? | Ordre | Cas d'usage |
 |-----------|--------------|-------|-------------|
-| `combineLatest` | Au moins 1 emission chacun | Simultanee | Filtres multiples, parametres route |
+| `combineLatest` | Au moins 1 emission chacun | Simultanee | Filtres multiples, paramètres route |
 | `forkJoin` | Tout doit completer | Parallele | Requetes HTTP paralleles |
-| `merge` | Non | Entrelace | Fusionner des evenements |
+| `merge` | Non | Entrelace | Fusionner des événements |
 | `concat` | Oui, sequentiel | Serie | Enchainer des actions |
 
 ### Operateurs utilitaires
@@ -270,7 +270,7 @@ this.http.get('/api/data').pipe(
 );
 ```
 
-### Resume des operateurs par categorie
+### Résumé des operateurs par categorie
 
 | Categorie | Operateurs | Usage principal |
 |-----------|-----------|-----------------|
@@ -278,7 +278,7 @@ this.http.get('/api/data').pipe(
 | Filtrage | `filter`, `take`, `takeUntil`, `first`, `distinctUntilChanged` | Reduire le flux |
 | Combinaison | `combineLatest`, `forkJoin`, `merge`, `concat` | Assembler plusieurs sources |
 | Utilitaire | `tap`, `delay`, `finalize` | Debug, timing, nettoyage |
-| Erreur | `catchError`, `retry` | Resilience |
+| Erreur | `catchError`, `retry` | Résilience |
 
 ---
 
@@ -288,7 +288,7 @@ Creez un service `ProductService` qui :
 1. Charge une liste de produits via HTTP
 2. Transforme chaque produit pour ajouter un champ `prixTTC` (prix * 1.2)
 3. Gere les erreurs en retournant un tableau vide
-4. Log le resultat avec `tap` pour le debug
+4. Log le résultat avec `tap` pour le debug
 
 <details>
 <summary>Solution</summary>
@@ -332,16 +332,16 @@ export class ProductService {
 
 ---
 
-## Resume
+## Résumé
 
-| Point cle | A retenir |
+| Point clé | A retenir |
 |-----------|-----------|
-| `switchMap` | Annule le precedent — **recherche, autocomplete** |
+| `switchMap` | Annule le précédent — **recherche, autocomplete** |
 | `mergeMap` | Tout en parallele — **actions independantes** |
 | `concatMap` | En serie, ordre garanti — **uploads, transactions** |
 | `exhaustMap` | Ignore si occupe — **soumission formulaire** |
 | `combineLatest` | Emet quand toutes les sources ont emis |
-| `forkJoin` | Attend la completion de tout — **requetes paralleles** |
+| `forkJoin` | Attend la completion de tout — **requêtes paralleles** |
 | `catchError` | Intercepte et remplace par un Observable de secours |
 | `retry` | Reessaie avant `catchError` |
 | `tap` | Debug sans modifier le flux |

@@ -1,8 +1,8 @@
 # Correction — Exercice 26 : Entretien Angular
 
-## Resultat attendu
+## Résultat attendu
 
-20 reponses correctes au QCM et 3 exercices de live coding fonctionnels, demontrant la maitrise des concepts fondamentaux d'Angular 19+ avec les signaux.
+20 réponses correctes au QCM et 3 exercices de live coding fonctionnels, demontrant la maîtrise des concepts fondamentaux d'Angular 19+ avec les signaux.
 
 ---
 
@@ -10,31 +10,31 @@
 
 | Question | Reponse | Explication |
 |----------|---------|-------------|
-| Q1 | **B** `@Component` | `@Component` est le decorateur specifique aux composants. `@Directive` est pour les directives, `@Injectable` pour les services. |
-| Q2 | **B** signal mutable, computed lecture seule | `signal()` cree un WritableSignal avec `.set()` et `.update()`. `computed()` cree un signal derive qui se recalcule automatiquement. |
+| Q1 | **B** `@Component` | `@Component` est le decorateur spécifique aux composants. `@Directive` est pour les directives, `@Injectable` pour les services. |
+| Q2 | **B** signal mutable, computed lecture seule | `signal()` créé un WritableSignal avec `.set()` et `.update()`. `computed()` créé un signal dérivé qui se recalcule automatiquement. |
 | Q3 | **A** `standalone: true` (defaut Angular 19+) | Depuis Angular 19, `standalone: true` est le comportement par defaut. On peut l'omettre. |
 | Q4 | **B** `@if` | La nouvelle syntaxe de control flow Angular 17+ utilise `@if`, `@else`, `@for`, `@switch`. |
-| Q5 | **B** Identifier chaque element pour le rendu DOM | `track` fonctionne comme `trackBy` de l'ancien `*ngFor` — il aide Angular a savoir quels elements ont change. |
+| Q5 | **B** Identifier chaque élément pour le rendu DOM | `track` fonctionne comme `trackBy` de l'ancien `*ngFor` — il aide Angular à savoir quels éléments ont change. |
 | Q6 | **B** `inject(MyService)` | `inject()` est la nouvelle API recommandee. Le constructeur fonctionne encore mais est moins idiomatique. |
 | Q7 | **B** `update()` | `set()` prend une valeur directe. `update()` prend une fonction `(ancien) => nouveau`. |
 | Q8 | **B** `HttpInterceptorFn` | Les intercepteurs fonctionnels sont le style recommande en Angular 19+ (pas de classe). |
 | Q9 | **B** `canActivate` + guard fonctionnel | Les guards fonctionnels (simples fonctions) protegent les routes via `canActivate`. |
-| Q10 | **C** `switchMap` | `switchMap` annule la requete precedente quand une nouvelle valeur arrive — ideal pour la recherche. |
+| Q10 | **C** `switchMap` | `switchMap` annule la requête précédente quand une nouvelle valeur arrive — ideal pour la recherche. |
 | Q11 | **B** Singleton dans toute l'application | Le service est instancie une seule fois et partage par tous les composants. |
 | Q12 | **B** `.asReadonly()` | `asReadonly()` retourne un `Signal<T>` (pas de `.set()` ni `.update()`) — l'appelant ne peut que lire. |
-| Q13 | **A** `import()` dynamique | `loadComponent: () => import('./...').then(m => m.XComponent)` charge le composant a la demande. |
-| Q14 | **B** Controles non-null apres `reset()` | `nonNullable` garantit que `reset()` remet les valeurs par defaut (pas `null`). |
+| Q13 | **A** `import()` dynamique | `loadComponent: () => import('./...').then(m => m.XComponent)` charge le composant à la demandé. |
+| Q14 | **B** Controles non-null après `reset()` | `nonNullable` garantit que `reset()` remet les valeurs par defaut (pas `null`). |
 | Q15 | **B** Erreur de compilation | `track` est **obligatoire** dans `@for` depuis Angular 17+. Le compilateur refuse de compiler sans. |
-| Q16 | **B** `HttpTestingController` | On utilise `provideHttpClientTesting()` et `HttpTestingController` pour intercepter les requetes en test. |
-| Q17 | **B** Mise a jour partielle immutable | `patchState()` merge partiellement l'etat sans muter l'original (comme un spread partiel). |
+| Q16 | **B** `HttpTestingController` | On utilise `provideHttpClientTesting()` et `HttpTestingController` pour intercepter les requêtes en test. |
+| Q17 | **B** Mise a jour partielle immutable | `patchState()` merge partiellement l'état sans muter l'original (comme un spread partiel). |
 | Q18 | **A** Differer le chargement | `@defer` retarde le chargement d'un bloc de template selon des conditions (viewport, interaction, idle, etc.). |
 | Q19 | **B** `OnPush` | `OnPush` ne declenche la detection de changement que quand les inputs changent ou un signal est lu — plus performant. |
-| Q20 | **C** Les deux, mais `takeUntilDestroyed()` est plus idiomatique | `takeUntilDestroyed()` est la methode recommandee en Angular 19+ — pas besoin de `ngOnDestroy` ni de `Subject`. |
+| Q20 | **C** Les deux, mais `takeUntilDestroyed()` est plus idiomatique | `takeUntilDestroyed()` est la méthode recommandee en Angular 19+ — pas besoin de `ngOnDestroy` ni de `Subject`. |
 
 ### Bareme indicatif
-- 18-20 bonnes reponses : Excellent — pret pour l'entretien
-- 14-17 bonnes reponses : Bien — revoir les points faibles
-- 10-13 bonnes reponses : A approfondir — relire les cours concernes
+- 18-20 bonnes réponses : Excellent — pret pour l'entretien
+- 14-17 bonnes réponses : Bien — revoir les points faibles
+- 10-13 bonnes réponses : A approfondir — relire les cours concernes
 - Moins de 10 : Reprendre les modules depuis le debut
 
 ---
@@ -96,10 +96,10 @@ export class CounterComponent {
 }
 ```
 
-**Criteres d'evaluation :**
+**Criteres d'évaluation :**
 - signal() et computed() correctement utilises
 - Typage explicite des signaux (`signal<number>`, `computed<number>`)
-- Methodes `set()` et `update()` utilisees a bon escient
+- Méthodes `set()` et `update()` utilisees a bon escient
 - Template propre avec `{{ signal() }}` (parentheses presentes)
 - Temps : moins de 5 minutes
 
@@ -214,7 +214,7 @@ export class SearchComponent {
 }
 ```
 
-**Criteres d'evaluation :**
+**Criteres d'évaluation :**
 - `toObservable()` et `toSignal()` utilises correctement (bridge signal/RxJS)
 - Pipeline RxJS avec `debounceTime` et `distinctUntilChanged`
 - Filtrage dans un `computed` (pas dans le template)
@@ -309,7 +309,7 @@ export class ProductService {
 }
 ```
 
-**Criteres d'evaluation :**
+**Criteres d'évaluation :**
 - Toutes les mutations sont immutables (spread, map, filter — pas de push/splice)
 - Le signal est expose en lecture seule via `.asReadonly()`
 - `getById` retourne un `computed` (pas une valeur statique)
@@ -324,25 +324,25 @@ export class ProductService {
 ### QCM
 - Confondre `signal()` et `computed()` (Q2) — erreur la plus frequente en entretien
 - Oublier que `track` est obligatoire dans `@for` (Q15) — piege classique
-- Ne pas connaitre `takeUntilDestroyed()` (Q20) — montre qu'on est a jour sur Angular 19+
+- Ne pas connaître `takeUntilDestroyed()` (Q20) — montre qu'on est a jour sur Angular 19+
 
 ### Live Coding
 - Oublier les parentheses `()` pour lire un signal dans le template
-- Ecrire `this._products().push(...)` au lieu de `this._products.update(p => [...p, newItem])` (mutation)
+- Écrire `this._products().push(...)` au lieu de `this._products.update(p => [...p, newItem])` (mutation)
 - Oublier `toObservable` / `toSignal` pour le bridge entre signals et RxJS
-- Ne pas typer les generiques (`signal()` au lieu de `signal<number>()`)
+- Ne pas typer les génériques (`signal()` au lieu de `signal<number>()`)
 - Oublier `{ initialValue: '' }` dans `toSignal()` — sans initialValue, le type est `T | undefined`
 
-## Concepts cles evalues en entretien
+## Concepts clés evalues en entretien
 
 | Concept | Frequence en entretien | Ce qu'on attend |
 |---------|----------------------|-----------------|
-| Signals (signal, computed, effect) | Tres haute | Savoir creer, lire, modifier un signal + creer des computed |
+| Signals (signal, computed, effect) | Très haute | Savoir créer, lire, modifier un signal + créer des computed |
 | Composants standalone | Haute | Savoir que c'est le defaut Angular 19+, pas besoin de NgModule |
-| RxJS (switchMap, debounceTime) | Haute | Connaitre les operateurs cles et quand les utiliser |
+| RxJS (switchMap, debounceTime) | Haute | Connaître les operateurs clés et quand les utiliser |
 | Routing et guards | Haute | Savoir proteger une route avec un guard fonctionnel |
 | HttpClient et intercepteurs | Moyenne | Savoir ajouter un header Authorization automatiquement |
-| Reactive Forms | Moyenne | Savoir creer un formulaire avec validation |
+| Reactive Forms | Moyenne | Savoir créer un formulaire avec validation |
 | Tests (TestBed, HttpTestingController) | Moyenne | Savoir configurer un test de composant ou de service |
-| NgRx SignalStore | Basse (projets avances) | Connaitre le concept, savoir quand l'utiliser vs un service simple |
-| Performance (OnPush, lazy loading) | Basse | Connaitre les strategies et savoir les expliquer |
+| NgRx SignalStore | Basse (projets avances) | Connaître le concept, savoir quand l'utiliser vs un service simple |
+| Performance (OnPush, lazy loading) | Basse | Connaître les stratégies et savoir les expliquer |

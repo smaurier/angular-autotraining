@@ -23,7 +23,7 @@ La CLI pose ensuite des questions sur le routage et le format de styles.
 </details>
 
 <details>
-<summary>3. Où se trouve la configuration TypeScript du projet ?</summary>
+<summary>3. Ou se trouve la configuration TypeScript du projet ?</summary>
 
 Dans `tsconfig.json` (config globale) et `tsconfig.app.json` (config spécifique à l'application).
 </details>
@@ -64,7 +64,7 @@ export class MonComposant {}  // ✅ Autonome, pas de NgModule
 
 > Depuis Angular 19, `standalone: true` est la valeur par défaut. Vous n'avez même plus besoin de l'écrire explicitement.
 
-> **Angular 19+** : `standalone: true` est le defaut. Il n'est plus necessaire de le specifier dans le decorateur `@Component`. Les exemples de ce cours l'omettent volontairement.
+> **Angular 19+** : `standalone: true` est le defaut. Il n'est plus nécessaire de le spécifier dans le decorateur `@Component`. Les exemples de ce cours l'omettent volontairement.
 
 ### Le décorateur @Component
 

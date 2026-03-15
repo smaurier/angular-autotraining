@@ -1,10 +1,10 @@
 # Cours 33 — Composants Material courants : Table, Dialog, Snackbar
 
-> **Objectif** : Maitriser les composants Angular Material les plus utilises en projet ESN : MatTable (avec tri, pagination, filtre), MatDialog, MatSnackBar, les champs de formulaire, et les composants de layout. Chaque composant est illustre avec un exemple pratique standalone.
+> **Objectif** : Maîtriser les composants Angular Material les plus utilises en projet ESN : MatTable (avec tri, pagination, filtre), MatDialog, MatSnackBar, les champs de formulaire, et les composants de layout. Chaque composant est illustre avec un exemple pratique standalone.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
 <summary>1. Quelle commande installe Angular Material dans un projet existant ?</summary>
@@ -17,7 +17,7 @@ Elle installe les packages, configure le theme, ajoute les polices et met a jour
 </details>
 
 <details>
-<summary>2. Comment definir un theme personnalise en SCSS ?</summary>
+<summary>2. Comment définir un theme personnalise en SCSS ?</summary>
 
 ```scss
 @use '@angular/material' as mat;
@@ -31,7 +31,7 @@ html { @include mat.all-component-themes($mon-theme); }
 <details>
 <summary>3. Quelle est la bonne pratique pour importer les modules Material ?</summary>
 
-Importer chaque module individuellement depuis son chemin specifique :
+Importer chaque module individuellement depuis son chemin spécifique :
 `import { MatButtonModule } from '@angular/material/button';`
 et l'ajouter au tableau `imports` du composant standalone.
 </details>
@@ -40,7 +40,7 @@ et l'ajouter au tableau `imports` du composant standalone.
 
 ## Analogie
 
-En Vue 3 avec Vuetify, vous utilisez `<v-data-table>`, `<v-dialog>`, `<v-snackbar>`. Chaque composant a ses props et ses evenements. Angular Material fonctionne exactement pareil : des composants pre-styles avec une API d'entree/sortie bien definie. La difference principale est que les dialogs et snackbars sont ouverts via des **services injectes** plutot que par un `v-model`.
+En Vue 3 avec Vuetify, vous utilisez `<v-data-table>`, `<v-dialog>`, `<v-snackbar>`. Chaque composant a ses props et ses événements. Angular Material fonctionne exactement pareil : des composants pre-styles avec une API d'entree/sortie bien definie. La différence principale est que les dialogs et snackbars sont ouverts via des **services injectes** plutot que par un `v-model`.
 
 | Vuetify (Vue 3) | Angular Material |
 |-----------------|-----------------|
@@ -51,7 +51,7 @@ En Vue 3 avec Vuetify, vous utilisez `<v-data-table>`, `<v-dialog>`, `<v-snackba
 
 ---
 
-## Theorie
+## Théorie
 
 ### MatTable : tableau de donnees
 
@@ -129,7 +129,7 @@ export class TableUtilisateursComponent {
 }
 ```
 
-> **Astuce** : `MatTableDataSource` gere automatiquement le tri, la pagination et le filtre si vous connectez `@ViewChild(MatSort)` et `@ViewChild(MatPaginator)`.
+> **Astuce** : `MatTableDataSource` géré automatiquement le tri, la pagination et le filtre si vous connectez `@ViewChild(MatSort)` et `@ViewChild(MatPaginator)`.
 
 ### MatDialog : boites de dialogue modales
 
@@ -187,7 +187,7 @@ export class ListeComponent {
 }
 ```
 
-> **Point cle** : `MAT_DIALOG_DATA` injecte les donnees passees au dialog. `mat-dialog-close` ferme et retourne une valeur.
+> **Point clé** : `MAT_DIALOG_DATA` injecte les donnees passees au dialog. `mat-dialog-close` ferme et retourne une valeur.
 
 ### MatSnackBar : notifications toast
 
@@ -368,7 +368,7 @@ Creez un composant `DashboardComponent` qui affiche une table d'utilisateurs ave
 **Consignes** :
 1. Utilisez `MatTableDataSource` avec au moins 5 utilisateurs fictifs
 2. Le dialog contient deux `mat-form-field` (nom, email)
-3. Le snackbar s'affiche 3 secondes apres la fermeture du dialog
+3. Le snackbar s'affiche 3 secondes après la fermeture du dialog
 
 <details>
 <summary>Solution</summary>
@@ -470,9 +470,9 @@ export class DashboardComponent {
 
 ---
 
-## Resume
+## Résumé
 
-| Composant | Usage | API cle |
+| Composant | Usage | API clé |
 |-----------|-------|---------|
 | `mat-table` | Tableaux de donnees | `MatTableDataSource`, `matSort`, `mat-paginator` |
 | `MatDialog` | Modales | `dialog.open()`, `MAT_DIALOG_DATA`, `mat-dialog-close` |

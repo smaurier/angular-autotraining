@@ -1,8 +1,8 @@
-# Correction — Exercice 16 : Formulaire reactif
+# Correction — Exercice 16 : Formulaire réactif
 
-## Resultat attendu
+## Résultat attendu
 
-Un formulaire d'inscription avec 4 champs valides. Les erreurs s'affichent uniquement quand le champ a ete touche. Les bordures changent de couleur selon la validite. Le bouton est desactive tant que le formulaire est invalide. Un validateur personnalise verifie que les deux mots de passe correspondent.
+Un formulaire d'inscription avec 4 champs valides. Les erreurs s'affichent uniquement quand le champ a ete touche. Les bordures changent de couleur selon la validite. Le bouton est désactivé tant que le formulaire est invalide. Un validateur personnalise vérifié que les deux mots de passe correspondent.
 
 ## Code corrige
 
@@ -364,13 +364,13 @@ export class RegistrationFormComponent {
   this.fb.group({...}, { validators: [passwordMatchValidator()] })
   ```
 
-### 3. Afficher les erreurs sans verifier `touched` ou `dirty`
+### 3. Afficher les erreurs sans vérifier `touched` ou `dirty`
 
 - ❌ Afficher les erreurs immediatement au chargement :
   ```html
   @if (form.get('name')?.hasError('required')) { ... }
   ```
-- ✅ Afficher les erreurs uniquement apres interaction :
+- ✅ Afficher les erreurs uniquement après interaction :
   ```html
   @if (form.get('name')?.invalid && form.get('name')?.touched) { ... }
   ```
@@ -391,17 +391,17 @@ export class RegistrationFormComponent {
   return null; // Convention Angular : null = valide
   ```
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
-| `FormBuilder` | Service utilitaire pour creer des FormGroup/FormControl |
+| `FormBuilder` | Service utilitaire pour créer des FormGroup/FormControl |
 | `FormGroup` | Groupe de controles de formulaire avec validation collective |
-| `formControlName` | Directive qui lie un input a un FormControl du groupe |
-| `Validators` | Classe statique avec des validateurs pre-definis |
+| `formControlName` | Directive qui lie un input à un FormControl du groupe |
+| `Validators` | Classe statique avec des validateurs pre-définis |
 | `ValidatorFn` | Type d'une fonction de validation personnalisee |
-| `ValidationErrors` | Type de retour d'un validateur (objet cle/valeur ou null) |
-| `touched` / `dirty` | Etat du controle apres interaction de l'utilisateur |
+| `ValidationErrors` | Type de retour d'un validateur (objet clé/valeur ou null) |
+| `touched` / `dirty` | État du controle après interaction de l'utilisateur |
 | `markAllAsTouched()` | Force l'affichage des erreurs sur tous les champs |
-| `form.valid` / `form.invalid` | Etat global de validite du formulaire |
+| `form.valid` / `form.invalid` | État global de validite du formulaire |
 | `[disabled]="form.invalid"` | Desactive le bouton si le formulaire est invalide |

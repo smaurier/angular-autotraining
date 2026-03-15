@@ -1,8 +1,10 @@
-# Parcours de formation Angular 19+ (pour developpeurs Vue 3)
+# Parcours de formation Angular 19+ (pour développeurs Vue 3)
 
-> **Philosophie** : Ce parcours est concu pour un developpeur Vue 3 souhaitant maitriser Angular 19+
+> **Philosophie** : Ce parcours est concu pour un développeur Vue 3 souhaitant maîtriser Angular 19+
 > avec les pratiques modernes (standalone, Signals, `@if`/`@for`, SSR).
 > Chaque cours est une brique autonome, chaque exercice consolide les acquis.
+>
+> **Ce cours se fait APRES Vue (03).** Malgre le numéro 09, l'ordre pedagogique est 03-Vue → 09-Angular → 08-React. Après ce cours, tu passeras a React (08).
 
 ---
 
@@ -12,12 +14,12 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 
 | Principe | Application dans ce parcours |
 |---|---|
-| **1 cours = 1 session** | Ne faites jamais deux cours le meme jour. Votre cerveau a besoin de sommeil pour consolider. |
-| **24h minimum entre deux cours** | Laissez une nuit entre chaque session. La memoire se forme pendant le repos. |
-| **Tentez avant de regarder la solution** | Pour chaque exercice, essayez pendant **au moins 20 minutes** avant de consulter la correction. L'effort de recuperation renforce la memoire. |
-| **Revision espacee** | Revisez chaque cours a J+1, J+7 et J+30. Trois passages suffisent pour ancrer durablement. |
-| **Interleaving (entrelacement)** | Alternez theorie et pratique. Ne faites pas 5 cours d'affilee sans exercice. |
-| **Elaboration** | Reformulez chaque concept avec vos propres mots. Expliquez-le a un collegue (reel ou imaginaire). |
+| **1 cours = 1 session** | Ne faites jamais deux cours le même jour. Votre cerveau a besoin de sommeil pour consolider. |
+| **24h minimum entre deux cours** | Laissez une nuit entre chaque session. La mémoire se forme pendant le repos. |
+| **Tentez avant de regarder la solution** | Pour chaque exercice, essayez pendant **au moins 20 minutes** avant de consulter la correction. L'effort de récupération renforce la mémoire. |
+| **Révision espacee** | Revisez chaque cours a J+1, J+7 et J+30. Trois passages suffisent pour ancrer durablement. |
+| **Interleaving (entrelacement)** | Alternez théorie et pratique. Ne faites pas 5 cours d'affilee sans exercice. |
+| **Elaboration** | Reformulez chaque concept avec vos propres mots. Expliquez-le à un collegue (réel ou imaginaire). |
 
 ---
 
@@ -36,7 +38,7 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 | 08 | Angular Material | 3 | 2 + 1 bonus | ~5h |
 | 09 | Tests | 2 | 1 | ~3h |
 | 10 | State Management | 3 | 2 | ~4h30 |
-| 11 | Auth (specifique Angular) | 1 | 1 | ~2h |
+| 11 | Auth (spécifique Angular) | 1 | 1 | ~2h |
 | 12 | Recettes ESN | 2 | 1 | ~3h |
 | | **TOTAL** | **42** | **27** | **~60h** |
 
@@ -46,16 +48,16 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 
 ### Module 00 -- De Vue a Angular (3 cours, 1 exercice)
 
-| # | Cours | Contenu cle |
+| # | Cours | Contenu clé |
 |---|-------|-------------|
-| 01 | Modele mental : de Vue a Angular | Framework vs ecosysteme, CLI, decorateurs, DI |
+| 01 | Modèle mental : de Vue a Angular | Framework vs ecosysteme, CLI, decorateurs, DI |
 | 02 | Equivalences Vue / Angular | Tableau complet ref/signal, props/input, etc. |
 | 03 | Premier projet Angular | `ng new`, structure, premier composant standalone |
-| Ex01 | HelloComponent | Creer un composant, l'afficher, ajouter un signal |
+| Ex01 | HelloComponent | Créer un composant, l'afficher, ajouter un signal |
 
 ### Module 01 -- Composants & Templates (7 cours, 6 exercices)
 
-| # | Cours | Contenu cle |
+| # | Cours | Contenu clé |
 |---|-------|-------------|
 | 01 | Anatomie d'un composant standalone | @Component, template, styles, imports |
 | 02 | Template syntax : interpolation & bindings | `{{ }}`, `[attr]`, `(event)` |
@@ -67,49 +69,49 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 
 ### Module 02 -- Signals avances (3 cours, 1 exercice)
 
-| # | Cours | Contenu cle |
+| # | Cours | Contenu clé |
 |---|-------|-------------|
-| 01 | signal, computed, effect en profondeur | Graphe reactif, egalite, untracked |
-| 02 | linkedSignal et resource | Signals derives, chargement async |
+| 01 | signal, computed, effect en profondeur | Graphe réactif, egalite, untracked |
+| 02 | linkedSignal et resource | Signals dérivés, chargement async |
 | 03 | Patterns avances | Signaux en services, state local, bonnes pratiques |
 
 ### Module 03 -- Services & DI (3 cours, 2 exercices)
 
-| # | Cours | Contenu cle |
+| # | Cours | Contenu clé |
 |---|-------|-------------|
-| 01 | Services et inject() | providedIn, injection hierarchique |
+| 01 | Services et inject() | providedIn, injection hiérarchique |
 | 02 | InjectionToken et providers avances | Tokens, useFactory, useValue |
 | 03 | Patterns DI en entreprise | Multi-providers, injection conditionnelle |
 
 ### Module 04 -- Routing (4 cours, 2 exercices)
 
-| # | Cours | Contenu cle |
+| # | Cours | Contenu clé |
 |---|-------|-------------|
 | 01 | Configuration des routes | Routes, RouterOutlet, lazy loading |
-| 02 | Navigation et parametres | routerLink, ActivatedRoute, queryParams |
+| 02 | Navigation et paramètres | routerLink, ActivatedRoute, queryParams |
 | 03 | Guards et resolvers | canActivate, resolve, redirections |
 | 04 | Layouts et routes imbriquees | Routes enfants, layouts partages |
 
 ### Module 05 -- RxJS Essentiel (4 cours, 2 + 1 bonus exercices)
 
-| # | Cours | Contenu cle |
+| # | Cours | Contenu clé |
 |---|-------|-------------|
-| 01 | Observable, Observer, Subscription | Le modele push, subscribe/unsubscribe |
+| 01 | Observable, Observer, Subscription | Le modèle push, subscribe/unsubscribe |
 | 02 | Operateurs de transformation | map, filter, switchMap, mergeMap |
 | 03 | Gestion du cycle de vie | takeUntilDestroyed, async pipe |
 | 04 | Patterns RxJS courants | debounceTime, distinctUntilChanged, combineLatest |
 
 ### Module 06 -- HTTP & API (3 cours, 2 exercices)
 
-| # | Cours | Contenu cle |
+| # | Cours | Contenu clé |
 |---|-------|-------------|
-| 01 | HttpClient et requetes REST | GET, POST, PUT, DELETE, typage |
+| 01 | HttpClient et requêtes REST | GET, POST, PUT, DELETE, typage |
 | 02 | Interceptors fonctionnels | Auth token, logging, retry |
-| 03 | Gestion d'erreurs et cache | catchError, retry, strategies de cache |
+| 03 | Gestion d'erreurs et cache | catchError, retry, stratégies de cache |
 
 ### Module 07 -- Formulaires (4 cours, 3 exercices)
 
-| # | Cours | Contenu cle |
+| # | Cours | Contenu clé |
 |---|-------|-------------|
 | 01 | Reactive Forms : les bases | FormControl, FormGroup, FormBuilder |
 | 02 | Validation synchrone et asynchrone | Validators, custom validators |
@@ -118,7 +120,7 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 
 ### Module 08 -- Angular Material (3 cours, 2 + 1 bonus exercices)
 
-| # | Cours | Contenu cle |
+| # | Cours | Contenu clé |
 |---|-------|-------------|
 | 01 | Installation et theming | Palette, typographie, dark mode |
 | 02 | Composants courants | Table, Dialog, Snackbar, Form fields |
@@ -128,43 +130,43 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 
 > Les fondamentaux du testing (describe/it/expect, mocking, Playwright E2E) sont couverts dans la formation Vue. Ce module se concentre sur les specificites Angular.
 
-| # | Cours | Contenu cle |
+| # | Cours | Contenu clé |
 |---|-------|-------------|
 | 02 | Tester les composants | TestBed, ComponentFixture, queries |
 | 03 | Tester les services et HTTP | HttpTestingController, mocks |
 
 ### Module 10 -- State Management (3 cours, 2 exercices)
 
-| # | Cours | Contenu cle |
+| # | Cours | Contenu clé |
 |---|-------|-------------|
-| 01 | Etat local avec Signals | Patterns signal-based, state services |
+| 01 | État local avec Signals | Patterns signal-based, state services |
 | 02 | NgRx SignalStore | Stores, features, entites |
-| 03 | Patterns avances d'etat | Optimistic updates, cache, sync |
+| 03 | Patterns avances d'état | Optimistic updates, cache, sync |
 
-### Module 11 -- Auth (specifique Angular) (1 cours, 1 exercice)
+### Module 11 -- Auth (spécifique Angular) (1 cours, 1 exercice)
 
-> Le pipeline CI/CD (GitHub Actions) et la securite front-end (XSS, CSP) sont couverts dans la formation Vue. Ce module se concentre sur l'implementation Angular de l'authentification.
+> Le pipeline CI/CD (GitHub Actions) et la sécurité front-end (XSS, CSP) sont couverts dans la formation Vue. Ce module se concentre sur l'implementation Angular de l'authentification.
 
-| # | Cours | Contenu cle |
+| # | Cours | Contenu clé |
 |---|-------|-------------|
 | 02 | Authentification JWT | Login, guards, interceptors auth |
 
 ### Module 12 -- Recettes ESN (2 cours, 1 exercice)
 
-| # | Cours | Contenu cle |
+| # | Cours | Contenu clé |
 |---|-------|-------------|
 | 01 | Architecture et conventions d'entreprise | Monorepo, feature modules, coding style |
 | 02 | Performance et optimisation | Lazy loading, bundle size, OnPush, SSR |
 
 ---
 
-## Tracker de revision
+## Tracker de révision
 
-Utilisez ce tableau pour suivre vos revisions espacees. Cochez chaque case apres revision.
+Utilisez ce tableau pour suivre vos revisions espacees. Cochez chaque case après révision.
 
 | Module | Cours | Date 1ere lecture | J+1 | J+7 | J+30 |
 |--------|-------|-------------------|-----|-----|------|
-| 00 | 01 - Modele mental | ____/____/____ | [ ] | [ ] | [ ] |
+| 00 | 01 - Modèle mental | ____/____/____ | [ ] | [ ] | [ ] |
 | 00 | 02 - Equivalences | ____/____/____ | [ ] | [ ] | [ ] |
 | 00 | 03 - Premier projet | ____/____/____ | [ ] | [ ] | [ ] |
 | 01 | 01 - Anatomie composant | ____/____/____ | [ ] | [ ] | [ ] |
@@ -200,9 +202,9 @@ Utilisez ce tableau pour suivre vos revisions espacees. Cochez chaque case apres
 | 08 | 03 - CDK avance | ____/____/____ | [ ] | [ ] | [ ] |
 | 09 | 02 - Tests composants | ____/____/____ | [ ] | [ ] | [ ] |
 | 09 | 03 - Tests services | ____/____/____ | [ ] | [ ] | [ ] |
-| 10 | 01 - Etat local Signals | ____/____/____ | [ ] | [ ] | [ ] |
+| 10 | 01 - État local Signals | ____/____/____ | [ ] | [ ] | [ ] |
 | 10 | 02 - NgRx SignalStore | ____/____/____ | [ ] | [ ] | [ ] |
-| 10 | 03 - Patterns etat | ____/____/____ | [ ] | [ ] | [ ] |
+| 10 | 03 - Patterns état | ____/____/____ | [ ] | [ ] | [ ] |
 | 11 | 02 - Auth JWT | ____/____/____ | [ ] | [ ] | [ ] |
 | 12 | 01 - Architecture ESN | ____/____/____ | [ ] | [ ] | [ ] |
 | 12 | 02 - Performance | ____/____/____ | [ ] | [ ] | [ ] |
@@ -211,16 +213,16 @@ Utilisez ce tableau pour suivre vos revisions espacees. Cochez chaque case apres
 
 ## Conseils pour maximiser l'apprentissage
 
-1. **Lisez un cours par jour**, pas plus. Meme si vous avez envie d'avancer, votre cerveau a besoin de repos.
-2. **Faites les exercices a la main** avant de regarder la solution. L'echec productif renforce la memoire.
+1. **Lisez un cours par jour**, pas plus. Même si vous avez envie d'avancer, votre cerveau a besoin de repos.
+2. **Faites les exercices à la main** avant de regarder la solution. L'echec productif renforce la mémoire.
 3. **Revisez activement** : ne relisez pas passivement, essayez de vous rappeler le contenu avant de le relire.
 4. **Codez en parallele** : reproduisez chaque exemple dans un vrai projet Angular.
 5. **Expliquez a voix haute** : la technique de Feynman (expliquer simplement) revele les lacunes.
-6. **Prenez des notes manuscrites** : ecrire a la main active des circuits de memoire differents du clavier.
+6. **Prenez des notes manuscrites** : écrire à la main active des circuits de mémoire différents du clavier.
 
 ---
 
 > **Duree totale estimee** : ~60 heures sur 42 jours minimum (1 cours/jour).
-> Avec les revisions espacees, comptez environ **3 mois** pour une maitrise solide.
+> Avec les revisions espacees, comptez environ **3 mois** pour une maîtrise solide.
 
 Bon courage et bonne formation !

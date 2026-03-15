@@ -6,15 +6,15 @@
 
 ## Objectif
 
-Construire une application multi-pages complete avec navigation, parametres de route et gestion des pages introuvables.
+Construire une application multi-pages complete avec navigation, paramètres de route et gestion des pages introuvables.
 
 ## Consignes
 
-1. Creer la structure de fichiers dans `src/app/exercises/ex11/`
-2. Definir les **5 pages** suivantes comme composants standalone :
+1. Créer la structure de fichiers dans `src/app/exercises/ex11/`
+2. Définir les **5 pages** suivantes comme composants standalone :
    - `HomeComponent` — page d'accueil avec un message de bienvenue et des liens vers les autres pages
    - `ProductListComponent` — affiche une liste de produits (donnees en dur dans un signal)
-   - `ProductDetailComponent` — affiche le detail d'un produit selon le parametre `:id` dans l'URL
+   - `ProductDetailComponent` — affiche le detail d'un produit selon le paramètre `:id` dans l'URL
    - `AboutComponent` — page "A propos" statique
    - `NotFoundComponent` — page 404 affichee pour les routes inconnues
 3. Configurer le fichier de routes `ex11.routes.ts` :
@@ -23,11 +23,11 @@ Construire une application multi-pages complete avec navigation, parametres de r
    - `/products/:id` → `ProductDetailComponent`
    - `/about` → `AboutComponent`
    - `**` → `NotFoundComponent`
-4. Creer un composant `LayoutComponent` qui contient :
+4. Créer un composant `LayoutComponent` qui contient :
    - Une barre de navigation avec des `routerLink` vers Home, Products et About
    - Un `<router-outlet>` pour afficher les pages
 5. Utiliser `routerLinkActive` pour styler le lien actif (classe CSS `active`)
-6. Dans `ProductDetailComponent`, recuperer le parametre `:id` via la nouvelle API `input()` (Angular 19+) :
+6. Dans `ProductDetailComponent`, récupérer le paramètre `:id` via la nouvelle API `input()` (Angular 19+) :
    ```typescript
    readonly id = input.required<string>();
    ```
@@ -39,7 +39,7 @@ Construire une application multi-pages complete avec navigation, parametres de r
 
 - Zero `any` dans le code
 - TypeScript strict active
-- Definir une interface `Product` avec au minimum : `id`, `name`, `price`, `description`
+- Définir une interface `Product` avec au minimum : `id`, `name`, `price`, `description`
 - Typer toutes les routes avec `Routes` importe de `@angular/router`
 
 ## Bonus

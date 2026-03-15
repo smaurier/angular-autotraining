@@ -7,8 +7,8 @@
 - [ ] Le message de bienvenue est affiche dans le template via `{{ greeting() }}`
 - [ ] Un bouton permet de basculer la langue (FR ↔ EN)
 - [ ] Le texte du bouton change dynamiquement selon la langue courante
-- [ ] Un champ input permet de modifier le prenom en temps reel
-- [ ] L'evenement `(input)` met a jour le signal `name` correctement
+- [ ] Un champ input permet de modifier le prenom en temps réel
+- [ ] L'événement `(input)` met a jour le signal `name` correctement
 - [ ] Zero `any` dans le code
 - [ ] TypeScript strict : tous les signaux sont types explicitement
 - [ ] Le composant compile sans erreur

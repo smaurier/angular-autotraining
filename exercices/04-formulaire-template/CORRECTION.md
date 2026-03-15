@@ -1,12 +1,12 @@
 # Correction — Exercice 04 : Formulaire template-driven
 
-## Resultat attendu
+## Résultat attendu
 
 Un formulaire de contact avec :
-- Trois champs (Nom, Email, Message) avec validation en temps reel
+- Trois champs (Nom, Email, Message) avec validation en temps réel
 - Des messages d'erreur affiches quand un champ est invalide et touche
-- Un bouton "Envoyer" desactive tant que le formulaire est invalide
-- Apres soumission, un message de confirmation avec recapitulatif
+- Un bouton "Envoyer" désactivé tant que le formulaire est invalide
+- Après soumission, un message de confirmation avec récapitulatif
 
 ## Code corrige
 
@@ -285,9 +285,9 @@ export class ContactFormComponent {
 - ❌ `<input [(ngModel)]="formData.name">` sans `name="name"` → erreur Angular
 - ✅ Chaque champ avec `[(ngModel)]` doit avoir un attribut `name` unique
 
-### 3. Afficher les erreurs sans verifier `touched`
+### 3. Afficher les erreurs sans vérifier `touched`
 - ❌ `@if (nameField.invalid)` → erreurs affichees des le chargement de la page
-- ✅ `@if (nameField.invalid && nameField.touched)` → erreurs apres interaction utilisateur
+- ✅ `@if (nameField.invalid && nameField.touched)` → erreurs après interaction utilisateur
 
 ### 4. Utiliser `(submit)` au lieu de `(ngSubmit)`
 - ❌ `(submit)="onSubmit()"` → le formulaire se soumet et recharge la page
@@ -297,16 +297,16 @@ export class ContactFormComponent {
 - ❌ `nameField.errors['required']` → erreur si errors est null
 - ✅ `nameField.errors?.['required']` → safe navigation
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
-| `FormsModule` | Module Angular necessaire pour les formulaires template-driven (ngModel, ngForm) |
-| `[(ngModel)]` | Two-way binding : lie la valeur du champ a une propriete du composant |
-| `#field="ngModel"` | Reference locale au controle ngModel pour acceder a ses etats (valid, touched, errors) |
-| `#form="ngForm"` | Reference locale au formulaire global pour verifier sa validite |
+| `FormsModule` | Module Angular nécessaire pour les formulaires template-driven (ngModel, ngForm) |
+| `[(ngModel)]` | Two-way binding : lie la valeur du champ à une propriété du composant |
+| `#field="ngModel"` | Référence locale au controle ngModel pour acceder a ses états (valid, touched, errors) |
+| `#form="ngForm"` | Référence locale au formulaire global pour vérifier sa validite |
 | `required`, `email`, `minlength` | Directives de validation natives HTML5 interpretees par Angular |
-| `field.errors?.['key']` | Acces aux erreurs specifiques d'un champ avec optional chaining |
+| `field.errors?.['key']` | Acces aux erreurs spécifiques d'un champ avec optional chaining |
 | `field.touched` | Booleen qui indique si l'utilisateur a interagi avec le champ |
 | `[disabled]="form.invalid"` | Desactive le bouton si le formulaire contient des erreurs |
-| `(ngSubmit)` | Evenement Angular qui intercepte la soumission du formulaire |
+| `(ngSubmit)` | Événement Angular qui intercepte la soumission du formulaire |

@@ -1,27 +1,27 @@
 # Cours 21 — Observables et Subscribe
 
-> **Objectif** : Comprendre le concept d'Observable, sa difference fondamentale avec les Promises, et maitriser le cycle subscribe/unsubscribe. Decouvrir les principaux types de Subjects et savoir pourquoi Angular utilise encore RxJS malgre les Signals.
+> **Objectif** : Comprendre le concept d'Observable, sa différence fondamentale avec les Promises, et maîtriser le cycle subscribe/unsubscribe. Decouvrir les principaux types de Subjects et savoir pourquoi Angular utilise encore RxJS malgre les Signals.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
-<summary>1. Qu'est-ce qu'un guard `canActivate` et quand s'execute-t-il ?</summary>
+<summary>1. Qu'est-ce qu'un guard `canActivate` et quand s'exécuté-t-il ?</summary>
 
-Un `canActivate` est une fonction qui s'execute **avant** l'activation d'une route. Elle retourne `true`, `false` ou un `UrlTree` pour rediriger. C'est le mecanisme standard pour proteger des routes (ex : verification d'authentification).
+Un `canActivate` est une fonction qui s'exécuté **avant** l'activation d'une route. Elle retourne `true`, `false` ou un `UrlTree` pour rediriger. C'est le mécanisme standard pour proteger des routes (ex : vérification d'authentification).
 </details>
 
 <details>
-<summary>2. Comment definir des routes enfants imbriquees dans Angular ?</summary>
+<summary>2. Comment définir des routes enfants imbriquees dans Angular ?</summary>
 
-On utilise la propriete `children` dans la configuration de route, avec un `<router-outlet>` dans le template du composant parent pour afficher les composants enfants.
+On utilise la propriété `children` dans la configuration de route, avec un `<router-outlet>` dans le template du composant parent pour afficher les composants enfants.
 </details>
 
 <details>
-<summary>3. Quelle est la difference entre `loadComponent` et `loadChildren` dans le lazy loading ?</summary>
+<summary>3. Quelle est la différence entre `loadComponent` et `loadChildren` dans le lazy loading ?</summary>
 
-`loadComponent` charge un seul composant de maniere differee. `loadChildren` charge un fichier de routes complet (sous-arbre de navigation), ce qui permet de decouper l'application en chunks independants.
+`loadComponent` charge un seul composant de manière differee. `loadChildren` charge un fichier de routes complet (sous-arbre de navigation), ce qui permet de découper l'application en chunks independants.
 </details>
 
 ---
@@ -30,20 +30,20 @@ On utilise la propriete `children` dans la configuration de route, avec un `<rou
 
 Imaginez deux facons de regarder un film :
 
-- **Un DVD (Promise)** : vous achetez le disque, vous le recevez une seule fois, et c'est termine. Meme si vous ne le regardez jamais, le DVD a ete produit et expedie.
+- **Un DVD (Promise)** : vous achetez le disque, vous le recevez une seule fois, et c'est termine. Même si vous ne le regardez jamais, le DVD a ete produit et expedie.
 - **Un abonnement Netflix (Observable)** : vous vous abonnez (subscribe), et Netflix vous **pousse** du contenu en continu. Tant que vous etes abonne, vous recevez de nouvelles emissions. Vous pouvez vous desabonner (unsubscribe) a tout moment, et le flux s'arrete pour vous.
 
 Un Observable, c'est Netflix : **lazy** (rien ne se passe tant que personne ne s'abonne), **multi-emission** (il peut emettre 0, 1 ou N valeurs), et **annulable** (on peut couper le flux).
 
 ---
 
-## Theorie
+## Théorie
 
 ### Observable vs Promise
 
 | Caracteristique | Promise | Observable |
 |-----------------|---------|------------|
-| Execution | **Eager** (demarre immediatement) | **Lazy** (demarre au subscribe) |
+| Exécution | **Eager** (demarre immediatement) | **Lazy** (demarre au subscribe) |
 | Emissions | Une seule valeur | 0 a N valeurs |
 | Annulation | Impossible nativement | `unsubscribe()` |
 | Operateurs | `.then()`, `.catch()` | `pipe()` avec des dizaines d'operateurs |
@@ -66,9 +66,9 @@ const obs$ = new Observable(subscriber => {
 
 > **Convention** : en Angular, on suffixe les variables Observable avec `$` (ex : `users$`, `data$`).
 
-### Creer des Observables
+### Créer des Observables
 
-RxJS fournit des fonctions de creation pratiques :
+RxJS fournit des fonctions de création pratiques :
 
 ```typescript
 import { of, from, interval, fromEvent, EMPTY, throwError } from 'rxjs';
@@ -125,7 +125,7 @@ data$.subscribe({
 
 ### pipe() : enchainer des operateurs
 
-Le `pipe()` est le mecanisme pour transformer un flux :
+Le `pipe()` est le mécanisme pour transformer un flux :
 
 ```typescript
 import { of } from 'rxjs';
@@ -141,7 +141,7 @@ nombres$.pipe(
 // 40
 ```
 
-### unsubscribe() : eviter les fuites memoire
+### unsubscribe() : éviter les fuites mémoire
 
 ```typescript
 // ❌ Fuite memoire : interval ne s'arrete jamais
@@ -169,7 +169,7 @@ export class TimerComponent implements OnDestroy {
 
 ### Subject, BehaviorSubject, ReplaySubject
 
-Les Subjects sont des Observables **et** des Observers : ils peuvent a la fois emettre et etre ecoutes.
+Les Subjects sont des Observables **et** des Observers : ils peuvent à la fois emettre et etre ecoutes.
 
 ```typescript
 import { Subject, BehaviorSubject, ReplaySubject } from 'rxjs';
@@ -197,29 +197,29 @@ replay.subscribe(v => console.log(v)); // → 'Y', 'Z' (les 2 dernieres)
 | Type | Valeur initiale | Nouvel abonne recoit | Cas d'usage |
 |------|----------------|---------------------|-------------|
 | `Subject` | Non | Rien (les emissions passees sont perdues) | Event bus simple |
-| `BehaviorSubject` | Oui (obligatoire) | La derniere valeur emise | Etat courant (user connecte) |
-| `ReplaySubject(n)` | Non | Les n dernieres valeurs | Historique, cache |
+| `BehaviorSubject` | Oui (obligatoire) | La dernière valeur emise | État courant (user connecte) |
+| `ReplaySubject(n)` | Non | Les n dernières valeurs | Historique, cache |
 
 ### Pourquoi Angular a encore besoin de RxJS
 
-Meme avec les Signals (Angular 16+), RxJS reste essentiel pour :
+Même avec les Signals (Angular 16+), RxJS reste essentiel pour :
 
 | Domaine | Pourquoi RxJS |
 |---------|--------------|
 | **HttpClient** | Retourne des Observables (cold, single-emission) |
 | **Router** | `params`, `queryParams`, `events` sont des Observables |
 | **Reactive Forms** | `valueChanges`, `statusChanges` sont des Observables |
-| **WebSocket** | Flux continus de donnees temps reel |
+| **WebSocket** | Flux continus de donnees temps réel |
 | **Composition async** | debounce, retry, race conditions, polling |
 
-> **Regle d'or en ESN** : les Signals gerent l'etat UI synchrone, RxJS gere les flux asynchrones complexes. Les deux coexistent.
+> **Regle d'or en ESN** : les Signals gerent l'état UI synchrone, RxJS géré les flux asynchrones complexes. Les deux coexistent.
 
 ### Comparaison avec Vue 3
 
 | Concept | Vue 3 | Angular (RxJS) |
 |---------|-------|----------------|
-| Reactivite sync | `ref()`, `computed()` | `signal()`, `computed()` |
-| Flux async | Pas natif (on utilise des libs) | RxJS integre |
+| Réactivité sync | `ref()`, `computed()` | `signal()`, `computed()` |
+| Flux async | Pas natif (on utilise des libs) | RxJS intégré |
 | Requetes HTTP | `axios` retourne des Promises | `HttpClient` retourne des Observables |
 | Annulation | `AbortController` manuel | `unsubscribe()` / `switchMap` |
 
@@ -227,12 +227,12 @@ Meme avec les Signals (Angular 16+), RxJS reste essentiel pour :
 
 ## Pratique
 
-Creez un service `NotificationService` qui utilise un `BehaviorSubject` pour gerer un message de notification. Le composant s'abonne pour afficher le message et le service expose une methode `notify(message)`.
+Creez un service `NotificationService` qui utilise un `BehaviorSubject` pour gérer un message de notification. Le composant s'abonne pour afficher le message et le service expose une méthode `notify(message)`.
 
 **Consignes** :
 1. Creez un `BehaviorSubject<string>` avec une valeur initiale vide
 2. Exposez un Observable public `message$`
-3. Creez une methode `notify(msg: string)` qui emet le message
+3. Creez une méthode `notify(msg: string)` qui emet le message
 4. Dans le composant, abonnez-vous et affichez le message
 
 <details>
@@ -300,20 +300,20 @@ export class NotificationBannerComponent implements OnDestroy {
 
 ---
 
-## Resume
+## Résumé
 
-| Point cle | A retenir |
+| Point clé | A retenir |
 |-----------|-----------|
 | Observable | Flux lazy, multi-emission, annulable |
 | Promise | Eager, single-emission, non annulable |
-| `subscribe()` | Demarre l'execution, recoit `next`, `error`, `complete` |
-| `unsubscribe()` | **Obligatoire** pour eviter les fuites memoire |
+| `subscribe()` | Demarre l'exécution, recoit `next`, `error`, `complete` |
+| `unsubscribe()` | **Obligatoire** pour éviter les fuites mémoire |
 | `pipe()` | Enchaine les operateurs de transformation |
 | `Subject` | Observable + Observer, pas de valeur initiale |
-| `BehaviorSubject` | Garde la derniere valeur, ideal pour l'etat courant |
-| `ReplaySubject(n)` | Rejoue les n dernieres emissions |
+| `BehaviorSubject` | Garde la dernière valeur, ideal pour l'état courant |
+| `ReplaySubject(n)` | Rejoue les n dernières emissions |
 | Convention `$` | Suffixer les Observables : `users$`, `data$` |
-| RxJS + Signals | RxJS pour l'async complexe, Signals pour l'etat UI sync |
+| RxJS + Signals | RxJS pour l'async complexe, Signals pour l'état UI sync |
 
 ---
 

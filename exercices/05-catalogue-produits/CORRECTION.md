@@ -1,11 +1,11 @@
 # Correction — Exercice 05 : Catalogue produits
 
-## Resultat attendu
+## Résultat attendu
 
 Un catalogue affichant :
-- Une grille de cartes produits (nom, prix, description, disponibilite)
-- Un bouton "Ajouter au panier" sur chaque carte (desactive si rupture de stock)
-- Un resume du panier en haut : nombre d'articles et prix total
+- Une grille de cartes produits (nom, prix, description, disponibilité)
+- Un bouton "Ajouter au panier" sur chaque carte (désactivé si rupture de stock)
+- Un résumé du panier en haut : nombre d'articles et prix total
 - Chaque clic sur "Ajouter" ajoute le produit au panier
 
 ## Code corrige
@@ -293,8 +293,8 @@ export class ProductCatalogComponent {
 - ✅ `product = input.required<Product>()` → nouvelle syntaxe fonctionnelle Angular 17+
 
 ### 3. Oublier `.emit()` sur l'output
-- ❌ `(click)="addToCart(product())"` → appelle une methode qui n'existe pas
-- ✅ `(click)="addToCart.emit(product())"` → emet l'evenement vers le parent
+- ❌ `(click)="addToCart(product())"` → appelle une méthode qui n'existe pas
+- ✅ `(click)="addToCart.emit(product())"` → emet l'événement vers le parent
 
 ### 4. Ne pas typer `$event` dans le parent
 - ❌ `onAddToCart($event: any)` → viole la contrainte zero `any`
@@ -304,14 +304,14 @@ export class ProductCatalogComponent {
 - ❌ `@for (product of products())` → erreur, track est obligatoire
 - ✅ `@for (product of products(); track product.id)` → identification unique
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
-| `input.required<T>()` | Declare un input obligatoire avec typage generique (remplace `@Input()`) |
+| `input.required<T>()` | Declare un input obligatoire avec typage générique (remplace `@Input()`) |
 | `output<T>()` | Declare un output avec le type de donnee emise (remplace `@Output()`) |
 | `output.emit(value)` | Emet une valeur vers le composant parent |
 | `[property]="value"` | Passe une valeur au composant enfant (property binding) |
-| `(event)="handler($event)"` | Ecoute un evenement du composant enfant |
+| `(event)="handler($event)"` | Ecoute un événement du composant enfant |
 | Composition de composants | Un parent orchestre plusieurs enfants via inputs/outputs |
 | `imports: [ChildComponent]` | Le parent doit importer les composants enfants utilises dans son template |

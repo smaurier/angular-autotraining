@@ -1,8 +1,12 @@
-# Cours 1 -- Modele mental : de Vue a Angular
+# Cours 1 -- Modèle mental : de Vue a Angular
+
+<!-- nav-cours-précédent -->
+> **Cours précédent** : [Vue.js](../../../03-vue/cours/12-vue-query/02-patterns-avances.md). Si tu arrives ici sans avoir fait les cours précédents, consulte le [guide de démarrage](../../../GUIDE-DEMARRAGE.md).
+
 
 > **Module** : 00 - De Vue a Angular
 > **Duree estimee** : 1h15
-> **Prerequis** : Experience Vue 3 (Composition API)
+> **Prérequis** : Experience Vue 3 (Composition API)
 
 ---
 
@@ -10,20 +14,20 @@
 
 A la fin de ce cours, vous serez capable de :
 
-- Expliquer les differences fondamentales entre l'approche Vue et l'approche Angular
+- Expliquer les différences fondamentales entre l'approche Vue et l'approche Angular
 - Comprendre la philosophie "batteries-included" d'Angular
 - Naviguer dans un projet Angular sans etre perdu
-- Identifier les equivalents Angular de vos reflexes Vue
+- Identifier les équivalents Angular de vos reflexes Vue
 
 ---
 
 ## Analogie fondamentale
 
-> **Vue, c'est un couteau suisse configurable.** Vous choisissez chaque lame : Pinia pour le state, Vue Router pour le routing, Vitest pour les tests, Axios ou fetch pour le HTTP. Chaque projet peut etre different.
+> **Vue, c'est un couteau suisse configurable.** Vous choisissez chaque lame : Pinia pour le state, Vue Router pour le routing, Vitest pour les tests, Axios ou fetch pour le HTTP. Chaque projet peut etre différent.
 >
-> **Angular, c'est une usine complete avec sa chaine de montage.** Le router, le client HTTP, les formulaires, les tests, le build system, l'injection de dependances -- tout est integre et prevu pour fonctionner ensemble. Chaque projet Angular se ressemble.
+> **Angular, c'est une usine complete avec sa chaine de montage.** Le router, le client HTTP, les formulaires, les tests, le build system, l'injection de dépendances -- tout est intégré et prévu pour fonctionner ensemble. Chaque projet Angular se ressemble.
 
-Cette difference est **le** point le plus important a comprendre. En Vue, vous etes architecte. En Angular, l'architecture est deja la -- vous construisez dedans.
+Cette différence est **le** point le plus important à comprendre. En Vue, vous etes architecte. En Angular, l'architecture est déjà la -- vous construisez dedans.
 
 ---
 
@@ -31,7 +35,7 @@ Cette difference est **le** point le plus important a comprendre. En Vue, vous e
 
 ### Vue : la librairie progressive
 
-Vue se presente comme un **framework progressif**. En realite, le coeur de Vue est une librairie de rendu reactif. Vous y ajoutez des briques selon vos besoins :
+Vue se présenté comme un **framework progressif**. En realite, le coeur de Vue est une librairie de rendu réactif. Vous y ajoutez des briques selon vos besoins :
 
 ```
 Vue 3 (core)
@@ -43,7 +47,7 @@ Vue 3 (core)
 ```
 
 **Avantage** : flexibilite, bundle minimal.
-**Inconvenient** : chaque equipe fait des choix differents, les conventions varient.
+**Inconvenient** : chaque équipe fait des choix différents, les conventions varient.
 
 ### Angular : le framework opinione
 
@@ -63,9 +67,9 @@ Angular (core)
 **Avantage** : coherence entre projets, documentation unifiee, conventions partagees.
 **Inconvenient** : courbe d'apprentissage initiale plus raide, bundle plus important.
 
-### Ce que ca change pour vous
+### Ce que ça change pour vous
 
-En Vue, quand vous rejoigniez un projet, vous deviez comprendre les choix de l'equipe. En Angular, le cadre est fixe. Vous pouvez passer d'un projet Angular a un autre et retrouver vos reperes immediatement. C'est pourquoi Angular est tres present en entreprise (banques, assurances, ESN).
+En Vue, quand vous rejoigniez un projet, vous deviez comprendre les choix de l'équipe. En Angular, le cadre est fixe. Vous pouvez passer d'un projet Angular à un autre et retrouver vos reperes immediatement. C'est pourquoi Angular est très present en entreprise (banques, assurances, ESN).
 
 ---
 
@@ -73,7 +77,7 @@ En Vue, quand vous rejoigniez un projet, vous deviez comprendre les choix de l'e
 
 ### En Vue
 
-Vous utilisez `npm create vue@latest` (via `create-vue`) ou `npm create vite@latest` pour generer un projet. Ensuite, la structure est libre.
+Vous utilisez `npm create vue@latest` (via `create-vue`) ou `npm create vite@latest` pour générer un projet. Ensuite, la structure est libre.
 
 ### En Angular
 
@@ -100,7 +104,7 @@ ng test
 ng build
 ```
 
-Le CLI genere du code **qui respecte les conventions Angular**. Il met a jour les imports, cree les fichiers de test, respecte la structure. Utilisez-le systematiquement.
+Le CLI généré du code **qui respecte les conventions Angular**. Il met a jour les imports, créé les fichiers de test, respecte la structure. Utilisez-le systematiquement.
 
 ### Commandes `ng generate` courantes
 
@@ -115,13 +119,13 @@ Le CLI genere du code **qui respecte les conventions Angular**. Il met a jour le
 
 ### Le fichier `angular.json`
 
-C'est l'equivalent du `vite.config.ts` de Vue, mais beaucoup plus complet. Il configure :
+C'est l'équivalent du `vite.config.ts` de Vue, mais beaucoup plus complet. Il configure :
 - Les chemins source et de build
 - Les styles globaux et les scripts
 - Les options de compilation (budgets, optimisation)
 - Les environnements (dev, prod, staging)
 
-Vous n'avez generalement pas a le modifier manuellement -- le CLI s'en charge.
+Vous n'avez généralement pas a le modifier manuellement -- le CLI s'en charge.
 
 ---
 
@@ -181,13 +185,13 @@ Les decorateurs sont ce qui distingue Angular de Vue au premier coup d'oeil. Ils
 
 ---
 
-## 4. L'injection de dependances (DI) -- la difference fondamentale
+## 4. L'injection de dépendances (DI) -- la différence fondamentale
 
-C'est ici que Vue et Angular divergent le plus. Comprendre la DI est **la cle** pour maitriser Angular.
+C'est ici que Vue et Angular divergent le plus. Comprendre la DI est **la clé** pour maîtriser Angular.
 
 ### En Vue
 
-Les dependances sont importees directement :
+Les dépendances sont importees directement :
 
 ```typescript
 // composables/useUserService.ts
@@ -207,11 +211,11 @@ import { useUserService } from '@/composables/useUserService'
 const { users, fetchUsers } = useUserService()
 ```
 
-Chaque composant cree une **nouvelle instance** du composable (sauf si vous utilisez `provide/inject` ou un store Pinia).
+Chaque composant créé une **nouvelle instance** du composable (sauf si vous utilisez `provide/inject` ou un store Pinia).
 
 ### En Angular
 
-Les dependances sont **injectees** par le framework :
+Les dépendances sont **injectees** par le framework :
 
 ```typescript
 // services/user.service.ts
@@ -235,13 +239,13 @@ export class UserListComponent {
 }
 ```
 
-`providedIn: 'root'` signifie : Angular cree **une seule instance** (singleton) pour toute l'application. Le composant ne sait pas comment `UserService` est cree -- il demande juste a Angular de le lui fournir.
+`providedIn: 'root'` signifie : Angular créé **une seule instance** (singleton) pour toute l'application. Le composant ne sait pas comment `UserService` est créé -- il demandé juste a Angular de le lui fournir.
 
 ### Pourquoi la DI est importante
 
 - **Testabilite** : en test, vous pouvez remplacer `UserService` par un mock sans modifier le composant.
 - **Decouplage** : le composant ne depend pas d'un import concret. Vous pouvez changer l'implementation sans toucher aux consommateurs.
-- **Hierarchie** : vous pouvez fournir des implementations differentes a differents niveaux de l'arbre de composants.
+- **Hiérarchie** : vous pouvez fournir des implementations différentes a différents niveaux de l'arbre de composants.
 
 En Vue, ces avantages necessitent une discipline manuelle (provide/inject, abstractions). En Angular, ils sont **integres au framework**.
 
@@ -312,13 +316,13 @@ my-angular-app/
   tsconfig.json
 ```
 
-### Points cles de la structure Angular
+### Points clés de la structure Angular
 
 | Dossier | Role | Equivalent Vue |
 |---------|------|----------------|
 | `core/` | Services singleton, guards, interceptors | `composables/`, `stores/` |
 | `features/` | Composants par fonctionnalite | `pages/`, `views/` |
-| `shared/` | Composants et pipes reutilisables | `components/` |
+| `shared/` | Composants et pipes réutilisables | `components/` |
 | `app.config.ts` | Configuration de l'application | `main.ts` (createApp) |
 | `app.routes.ts` | Definition des routes | `router/index.ts` |
 
@@ -326,7 +330,7 @@ Remarquez qu'Angular separe un composant en **plusieurs fichiers** (.ts, .html, 
 
 ---
 
-## 6. Systeme de build : Vue/Vite vs Angular/esbuild
+## 6. Système de build : Vue/Vite vs Angular/esbuild
 
 ### Vue
 
@@ -339,9 +343,9 @@ Vue utilise **Vite** comme build system par defaut :
 Angular 19+ utilise **esbuild + Vite** (application builder) :
 - Dev : Vite dev server avec HMR
 - Prod : esbuild pour une compilation extremement rapide
-- SSR : Support integre via `@angular/ssr`
+- SSR : Support intégré via `@angular/ssr`
 
-Les deux ecosystemes convergent vers Vite, ce qui est une bonne nouvelle pour les developpeurs Vue : le dev server Angular 19+ est rapide et familier.
+Les deux ecosystemes convergent vers Vite, ce qui est une bonne nouvelle pour les développeurs Vue : le dev server Angular 19+ est rapide et familier.
 
 ### Configuration
 
@@ -360,14 +364,14 @@ Prenez 10 minutes pour faire cet exercice mental :
 
 1. **Pensez a votre dernier composant Vue.** Identifiez :
    - Les imports (composables, composants enfants)
-   - Les donnees reactives (`ref`, `computed`)
-   - Les evenements emis
+   - Les donnees réactives (`ref`, `computed`)
+   - Les événements emis
    - Le template (v-if, v-for)
 
 2. **Imaginez-le en Angular :**
    - Les composables deviennent des **services** injectes via `inject()`
    - `ref()` devient `signal()`
-   - `computed()` reste `computed()` (meme nom !)
+   - `computed()` reste `computed()` (même nom !)
    - `defineEmits` devient `output()`
    - `v-if` devient `@if`
    - `v-for` devient `@for (...; track ...)`
@@ -376,7 +380,7 @@ Prenez 10 minutes pour faire cet exercice mental :
 
 ---
 
-## Resume
+## Résumé
 
 | Concept | Vue 3 | Angular 19+ |
 |---------|-------|-------------|
@@ -387,11 +391,11 @@ Prenez 10 minutes pour faire cet exercice mental :
 | DI | `provide/inject` (optionnel) | `inject()` (central) |
 | Structure | Libre | Conventionnelle (core/features/shared) |
 | Build | Vite | esbuild + Vite |
-| State | Pinia (externe) | Services + Signals (integre) |
+| State | Pinia (externe) | Services + Signals (intégré) |
 
 ---
 
 ## Prochain cours
 
 **[Cours 2 -- Equivalences Vue / Angular](./02-equivalences-vue-angular.md)**
-Un tableau complet et detaille de toutes les correspondances entre les APIs Vue 3 et Angular 19+, avec des exemples de code cote a cote.
+Un tableau complet et détaillé de toutes les correspondances entre les APIs Vue 3 et Angular 19+, avec des exemples de code cote a cote.

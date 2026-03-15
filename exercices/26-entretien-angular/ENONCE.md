@@ -6,28 +6,28 @@
 
 ## Objectif
 
-Se preparer a un entretien technique Angular en repondant a un QCM de 20 questions et en realisant 3 exercices de live coding chronometres.
+Se preparer à un entretien technique Angular en repondant à un QCM de 20 questions et en realisant 3 exercices de live coding chronometres.
 
 ## Consignes
 
 ### Partie 1 — QCM (20 questions, 20 min)
 
-Repondre aux 20 questions a choix multiples ci-dessous. Une seule reponse correcte par question. Notez vos reponses sur une feuille avant de consulter la correction.
+Repondre aux 20 questions a choix multiples ci-dessous. Une seule réponse correcte par question. Notez vos réponses sur une feuille avant de consulter la correction.
 
-**Q1.** Quel decorateur est utilise pour definir un composant Angular ?
+**Q1.** Quel decorateur est utilise pour définir un composant Angular ?
 - A) `@Directive`
 - B) `@Component`
 - C) `@Injectable`
 - D) `@NgModule`
 
-**Q2.** Quelle est la difference entre `signal()` et `computed()` ?
+**Q2.** Quelle est la différence entre `signal()` et `computed()` ?
 - A) `signal()` est en lecture seule, `computed()` est mutable
-- B) `signal()` est mutable, `computed()` est un signal derive en lecture seule
+- B) `signal()` est mutable, `computed()` est un signal dérivé en lecture seule
 - C) Les deux sont mutables
 - D) Les deux sont en lecture seule
 
-**Q3.** Comment creer un composant standalone en Angular 19+ ?
-- A) Ajouter `standalone: true` dans `@Component` (ou rien, c'est le defaut)
+**Q3.** Comment créer un composant standalone en Angular 19+ ?
+- A) Ajouter `standalone: true` dans `@Component` (où rien, c'est le defaut)
 - B) L'enregistrer dans un NgModule avec `declarations`
 - C) Utiliser `@Standalone()` comme decorateur
 - D) Ajouter `type: 'standalone'` dans le decorator
@@ -40,9 +40,9 @@ Repondre aux 20 questions a choix multiples ci-dessous. Une seule reponse correc
 
 **Q5.** Quel est le role de `track` dans `@for` ?
 - A) Suivre les clics de l'utilisateur
-- B) Identifier de maniere unique chaque element pour optimiser le rendu DOM
+- B) Identifier de manière unique chaque élément pour optimiser le rendu DOM
 - C) Compter le nombre d'iterations
-- D) Trier les elements
+- D) Trier les éléments
 
 **Q6.** Comment injecter un service dans un composant avec la nouvelle API ?
 - A) `constructor(private service: MyService)`
@@ -50,7 +50,7 @@ Repondre aux 20 questions a choix multiples ci-dessous. Une seule reponse correc
 - C) `@Inject(MyService) service`
 - D) `this.service = new MyService()`
 
-**Q7.** Quelle methode de `signal` prend une fonction en parametre ?
+**Q7.** Quelle méthode de `signal` prend une fonction en paramètre ?
 - A) `set()`
 - B) `update()`
 - C) `assign()`
@@ -68,7 +68,7 @@ Repondre aux 20 questions a choix multiples ci-dessous. Une seule reponse correc
 - C) Avec `@Protected()` sur le composant
 - D) Avec un `filter` dans le router
 
-**Q10.** Quel operateur RxJS est recommande pour annuler les requetes precedentes lors d'une recherche ?
+**Q10.** Quel operateur RxJS est recommande pour annuler les requêtes precedentes lors d'une recherche ?
 - A) `mergeMap`
 - B) `concatMap`
 - C) `switchMap`
@@ -77,10 +77,10 @@ Repondre aux 20 questions a choix multiples ci-dessous. Une seule reponse correc
 **Q11.** Que fait `providedIn: 'root'` dans un `@Injectable` ?
 - A) Le service est disponible uniquement dans le composant racine
 - B) Le service est un singleton disponible dans toute l'application
-- C) Le service est cree a chaque injection
-- D) Le service est disponible uniquement en mode developpement
+- C) Le service est créé à chaque injection
+- D) Le service est disponible uniquement en mode développement
 
-**Q12.** Quelle est la bonne maniere d'exposer un signal en lecture seule depuis un service ?
+**Q12.** Quelle est la bonne manière d'exposer un signal en lecture seule depuis un service ?
 - A) `readonly tasks = this._tasks`
 - B) `readonly tasks: Signal<Task[]> = this._tasks.asReadonly()`
 - C) `get tasks() { return this._tasks() }`
@@ -93,16 +93,16 @@ Repondre aux 20 questions a choix multiples ci-dessous. Une seule reponse correc
 - D) Avec `defer` dans le template
 
 **Q14.** Quel est le role de `FormBuilder.nonNullable.group()` ?
-- A) Creer un formulaire sans validation
-- B) Creer un FormGroup dont les controles ne peuvent pas etre `null` apres `reset()`
-- C) Creer un formulaire en lecture seule
-- D) Creer un formulaire qui accepte les valeurs null
+- A) Créer un formulaire sans validation
+- B) Créer un FormGroup dont les controles ne peuvent pas etre `null` après `reset()`
+- C) Créer un formulaire en lecture seule
+- D) Créer un formulaire qui accepte les valeurs null
 
 **Q15.** Que se passe-t-il si on oublie `track` dans `@for` ?
 - A) Rien, c'est optionnel
 - B) Une erreur de compilation — `track` est obligatoire
 - C) Un warning dans la console
-- D) Les elements sont rendus mais sans animation
+- D) Les éléments sont rendus mais sans animation
 
 **Q16.** Comment tester un service qui utilise `HttpClient` ?
 - A) Avec un vrai serveur HTTP
@@ -111,18 +111,18 @@ Repondre aux 20 questions a choix multiples ci-dessous. Une seule reponse correc
 - D) Avec Playwright
 
 **Q17.** Quel est l'avantage de `patchState()` dans NgRx SignalStore ?
-- A) Il mute l'etat directement
-- B) Il met a jour partiellement l'etat de maniere immutable
-- C) Il remplace tout l'etat
-- D) Il cree un nouvel store
+- A) Il mute l'état directement
+- B) Il met a jour partiellement l'état de manière immutable
+- C) Il remplace tout l'état
+- D) Il créé un nouvel store
 
 **Q18.** Quel est le role de `@defer` dans un template Angular ?
 - A) Differer le chargement d'un composant jusqu'a ce qu'une condition soit remplie
-- B) Creer une animation de transition
-- C) Gerer les erreurs dans le template
-- D) Creer un composant asynchrone
+- B) Créer une animation de transition
+- C) Gérer les erreurs dans le template
+- D) Créer un composant asynchrone
 
-**Q19.** Quelle strategie de detection de changement est la plus performante ?
+**Q19.** Quelle stratégie de detection de changement est la plus performante ?
 - A) `ChangeDetectionStrategy.Default`
 - B) `ChangeDetectionStrategy.OnPush`
 - C) `ChangeDetectionStrategy.Manual`
@@ -142,7 +142,7 @@ Realiser les 3 exercices suivants en code, comme lors d'un entretien technique. 
 
 #### Exercice LC1 — Composant compteur avec signaux (5 min)
 
-Creer un composant `CounterComponent` qui :
+Créer un composant `CounterComponent` qui :
 - Affiche un compteur (signal `count` initialise a 0)
 - A 3 boutons : `+1`, `-1`, `Reset`
 - Affiche un computed `isEven` ("Pair" / "Impair")
@@ -150,18 +150,18 @@ Creer un composant `CounterComponent` qui :
 
 #### Exercice LC2 — Recherche avec debounce (10 min)
 
-Creer un composant `SearchComponent` qui :
+Créer un composant `SearchComponent` qui :
 - A un champ de recherche `<input>`
 - Utilise un `signal` pour stocker la saisie
-- Filtre une liste de produits (noms) en temps reel avec un delai de 300ms (debounce)
-- Affiche les resultats filtres
+- Filtre une liste de produits (noms) en temps réel avec un delai de 300ms (debounce)
+- Affiche les résultats filtres
 - Indice : utiliser `toObservable()`, `debounceTime()`, `toSignal()`
 
 #### Exercice LC3 — Service CRUD simple (10 min)
 
-Creer un service `ProductService` qui :
+Créer un service `ProductService` qui :
 - Gere un signal `products: Signal<Product[]>`
-- Expose les methodes : `add(product)`, `update(id, changes)`, `delete(id)`, `getById(id)`
+- Expose les méthodes : `add(product)`, `update(id, changes)`, `delete(id)`, `getById(id)`
 - `getById` retourne un `computed` qui se met a jour automatiquement
 - Toutes les mutations sont immutables
 
@@ -174,7 +174,7 @@ Creer un service `ProductService` qui :
 
 ## Bonus
 
-- Chronometrez-vous reellement et notez votre temps pour chaque exercice
+- Chronometrez-vous réellement et notez votre temps pour chaque exercice
 - Refaites les exercices de live coding une semaine plus tard sans regarder la correction
 - Preparez une explication orale de 2 minutes pour chaque concept majeur (signals, guards, interceptors)
 

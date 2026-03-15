@@ -1,8 +1,8 @@
 # Correction — Exercice 12 : Guards et lazy loading
 
-## Resultat attendu
+## Résultat attendu
 
-L'application de l'exercice 11 est enrichie avec un systeme d'authentification simule. Les routes protegees redirigent vers la page de login. La section admin n'est accessible qu'aux administrateurs. Le formulaire d'edition demande confirmation avant de quitter s'il y a des modifications non sauvegardees. La section admin est chargee en lazy loading.
+L'application de l'exercice 11 est enrichie avec un système d'authentification simule. Les routes protegees redirigent vers la page de login. La section admin n'est accessible qu'aux administrateurs. Le formulaire d'edition demandé confirmation avant de quitter s'il y a des modifications non sauvegardees. La section admin est chargee en lazy loading.
 
 ## Code corrige
 
@@ -541,7 +541,7 @@ export const EX12_ROUTES: Routes = [
 
 ### 4. Oublier de typer le guard `canDeactivate` avec le composant
 
-- ❌ Guard sans type generique :
+- ❌ Guard sans type générique :
   ```typescript
   export const canDeactivateGuard: CanDeactivateFn<unknown> = (component) => { ... };
   ```
@@ -552,16 +552,16 @@ export const EX12_ROUTES: Routes = [
   };
   ```
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
 | `CanActivateFn` | Type pour un guard fonctionnel qui autorise ou refuse l'acces |
 | `CanDeactivateFn` | Type pour un guard qui empeche de quitter une page |
-| `inject()` | Injection de dependances dans un contexte fonctionnel |
+| `inject()` | Injection de dépendances dans un contexte fonctionnel |
 | `Router.createUrlTree()` | Cree un arbre d'URL pour la redirection dans un guard |
 | `loadComponent` | Lazy loading d'un composant standalone unique |
 | `loadChildren` | Lazy loading d'un ensemble de routes enfants |
 | `canActivate` | Tableau de guards appliques avant d'activer une route |
 | `canDeactivate` | Tableau de guards appliques avant de quitter une route |
-| Signal `isLoggedIn` | Etat reactif d'authentification partage via un service |
+| Signal `isLoggedIn` | État réactif d'authentification partage via un service |

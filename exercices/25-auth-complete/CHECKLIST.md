@@ -10,24 +10,24 @@
 
 - [ ] Le signal `_state` est prive et de type `WritableSignal<AuthState>`
 - [ ] Les signaux publics (`user`, `isAuthenticated`, `isAdmin`, `loading`, `token`) sont des `computed` en lecture seule
-- [ ] La methode `login()` met a jour l'etat et redirige vers `/dashboard`
-- [ ] La methode `logout()` reinitialise l'etat et redirige vers `/login`
-- [ ] La methode `checkAuth()` restaure la session depuis `localStorage`
+- [ ] La méthode `login()` met a jour l'état et redirige vers `/dashboard`
+- [ ] La méthode `logout()` reinitialise l'état et redirige vers `/login`
+- [ ] La méthode `checkAuth()` restaure la session depuis `localStorage`
 - [ ] Un `effect()` synchronise le token avec `localStorage`
 
 ## Intercepteur
 
 - [ ] L'intercepteur est une **fonction** (pas une classe) de type `HttpInterceptorFn`
-- [ ] Le header `Authorization: Bearer <token>` est ajoute aux requetes authentifiees
+- [ ] Le header `Authorization: Bearer <token>` est ajoute aux requêtes authentifiees
 - [ ] Les URLs publiques (`/api/auth/login`, `/api/auth/register`) sont exclues
-- [ ] La requete est clonee avec `req.clone()` (pas de mutation directe)
-- [ ] Les reponses 401 declenchent un `logout()` automatique
+- [ ] La requête est clonee avec `req.clone()` (pas de mutation directe)
+- [ ] Les réponses 401 declenchent un `logout()` automatique
 
 ## Guards
 
 - [ ] `authGuard` est une fonction de type `CanActivateFn`
 - [ ] `authGuard` redirige vers `/login` si non authentifie (via `createUrlTree`)
-- [ ] `adminGuard` verifie le role `admin` en plus de l'authentification
+- [ ] `adminGuard` vérifié le role `admin` en plus de l'authentification
 - [ ] `adminGuard` redirige vers `/dashboard` si l'utilisateur n'est pas admin
 
 ## Routes
@@ -39,10 +39,10 @@
 
 ## Composants
 
-- [ ] `LoginComponent` utilise un formulaire reactif avec validation
-- [ ] `NavbarComponent` affiche un contenu different selon l'etat d'authentification
+- [ ] `LoginComponent` utilise un formulaire réactif avec validation
+- [ ] `NavbarComponent` affiche un contenu différent selon l'état d'authentification
 - [ ] Le lien "Administration" n'est visible que pour les admins
-- [ ] `checkAuth()` est appele au demarrage de l'application
+- [ ] `checkAuth()` est appele au démarrage de l'application
 
 ## Qualite
 

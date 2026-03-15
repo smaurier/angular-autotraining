@@ -1,8 +1,8 @@
 # Correction — Exercice 13 : Recherche RxJS
 
-## Resultat attendu
+## Résultat attendu
 
-Un champ de recherche qui reagit aux frappes clavier avec un delai de 300ms. Les requetes sont annulees si l'utilisateur tape plus vite que la reponse. Un spinner s'affiche pendant le chargement. Les erreurs sont capturees et affichees. La desabonnement est automatique a la destruction du composant.
+Un champ de recherche qui reagit aux frappes clavier avec un delai de 300ms. Les requêtes sont annulees si l'utilisateur tape plus vite que la réponse. Un spinner s'affiche pendant le chargement. Les erreurs sont capturees et affichees. La desabonnement est automatique à la destruction du composant.
 
 ## Code corrige
 
@@ -321,7 +321,7 @@ export class SearchComponent implements OnInit {
 
 ### 1. `catchError` au mauvais endroit
 
-- ❌ `catchError` dans le pipe principal casse toute la chaine apres la premiere erreur :
+- ❌ `catchError` dans le pipe principal casse toute la chaine après la première erreur :
   ```typescript
   searchSubject.pipe(
     switchMap(q => this.service.search(q)),
@@ -339,8 +339,8 @@ export class SearchComponent implements OnInit {
 
 ### 2. Oublier `distinctUntilChanged`
 
-- ❌ Sans `distinctUntilChanged`, une meme requete est lancee plusieurs fois
-- ✅ `distinctUntilChanged()` empeche les requetes en double consecutives
+- ❌ Sans `distinctUntilChanged`, une même requête est lancee plusieurs fois
+- ✅ `distinctUntilChanged()` empeche les requêtes en double consecutives
 
 ### 3. Oublier de se desabonner
 
@@ -358,20 +358,20 @@ export class SearchComponent implements OnInit {
 
 ### 4. Utiliser `mergeMap` au lieu de `switchMap`
 
-- ❌ `mergeMap` garde toutes les requetes en cours, les reponses arrivent dans le desordre
-- ✅ `switchMap` annule la requete precedente des qu'une nouvelle est emise
+- ❌ `mergeMap` garde toutes les requêtes en cours, les réponses arrivent dans le desordre
+- ✅ `switchMap` annule la requête précédente des qu'une nouvelle est emise
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
 | `Subject` | Observable qui permet d'emettre des valeurs manuellement |
-| `debounceTime(300)` | Attend 300ms apres la derniere emission avant de propager |
+| `debounceTime(300)` | Attend 300ms après la dernière emission avant de propager |
 | `distinctUntilChanged()` | Ignore les valeurs identiques consecutives |
 | `filter()` | Ne laisse passer que les valeurs satisfaisant une condition |
-| `switchMap()` | Se desabonne de l'observable precedent avant d'en creer un nouveau |
+| `switchMap()` | Se desabonne de l'observable précédent avant d'en créer un nouveau |
 | `catchError()` | Intercepte les erreurs et retourne un observable de remplacement |
 | `takeUntilDestroyed()` | Se desabonne automatiquement quand le composant est detruit |
-| `signal()` | Etat reactif local pour l'UI (loading, results, error) |
+| `signal()` | État réactif local pour l'UI (loading, results, error) |
 | `of()` | Cree un observable qui emet une valeur puis se complete |
-| `delay()` | Retarde l'emission pour simuler la latence reseau |
+| `delay()` | Retarde l'emission pour simuler la latence réseau |

@@ -1,12 +1,12 @@
 # Correction — Exercice 22 : Store signaux
 
-## Resultat attendu
+## Résultat attendu
 
-Un service `TaskStore` qui gere entierement l'etat d'une liste de taches via les signaux Angular. Le composant consomme des signaux en lecture seule et appelle des methodes pour modifier l'etat. Aucun Observable, aucun BehaviorSubject — tout est signal.
+Un service `TaskStore` qui géré entièrement l'état d'une liste de taches via les signaux Angular. Le composant consomme des signaux en lecture seule et appelle des méthodes pour modifier l'état. Aucun Observable, aucun BehaviorSubject — tout est signal.
 
 ## Code corrige
 
-### Modele de donnees
+### Modèle de donnees
 
 ```typescript
 // src/app/exercises/ex22/models/task.model.ts
@@ -379,15 +379,15 @@ export class TaskListComponent {
 ## Ce que tu aurais pu oublier
 
 ### 1. Exposer le WritableSignal directement
-- ❌ `readonly tasks = this._tasks;` → le consommateur peut appeler `tasks.set([])` et contourner les methodes
+- ❌ `readonly tasks = this._tasks;` → le consommateur peut appeler `tasks.set([])` et contourner les méthodes
 - ✅ `readonly tasks: Signal<Task[]> = this._tasks.asReadonly();` → lecture seule, impossible de modifier depuis l'exterieur
 
-### 2. Muter le tableau directement au lieu de creer un nouveau
-- ❌ `this._tasks().push(newTask)` → le signal ne detecte pas le changement (meme reference)
+### 2. Muter le tableau directement au lieu de créer un nouveau
+- ❌ `this._tasks().push(newTask)` → le signal ne détecté pas le changement (même référence)
 - ✅ `this._tasks.update(tasks => [...tasks, newTask])` → nouveau tableau, le signal notifie les dependants
 
-### 3. Oublier `effect()` qui necessite un contexte d'injection
-- ❌ Appeler `effect()` dans une methode ordinaire → erreur "effect() requires an injection context"
+### 3. Oublier `effect()` qui nécessité un contexte d'injection
+- ❌ Appeler `effect()` dans une méthode ordinaire → erreur "effect() requires an injection context"
 - ✅ Appeler `effect()` dans le constructeur ou dans une fonction appelee depuis le constructeur
 
 ### 4. Confondre `signal.set()` et `signal.update()`
@@ -399,21 +399,21 @@ export class TaskListComponent {
 - ✅ `readonly tasks: Signal<Task[]> = this._tasks.asReadonly()` → type explicite, plus clair
 
 ### 6. Oublier le `trim()` sur le titre
-- ❌ `addTask('  ')` cree une tache avec un titre vide → mauvaise UX
-- ✅ `title.trim()` puis verifier `title.length === 0` avant de creer
+- ❌ `addTask('  ')` créé une tache avec un titre vide → mauvaise UX
+- ✅ `title.trim()` puis vérifier `title.length === 0` avant de créer
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
-| `signal<T>(value)` | Cree un signal mutable (WritableSignal) pour l'etat interne |
-| `computed(() => ...)` | Cree un signal derive recalcule automatiquement quand ses dependances changent |
+| `signal<T>(value)` | Cree un signal mutable (WritableSignal) pour l'état interne |
+| `computed(() => ...)` | Cree un signal dérivé recalcule automatiquement quand ses dépendances changent |
 | `effect(() => ...)` | Execute un side-effect chaque fois qu'un signal lu dedans change |
 | `.asReadonly()` | Convertit un WritableSignal en Signal (lecture seule) pour l'exposition publique |
 | `.set(value)` | Remplace la valeur du signal |
-| `.update(fn)` | Met a jour le signal en appliquant une fonction sur la valeur precedente |
+| `.update(fn)` | Met a jour le signal en appliquant une fonction sur la valeur précédente |
 | `providedIn: 'root'` | Le service est un singleton disponible dans toute l'application |
 | `inject()` | Injecte un service dans un composant sans passer par le constructeur |
 | `input.required<T>()` | Declare un input obligatoire (Angular 19+) |
 | `output<T>()` | Declare un output sans EventEmitter (Angular 19+) |
-| Immutabilite | Toujours creer de nouveaux objets/tableaux au lieu de muter les existants |
+| Immutabilite | Toujours créer de nouveaux objets/tableaux au lieu de muter les existants |

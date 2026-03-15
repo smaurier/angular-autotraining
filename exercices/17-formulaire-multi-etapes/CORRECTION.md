@@ -1,8 +1,8 @@
-# Correction — Exercice 17 : Formulaire multi-etapes
+# Correction — Exercice 17 : Formulaire multi-étapes
 
-## Resultat attendu
+## Résultat attendu
 
-Un wizard de 3 etapes avec une barre de progression. L'etape 1 collecte les infos personnelles, l'etape 2 permet d'ajouter plusieurs adresses via un FormArray dynamique, l'etape 3 affiche un recapitulatif avant soumission. La navigation valide chaque etape avant de passer a la suivante.
+Un wizard de 3 étapes avec une barre de progression. L'étape 1 collecte les infos personnelles, l'étape 2 permet d'ajouter plusieurs adresses via un FormArray dynamique, l'étape 3 affiche un récapitulatif avant soumission. La navigation valide chaque étape avant de passer à la suivante.
 
 ## Code corrige
 
@@ -656,22 +656,22 @@ export class WizardFormComponent {
   }
   ```
 
-### 2. Ne pas valider l'etape avant de passer a la suivante
+### 2. Ne pas valider l'étape avant de passer à la suivante
 
 - ❌ Permettre la navigation libre sans validation
-- ✅ Verifier `isCurrentStepValid()` avant d'incrementer l'etape
+- ✅ Vérifier `isCurrentStepValid()` avant d'incrementer l'étape
 
 ### 3. Oublier qu'un `FormArray` vide est toujours "valid"
 
-- ❌ Verifier uniquement `addressesArray.valid` (true meme si vide)
-- ✅ Verifier aussi `addressesArray.length > 0` pour imposer au minimum une adresse
+- ❌ Vérifier uniquement `addressesArray.valid` (true même si vide)
+- ✅ Vérifier aussi `addressesArray.length > 0` pour imposer au minimum une adresse
 
 ### 4. Passer le formulaire complet au composant enfant
 
 - ❌ Passer tout le `FormGroup` au composant enfant
 - ✅ Passer uniquement le sous-groupe ou sous-array concerne (separation des responsabilites)
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
@@ -681,6 +681,6 @@ export class WizardFormComponent {
 | `formArray.push()` | Ajoute un controle au FormArray |
 | `formArray.removeAt()` | Supprime un controle par son index |
 | `markAllAsTouched()` | Force l'affichage des erreurs de validation |
-| Signal `currentStep` | Etat reactif de l'etape courante dans le wizard |
+| Signal `currentStep` | État réactif de l'étape courante dans le wizard |
 | `Validators.pattern` | Validateur basé sur une expression reguliere |
 | `input.required<T>()` | Input obligatoire type pour la communication parent-enfant |

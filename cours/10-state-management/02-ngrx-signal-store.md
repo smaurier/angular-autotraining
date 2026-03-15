@@ -1,27 +1,27 @@
-# Cours 40 — NgRx SignalStore : store structure pour grandes equipes
+# Cours 40 — NgRx SignalStore : store structure pour grandes équipes
 
-> **Objectif** : Comprendre pourquoi et quand utiliser NgRx SignalStore, maitriser sa creation avec `signalStore()`, `withState()`, `withComputed()`, `withMethods()`, `withHooks()`, `patchState()`, et la gestion d'entites avec `withEntities()`. Savoir quand choisir SignalStore plutot qu'un simple service.
+> **Objectif** : Comprendre pourquoi et quand utiliser NgRx SignalStore, maîtriser sa création avec `signalStore()`, `withState()`, `withComputed()`, `withMethods()`, `withHooks()`, `patchState()`, et la gestion d'entites avec `withEntities()`. Savoir quand choisir SignalStore plutot qu'un simple service.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
 <summary>1. Quel est le pattern "store maison" avec un service Angular ?</summary>
 
-Un `@Injectable` avec des `signal()` prives pour l'etat, des `computed()` pour les selecteurs, des methodes pour les actions, et `.asReadonly()` pour exposer l'etat en lecture seule.
+Un `@Injectable` avec des `signal()` prives pour l'état, des `computed()` pour les selecteurs, des méthodes pour les actions, et `.asReadonly()` pour exposer l'état en lecture seule.
 </details>
 
 <details>
-<summary>2. Quel est l'equivalent Pinia de `signal()` et `computed()` en Angular ?</summary>
+<summary>2. Quel est l'équivalent Pinia de `signal()` et `computed()` en Angular ?</summary>
 
-`ref()` correspond a `signal()`, et `computed()` existe dans les deux frameworks avec la meme semantique.
+`ref()` correspond a `signal()`, et `computed()` existe dans les deux frameworks avec la même semantique.
 </details>
 
 <details>
 <summary>3. Quand est-ce qu'un service + signals suffit ?</summary>
 
-Pour la plupart des projets ESN : equipe de 1-5 dev, etat pas trop complexe, pas besoin de devtools ou de middleware.
+Pour la plupart des projets ESN : équipe de 1-5 dev, état pas trop complexe, pas besoin de devtools ou de middleware.
 </details>
 
 ---
@@ -41,7 +41,7 @@ En termes Vue 3 :
 
 ---
 
-## Theorie
+## Théorie
 
 ### Pourquoi NgRx SignalStore ?
 
@@ -61,7 +61,7 @@ NgRx SignalStore :
   - Courbe d'apprentissage
 ```
 
-> **En ESN** : Si le client utilise deja NgRx, vous devez le maitriser. Si c'est un nouveau projet avec une grande equipe, SignalStore est un bon choix.
+> **En ESN** : Si le client utilise déjà NgRx, vous devez le maîtriser. Si c'est un nouveau projet avec une grande équipe, SignalStore est un bon choix.
 
 ### Installation
 
@@ -69,7 +69,7 @@ NgRx SignalStore :
 npm install @ngrx/signals
 ```
 
-### Creation d'un store avec signalStore()
+### Création d'un store avec signalStore()
 
 ```typescript
 import { signalStore, withState, withComputed, withMethods, patchState } from '@ngrx/signals';
@@ -153,10 +153,10 @@ export const TaskStore = signalStore(
 | Fonction | Role | Equivalent service |
 |----------|------|-------------------|
 | `signalStore()` | Cree le store | `@Injectable` |
-| `withState(initial)` | Definit l'etat initial | `signal()` prives |
-| `withComputed(fn)` | Ajoute des selecteurs derives | `computed()` |
-| `withMethods(fn)` | Ajoute des actions | Methodes du service |
-| `patchState(store, partial)` | Met a jour partiellement l'etat | `signal.update()` |
+| `withState(initial)` | Definit l'état initial | `signal()` prives |
+| `withComputed(fn)` | Ajoute des selecteurs dérivés | `computed()` |
+| `withMethods(fn)` | Ajoute des actions | Méthodes du service |
+| `patchState(store, partial)` | Met a jour partiellement l'état | `signal.update()` |
 | `withHooks(fn)` | Lifecycle (onInit, onDestroy) | constructor / effect |
 
 ### patchState : mise a jour partielle
@@ -180,7 +180,7 @@ withMethods((store) => ({
 }));
 ```
 
-> `patchState` est l'equivalent de `Object.assign` pour les signals du store. Seules les proprietes specifiees sont modifiees.
+> `patchState` est l'équivalent de `Object.assign` pour les signals du store. Seules les propriétés specifiees sont modifiees.
 
 ### withHooks : lifecycle du store
 
@@ -321,10 +321,10 @@ export class TaskPageComponent {
 
 | Critere | Service + Signals | NgRx SignalStore |
 |---------|------------------|-----------------|
-| Equipe | 1-5 devs | 5+ devs |
-| Complexite etat | Simple a moyen | Moyen a complexe |
+| Équipe | 1-5 devs | 5+ devs |
+| Complexite état | Simple a moyen | Moyen a complexe |
 | Conventions | Libres | Imposees par l'API |
-| Entites (CRUD) | Manuel | `withEntities()` integre |
+| Entites (CRUD) | Manuel | `withEntities()` intégré |
 | Plugins | Aucun | Extensible (custom features) |
 | DevTools | Non | Oui (NgRx DevTools) |
 | Dependance | Aucune | `@ngrx/signals` |
@@ -334,13 +334,13 @@ export class TaskPageComponent {
 
 ## Pratique
 
-Refactorisez le `PanierStore` du cours precedent en utilisant NgRx SignalStore avec `withEntities()`.
+Refactorisez le `PanierStore` du cours précédent en utilisant NgRx SignalStore avec `withEntities()`.
 
 **Consignes** :
 1. Utilisez `signalStore()` avec `withEntities<ArticlePanier>()`
-2. Ajoutez un etat `chargement` avec `withState`
+2. Ajoutez un état `chargement` avec `withState`
 3. Computed : `total`, `nbArticles`
-4. Methodes : `ajouter`, `supprimer`, `vider`
+4. Méthodes : `ajouter`, `supprimer`, `vider`
 
 <details>
 <summary>Solution</summary>
@@ -428,19 +428,19 @@ export class PanierComponent {
 
 ---
 
-## Resume
+## Résumé
 
 | API SignalStore | Role | Equivalent service |
 |----------------|------|-------------------|
 | `signalStore()` | Point d'entree | `@Injectable` |
-| `withState()` | Etat initial | `signal()` prives |
+| `withState()` | État initial | `signal()` prives |
 | `withComputed()` | Derivations | `computed()` |
-| `withMethods()` | Actions | Methodes publiques |
+| `withMethods()` | Actions | Méthodes publiques |
 | `patchState()` | MAJ partielle | `signal.update()` |
 | `withHooks()` | Lifecycle | constructor / ngOnInit |
 | `withEntities()` | Gestion CRUD | Code manuel |
 
-> **A retenir** : NgRx SignalStore impose une structure. Utilisez-le quand l'equipe est grande ou que le client l'exige. Sinon, un service + signals est plus simple et tout aussi efficace.
+> **A retenir** : NgRx SignalStore impose une structure. Utilisez-le quand l'équipe est grande ou que le client l'exige. Sinon, un service + signals est plus simple et tout aussi efficace.
 
 ---
 

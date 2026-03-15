@@ -1,12 +1,12 @@
 # Correction — Exercice 19 : Material Dashboard
 
-## Resultat attendu
+## Résultat attendu
 
-Un tableau de bord professionnel avec un layout responsive (toolbar + sidenav), 4 cartes de statistiques en haut, une table triable et paginee au centre, un dialog pour creer/editer des taches, et des notifications snackbar pour les actions utilisateur.
+Un tableau de bord professionnel avec un layout responsive (toolbar + sidenav), 4 cartes de statistiques en haut, une table triable et paginee au centre, un dialog pour créer/editer des taches, et des notifications snackbar pour les actions utilisateur.
 
 ## Code corrige
 
-### Modele et types
+### Modèle et types
 
 ```typescript
 // src/app/exercises/ex19/task.model.ts
@@ -513,7 +513,7 @@ export class TaskDialogComponent {
 - ❌ Passer `taskService.tasks()` directement a `[dataSource]` → le tri/filtre ne fonctionne pas
 - ✅ Utiliser `MatTableDataSource` et synchroniser via `effect(() => dataSource.data = tasks())`
 
-### 3. Ne pas importer les modules Material necessaires
+### 3. Ne pas importer les modules Material nécessaires
 - ❌ Utiliser `<mat-table>` sans importer `MatTableModule` → erreur de compilation
 - ✅ Importer chaque module Material utilise dans `imports: [...]` du composant standalone
 
@@ -525,17 +525,17 @@ export class TaskDialogComponent {
 - ❌ Sidenav toujours en mode `side` → inutilisable sur mobile
 - ✅ Utiliser `BreakpointObserver` pour basculer entre `'side'` et `'over'`
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
 | `MatToolbar` | Barre d'outils en haut de l'ecran avec titre et boutons |
-| `MatSidenav` + `BreakpointObserver` | Menu lateral responsive qui s'adapte a la taille d'ecran |
+| `MatSidenav` + `BreakpointObserver` | Menu lateral responsive qui s'adapte à la taille d'ecran |
 | `MatTableDataSource` | Source de donnees pour MatTable avec tri, pagination et filtre integres |
 | `MatSort` / `MatPaginator` | Directives pour le tri des colonnes et la pagination de la table |
-| `MatDialog` | Fenetre modale pour creation/edition avec injection de donnees via `MAT_DIALOG_DATA` |
+| `MatDialog` | Fenetre modale pour création/edition avec injection de donnees via `MAT_DIALOG_DATA` |
 | `MatSnackBar` | Notification temporaire avec action optionnelle (ex: "Annuler") |
 | `MatCard` | Carte Material pour afficher les statistiques du dashboard |
 | `effect()` | Synchronise le signal de taches avec le `MatTableDataSource` |
 | `computed()` | Derive les statistiques (total, done, in_progress, overdue) du signal principal |
-| `inject()` | Injection de dependances fonctionnelle sans constructeur |
+| `inject()` | Injection de dépendances fonctionnelle sans constructeur |

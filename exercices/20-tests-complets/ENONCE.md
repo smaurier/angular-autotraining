@@ -6,42 +6,42 @@
 
 ## Objectif
 
-Ecrire une suite de tests complete (service, composant, HTTP) pour une application Todo, en couvrant les cas nominaux, les cas limites et la gestion d'erreurs.
+Écrire une suite de tests complete (service, composant, HTTP) pour une application Todo, en couvrant les cas nominaux, les cas limites et la gestion d'erreurs.
 
 ## Consignes
 
-1. **Creer `TodoService`** dans `src/app/exercises/ex20/todo.service.ts` :
+1. **Créer `TodoService`** dans `src/app/exercises/ex20/todo.service.ts` :
    - Signal `todos` de type `signal<Todo[]>` (initialise a `[]`)
-   - Methode `add(title: string)` : ajoute un todo avec `id` auto-incremente, `title`, `completed: false`
-   - Methode `toggle(id: number)` : bascule le `completed` d'un todo
-   - Methode `delete(id: number)` : supprime un todo
-   - Methode `filter(status: 'all' | 'active' | 'completed')` : retourne un signal filtre
+   - Méthode `add(title: string)` : ajoute un todo avec `id` auto-incremente, `title`, `completed: false`
+   - Méthode `toggle(id: number)` : bascule le `completed` d'un todo
+   - Méthode `delete(id: number)` : supprime un todo
+   - Méthode `filter(status: 'all' | 'active' | 'completed')` : retourne un signal filtre
    - Computed `activeCount` : nombre de todos non completes
    - Computed `completedCount` : nombre de todos completes
-   - Methode `loadFromApi()` : charge les todos depuis une API HTTP (GET `/api/todos`)
-2. **Ecrire 5 tests unitaires du service** dans `todo.service.spec.ts` :
-   - Test 1 : `add()` ajoute un todo avec les bonnes proprietes
+   - Méthode `loadFromApi()` : charge les todos depuis une API HTTP (GET `/api/todos`)
+2. **Écrire 5 tests unitaires du service** dans `todo.service.spec.ts` :
+   - Test 1 : `add()` ajoute un todo avec les bonnes propriétés
    - Test 2 : `toggle()` bascule le statut completed
    - Test 3 : `delete()` retire le todo de la liste
    - Test 4 : `filter('active')` retourne uniquement les todos non completes
    - Test 5 : `activeCount` et `completedCount` retournent les bons comptes
-3. **Creer `TodoListComponent`** dans `src/app/exercises/ex20/todo-list.component.ts` :
+3. **Créer `TodoListComponent`** dans `src/app/exercises/ex20/todo-list.component.ts` :
    - Injecte `TodoService`
    - Affiche la liste des todos avec `@for`
    - Formulaire d'ajout avec un `<input>` et un bouton
    - Bouton toggle (checkbox) et bouton supprimer pour chaque todo
    - Message "Aucun todo" quand la liste est vide
-4. **Ecrire 5 tests de composant** dans `todo-list.component.spec.ts` :
+4. **Écrire 5 tests de composant** dans `todo-list.component.spec.ts` :
    - Test 1 : le composant affiche la liste des todos
    - Test 2 : le formulaire ajoute un todo au clic sur "Ajouter"
    - Test 3 : cliquer sur la checkbox toggle le todo
    - Test 4 : cliquer sur "Supprimer" retire le todo
    - Test 5 : le message "Aucun todo" s'affiche quand la liste est vide
-5. **Ecrire 3 tests HTTP** dans `todo-http.spec.ts` :
+5. **Écrire 3 tests HTTP** dans `todo-http.spec.ts` :
    - Test 1 : `loadFromApi()` charge les todos depuis l'API (mock `HttpTestingController`)
-   - Test 2 : `loadFromApi()` gere une erreur 500 (le signal reste vide, erreur loggee)
-   - Test 3 : `loadFromApi()` avec retry (la premiere requete echoue, la seconde reussit)
-6. **Tous les tests doivent passer** : executer `ng test` et verifier que tout est vert
+   - Test 2 : `loadFromApi()` géré une erreur 500 (le signal reste vide, erreur loggee)
+   - Test 3 : `loadFromApi()` avec retry (la première requête echoue, la seconde reussit)
+6. **Tous les tests doivent passer** : exécuter `ng test` et vérifier que tout est vert
 
 ## Contraintes TypeScript
 

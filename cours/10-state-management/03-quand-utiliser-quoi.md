@@ -1,27 +1,27 @@
 # Cours 41 — Quand utiliser quoi : matrice de decision state management
 
-> **Objectif** : Savoir choisir entre Service+Signals, NgRx SignalStore et NgRx Store classique selon le contexte du projet. Construire une reponse argumentee pour l'entretien technique : "Quel state management choisir en Angular ?"
+> **Objectif** : Savoir choisir entre Service+Signals, NgRx SignalStore et NgRx Store classique selon le contexte du projet. Construire une réponse argumentee pour l'entretien technique : "Quel state management choisir en Angular ?"
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
-<summary>1. Quelle est la difference entre `withState()` et `withEntities()` dans NgRx SignalStore ?</summary>
+<summary>1. Quelle est la différence entre `withState()` et `withEntities()` dans NgRx SignalStore ?</summary>
 
-`withState()` definit un etat libre (objet quelconque). `withEntities<T>()` ajoute automatiquement une collection d'entites avec `entities()`, `ids()`, `entityMap()` et des fonctions CRUD (`addEntity`, `removeEntity`, etc.).
+`withState()` définit un état libre (objet quelconque). `withEntities<T>()` ajoute automatiquement une collection d'entites avec `entities()`, `ids()`, `entityMap()` et des fonctions CRUD (`addEntity`, `removeEntity`, etc.).
 </details>
 
 <details>
-<summary>2. Comment mettre a jour partiellement l'etat dans un SignalStore ?</summary>
+<summary>2. Comment mettre a jour partiellement l'état dans un SignalStore ?</summary>
 
-Avec `patchState(store, { propriete: nouvelleValeur })`. Seules les proprietes specifiees sont modifiees, le reste est conserve.
+Avec `patchState(store, { propriete: nouvelleValeur })`. Seules les propriétés specifiees sont modifiees, le reste est conserve.
 </details>
 
 <details>
-<summary>3. Quel est l'avantage principal de NgRx SignalStore par rapport a un service + signals ?</summary>
+<summary>3. Quel est l'avantage principal de NgRx SignalStore par rapport à un service + signals ?</summary>
 
-Il impose une structure conventionnelle (`withState`, `withComputed`, `withMethods`) qui garantit que toute l'equipe code de la meme facon. Il offre aussi des plugins comme `withEntities()` et la compatibilite DevTools.
+Il impose une structure conventionnelle (`withState`, `withComputed`, `withMethods`) qui garantit que toute l'équipe code de la même façon. Il offre aussi des plugins comme `withEntities()` et la compatibilite DevTools.
 </details>
 
 ---
@@ -31,10 +31,10 @@ Il impose une structure conventionnelle (`withState`, `withComputed`, `withMetho
 Choisir un state management, c'est comme choisir un vehicule pour un trajet :
 
 - **Service + Signals** = **velo** : leger, rapide a mettre en place, parfait pour les trajets courts a moyens. 80% de vos deplacements quotidiens.
-- **NgRx SignalStore** = **voiture** : plus structure, plus de fonctionnalites, necessaire quand le trajet est plus long ou qu'on est plusieurs passagers.
-- **NgRx Store classique** = **camion** : puissant, lourd, necessaire pour les tres grosses charges. Surdimensionne pour un trajet de 5 km.
+- **NgRx SignalStore** = **voiture** : plus structure, plus de fonctionnalites, nécessaire quand le trajet est plus long ou qu'on est plusieurs passagers.
+- **NgRx Store classique** = **camion** : puissant, lourd, nécessaire pour les très grosses charges. Surdimensionne pour un trajet de 5 km.
 
-En Vue 3, c'est le meme raisonnement :
+En Vue 3, c'est le même raisonnement :
 | Angular | Vue 3 | Complexite |
 |---------|-------|-----------|
 | Service + Signals | Composables + `ref()` | Faible |
@@ -43,7 +43,7 @@ En Vue 3, c'est le meme raisonnement :
 
 ---
 
-## Theorie
+## Théorie
 
 ### Les trois approches en Angular 19+
 
@@ -63,10 +63,10 @@ export class TaskStore {
 ```
 
 **Forces** :
-- Zero dependance supplementaire
+- Zero dépendance supplementaire
 - Pas de courbe d'apprentissage
-- Tres flexible
-- Facile a tester
+- Très flexible
+- Facile à tester
 
 **Faiblesses** :
 - Pas de convention imposee (chaque dev fait differemment)
@@ -91,7 +91,7 @@ export const TaskStore = signalStore(
 ```
 
 **Forces** :
-- Structure imposee (conventions d'equipe)
+- Structure imposee (conventions d'équipe)
 - Plugins (`withEntities`, custom features)
 - Compatible DevTools NgRx
 - Base sur les signals (moderne)
@@ -130,9 +130,9 @@ loadTasks$ = createEffect(() => this.actions$.pipe(
 ```
 
 **Forces** :
-- Tres structure (actions, reducers, selectors, effects)
+- Très structure (actions, reducers, selectors, effects)
 - DevTools puissants (time-travel debugging)
-- Tres repandu dans les grands projets Angular
+- Très repandu dans les grands projets Angular
 - Middleware/Effects pour les side effects
 
 **Faiblesses** :
@@ -145,8 +145,8 @@ loadTasks$ = createEffect(() => this.actions$.pipe(
 
 | Critere | Service + Signals | NgRx SignalStore | NgRx Store |
 |---------|:-----------------:|:----------------:|:----------:|
-| Taille d'equipe | 1-5 | 3-15 | 10+ |
-| Complexite de l'etat | Faible-moyenne | Moyenne-elevee | Elevee |
+| Taille d'équipe | 1-5 | 3-15 | 10+ |
+| Complexite de l'état | Faible-moyenne | Moyenne-elevee | Elevee |
 | Nombre de stores | 1-3 | 3-10 | 5+ |
 | Besoin de devtools | Non | Optionnel | Oui |
 | Boilerplate | Minimal | Modere | Eleve |
@@ -177,7 +177,7 @@ Votre application a-t-elle un etat partage complexe ?
                               (conventions + plugins + moderne)
 ```
 
-### Pattern : commencer simple, migrer si necessaire
+### Pattern : commencer simple, migrer si nécessaire
 
 ```typescript
 // Etape 1 : Service + Signals (jour 1)
@@ -207,22 +207,22 @@ export const ProjetStore = signalStore(
 // Le reste (store.ajouter, store.charger) reste identique
 ```
 
-> **Regle ESN** : Commencez toujours avec l'approche la plus simple. Migrez uniquement si vous rencontrez un vrai probleme (pas un probleme hypothetique).
+> **Regle ESN** : Commencez toujours avec l'approche la plus simple. Migrez uniquement si vous rencontrez un vrai problème (pas un problème hypothetique).
 
 ### Cas concrets en ESN
 
 | Projet ESN | Approche recommandee | Justification |
 |------------|---------------------|---------------|
 | Dashboard client (2 devs) | Service + Signals | Simple, rapide, suffisant |
-| App interne RH (5 devs) | Service + Signals | Etat moderement complexe |
-| Portail bancaire (12 devs) | NgRx SignalStore | Grande equipe, conventions necessaires |
-| Legacy Angular 8 migre | NgRx Store classique | Deja en place, ne pas migrer |
-| POC / prototype | Service + Signals | Vitesse de developpement maximale |
+| App interne RH (5 devs) | Service + Signals | État moderement complexe |
+| Portail bancaire (12 devs) | NgRx SignalStore | Grande équipe, conventions nécessaires |
+| Legacy Angular 8 migre | NgRx Store classique | Déjà en place, ne pas migrer |
+| POC / prototype | Service + Signals | Vitesse de développement maximale |
 | E-commerce complexe (8 devs) | NgRx SignalStore | Panier, catalogue, auth, multi-store |
 
 ### Question d'entretien : "Quel state management choisir ?"
 
-Voici un template de reponse structuree :
+Voici un template de réponse structuree :
 
 ```
 1. "Ca depend du contexte du projet." (ne jamais repondre une solution unique)
@@ -244,9 +244,9 @@ Voici un template de reponse structuree :
    vers SignalStore si le besoin se fait sentir."
 ```
 
-> Cette reponse montre que vous connaissez les trois approches, que vous savez les comparer, et que vous privilegiez la simplicite.
+> Cette réponse montre que vous connaissez les trois approches, que vous savez les comparer, et que vous privilegiez la simplicite.
 
-### Comparaison du code pour la meme fonctionnalite
+### Comparaison du code pour la même fonctionnalite
 
 Ajout d'une tache dans les trois approches :
 
@@ -270,7 +270,7 @@ on(addTask, (state, { task }) => ({ ...state, tasks: [...state.tasks, task] }))
 this.store.dispatch(addTask({ task }));
 ```
 
-### Anti-patterns a eviter
+### Anti-patterns a éviter
 
 ```typescript
 // ❌ Utiliser NgRx Store classique "parce que c'est ce qu'on fait en Angular"
@@ -290,7 +290,7 @@ this.store.dispatch(addTask({ task }));
 // ✅ L'etat local reste local (signal dans le composant)
 ```
 
-### Resume des stores par domaine
+### Résumé des stores par domaine
 
 ```
 app/
@@ -306,11 +306,11 @@ app/
 
 ## Pratique
 
-Vous etes en entretien technique. On vous presente trois scenarios de projet et on vous demande de justifier votre choix de state management pour chacun.
+Vous etes en entretien technique. On vous présenté trois scenarios de projet et on vous demandé de justifier votre choix de state management pour chacun.
 
-**Scenario A** : Une app de gestion de taches interne, 2 developpeurs, 3 mois de developpement.
+**Scenario A** : Une app de gestion de taches interne, 2 développeurs, 3 mois de développement.
 
-**Scenario B** : Un portail client pour une banque, 10 developpeurs, etat complexe (comptes, transactions, notifications temps reel).
+**Scenario B** : Un portail client pour une banque, 10 développeurs, état complexe (comptes, transactions, notifications temps réel).
 
 **Scenario C** : Migration d'une app Angular 10 avec NgRx Store classique vers Angular 19.
 
@@ -318,42 +318,51 @@ Vous etes en entretien technique. On vous presente trois scenarios de projet et 
 <summary>Solution</summary>
 
 **Scenario A** : **Service + Signals**
-- Equipe petite (2 devs), pas besoin de conventions imposees
-- Etat simple (liste de taches, filtre, utilisateur connecte)
-- Zero dependance supplementaire = livraison plus rapide
+- Équipe petite (2 devs), pas besoin de conventions imposees
+- État simple (liste de taches, filtre, utilisateur connecte)
+- Zero dépendance supplementaire = livraison plus rapide
 - Argument : "Pour une app de cette taille, un store NgRx serait du surdimensionnement. Un service avec des signals couvre largement le besoin."
 
 **Scenario B** : **NgRx SignalStore**
-- Grande equipe (10 devs) = besoin de conventions strictes
-- Etat complexe avec beaucoup de derivations (solde, historique, alertes)
+- Grande équipe (10 devs) = besoin de conventions strictes
+- État complexe avec beaucoup de derivations (solde, historique, alertes)
 - Plusieurs stores par domaine (CompteStore, TransactionStore, AlerteStore)
-- Argument : "La taille de l'equipe justifie des conventions imposees. NgRx SignalStore offre la structure necessaire tout en restant moderne (signals). Je n'irais pas vers le Store classique pour un nouveau projet."
+- Argument : "La taille de l'équipe justifie des conventions imposees. NgRx SignalStore offre la structure nécessaire tout en restant moderne (signals). Je n'irais pas vers le Store classique pour un nouveau projet."
 
 **Scenario C** : **Garder NgRx Store classique**
-- Le Store classique est deja en place et fonctionne
+- Le Store classique est déjà en place et fonctionne
 - Le cout de migration (recrire reducers, effects, selectors) est enorme
 - On peut progressivement introduire SignalStore pour les nouvelles features
-- Argument : "On ne migre pas un store qui fonctionne. On met a jour les dependances NgRx vers les dernieres versions compatibles Angular 19, et on utilise SignalStore pour les nouvelles fonctionnalites uniquement."
+- Argument : "On ne migre pas un store qui fonctionne. On met a jour les dépendances NgRx vers les dernières versions compatibles Angular 19, et on utilise SignalStore pour les nouvelles fonctionnalites uniquement."
 </details>
 
 ---
 
-## Resume
+## Résumé
 
 | Approche | Quand | % projets ESN |
 |----------|-------|:------------:|
-| Service + Signals | Petite-moyenne equipe, etat simple | ~70% |
-| NgRx SignalStore | Grande equipe, conventions necessaires | ~20% |
-| NgRx Store classique | Legacy, deja en place | ~10% |
+| Service + Signals | Petite-moyenne équipe, état simple | ~70% |
+| NgRx SignalStore | Grande équipe, conventions nécessaires | ~20% |
+| NgRx Store classique | Legacy, déjà en place | ~10% |
 
 | Regle | Description |
 |-------|-------------|
 | Commencer simple | Service + Signals par defaut |
-| Migrer si necessaire | Vers SignalStore quand l'equipe grandit |
-| Ne pas migrer pour migrer | Garder NgRx Store classique si deja en place |
+| Migrer si nécessaire | Vers SignalStore quand l'équipe grandit |
+| Ne pas migrer pour migrer | Garder NgRx Store classique si déjà en place |
 | Un store par domaine | Pas un store monolithique global |
-| Etat local = signal local | Pas besoin de store pour l'etat d'un seul composant |
+| État local = signal local | Pas besoin de store pour l'état d'un seul composant |
 
 ---
 
 > **Prochain cours** : [Cours 42 — Pipeline CI/CD : GitHub Actions, lint, test, build, deploy](../11-cicd-auth-securite/01-pipeline-cicd.md)
+
+---
+
+<!-- parcours-recommande -->
+
+::: tip Parcours recommandé
+1. **Exercice** : [22-store-signaux](../../exercices/22-store-signaux/ENONCE)
+2. **Exercice** : [23-ngrx-signal-store](../../exercices/23-ngrx-signal-store/ENONCE)
+:::

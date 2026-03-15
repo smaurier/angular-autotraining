@@ -273,7 +273,7 @@ export class ProfilComponent {
 
 > **Important** : `FormsModule` doit être importé pour utiliser `[(ngModel)]`. En Vue, `v-model` fonctionne sans import supplémentaire.
 
-### Template reference variables — `#maVariable`
+### Template référence variables — `#maVariable`
 
 Permet de référencer un élément DOM ou un composant directement dans le template :
 

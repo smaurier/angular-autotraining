@@ -1,27 +1,27 @@
 # Cours 25 — HttpClient et CRUD
 
-> **Objectif** : Configurer `HttpClient` dans une application standalone Angular 19+, effectuer des requetes CRUD typees, et exposer les donnees HTTP sous forme de Signals. Maitriser le pattern service qui encapsule les appels API.
+> **Objectif** : Configurer `HttpClient` dans une application standalone Angular 19+, effectuer des requêtes CRUD typees, et exposer les donnees HTTP sous forme de Signals. Maîtriser le pattern service qui encapsule les appels API.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
 <summary>1. Que fait toSignal() et pourquoi est-ce utile ?</summary>
 
-`toSignal()` convertit un Observable en Signal. Il gere automatiquement le `subscribe` et le `unsubscribe` (a la destruction du composant). Cela permet d'utiliser les donnees directement dans le template via `monSignal()` sans `async` pipe ni gestion manuelle du cycle de vie.
+`toSignal()` convertit un Observable en Signal. Il géré automatiquement le `subscribe` et le `unsubscribe` (à la destruction du composant). Cela permet d'utiliser les donnees directement dans le template via `monSignal()` sans `async` pipe ni gestion manuelle du cycle de vie.
 </details>
 
 <details>
 <summary>2. Quand utiliser RxJS plutot que Signals ?</summary>
 
-RxJS pour les flux asynchrones complexes : requetes HTTP, debounce, retry, composition de flux, WebSockets. Signals pour l'etat UI synchrone et les valeurs derivees simples (`computed()`).
+RxJS pour les flux asynchrones complexes : requêtes HTTP, debounce, retry, composition de flux, WebSockets. Signals pour l'état UI synchrone et les valeurs derivees simples (`computed()`).
 </details>
 
 <details>
 <summary>3. Que fait takeUntilDestroyed() ?</summary>
 
-`takeUntilDestroyed()` complete automatiquement un Observable quand le composant (ou le contexte d'injection) est detruit. Il remplace le pattern verbeux `destroy$ + takeUntil + ngOnDestroy`.
+`takeUntilDestroyed()` complete automatiquement un Observable quand le composant (où le contexte d'injection) est detruit. Il remplace le pattern verbeux `destroy$ + takeUntil + ngOnDestroy`.
 </details>
 
 ---
@@ -30,17 +30,17 @@ RxJS pour les flux asynchrones complexes : requetes HTTP, debounce, retry, compo
 
 Imaginez un **serveur de restaurant** (le `HttpClient`) :
 
-- Vous passez votre **commande** (la requete HTTP : GET, POST, PUT, DELETE)
-- Vous preciser les **details** : "un steak saignant avec frites" (les parametres, headers, body)
+- Vous passez votre **commande** (la requête HTTP : GET, POST, PUT, DELETE)
+- Vous preciser les **details** : "un steak saignant avec frites" (les paramètres, headers, body)
 - Le serveur va en **cuisine** (le serveur API)
-- Il revient avec votre **plat** (la reponse typee)
+- Il revient avec votre **plat** (la réponse typee)
 - Si la cuisine est en panne, il vous previent (erreur HTTP)
 
-Le service Angular est le **maitre d'hotel** qui coordonne : il connait le menu (les endpoints), transmet au serveur (HttpClient), et presente le plat au client (le composant) dans la bonne assiette (le type TypeScript).
+Le service Angular est le **maitre d'hotel** qui coordonne : il connait le menu (les endpoints), transmet au serveur (HttpClient), et présenté le plat au client (le composant) dans la bonne assiette (le type TypeScript).
 
 ---
 
-## Theorie
+## Théorie
 
 ### Configuration de HttpClient
 
@@ -105,7 +105,7 @@ getProduit(id: number): Observable<Produit> {
 }
 ```
 
-#### POST — Creer une ressource
+#### POST — Créer une ressource
 
 ```typescript
 interface CreateProduitDto {
@@ -120,7 +120,7 @@ creerProduit(data: CreateProduitDto): Observable<Produit> {
 }
 ```
 
-#### PUT — Remplacer completement
+#### PUT — Remplacer complètement
 
 ```typescript
 mettreAJour(id: number, data: Produit): Observable<Produit> {
@@ -305,21 +305,21 @@ export class CatalogueComponent {
 
 | Concept | Vue 3 (axios) | Angular (HttpClient) |
 |---------|---------------|---------------------|
-| Librairie HTTP | `axios` (tierce) | `HttpClient` (integre) |
+| Librairie HTTP | `axios` (tierce) | `HttpClient` (intégré) |
 | Retour | Promise | Observable (lazy, annulable) |
 | Typage | `axios.get<T>(url)` | `http.get<T>(url)` |
 | Intercepteurs | `axios.interceptors` | `withInterceptors()` |
 | Annulation | `AbortController` | `unsubscribe()` / `switchMap` |
-| Integration template | `ref()` + `onMounted` | `toSignal()` automatique |
+| Intégration template | `ref()` + `onMounted` | `toSignal()` automatique |
 
 ---
 
 ## Pratique
 
-Creez un `TaskService` CRUD complet pour gerer des taches (todo) et un composant qui affiche la liste. L'interface `Task` contient : `id`, `titre`, `terminee` (boolean).
+Creez un `TaskService` CRUD complet pour gérer des taches (todo) et un composant qui affiche la liste. L'interface `Task` contient : `id`, `titre`, `terminee` (boolean).
 
 **Consignes** :
-1. Service avec les 5 methodes CRUD
+1. Service avec les 5 méthodes CRUD
 2. Composant qui affiche les taches avec `toSignal()`
 3. Bouton pour marquer une tache comme terminee (PATCH)
 
@@ -402,18 +402,18 @@ export class TaskListComponent {
 
 ---
 
-## Resume
+## Résumé
 
-| Point cle | A retenir |
+| Point clé | A retenir |
 |-----------|-----------|
 | `provideHttpClient()` | Configuration standalone dans `app.config.ts` |
-| `http.get<T>(url)` | Toujours typer les reponses avec un generique |
-| Observable HTTP | Cold (lazy) et single-emission (complete apres reponse) |
+| `http.get<T>(url)` | Toujours typer les réponses avec un générique |
+| Observable HTTP | Cold (lazy) et single-emission (complete après réponse) |
 | `HttpParams` / `HttpHeaders` | Immutables, chainer les `.set()` |
-| Pattern service | Un service encapsule tous les appels a un endpoint |
-| `toSignal()` + HTTP | Convertir les reponses en Signals pour le template |
-| `undefined` = chargement | Sans `initialValue`, le Signal est `undefined` avant la reponse |
-| Chaque subscribe = 1 requete | Les Observables HTTP sont cold, attention aux doubles appels |
+| Pattern service | Un service encapsule tous les appels à un endpoint |
+| `toSignal()` + HTTP | Convertir les réponses en Signals pour le template |
+| `undefined` = chargement | Sans `initialValue`, le Signal est `undefined` avant la réponse |
+| Chaque subscribe = 1 requête | Les Observables HTTP sont cold, attention aux doubles appels |
 
 ---
 

@@ -218,7 +218,7 @@ export class MonComposant {
 
 #### takeUntilDestroyed dans le constructor
 
-Cas spécial : dans le constructor (ou dans un contexte d'injection), `takeUntilDestroyed()` peut être appelé sans argument :
+Cas spécial : dans le constructor (où dans un contexte d'injection), `takeUntilDestroyed()` peut être appelé sans argument :
 
 ```typescript
 export class RechercheComponent {

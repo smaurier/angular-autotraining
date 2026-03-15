@@ -1,10 +1,10 @@
 # Cours 29 — Reactive Forms
 
-> **Objectif** : Maitriser les Reactive Forms, le systeme de formulaires le plus utilise en entreprise Angular. Comprendre `FormBuilder`, `FormGroup`, `FormControl`, `FormArray`, les validateurs synchrones et asynchrones, les formulaires types, et `valueChanges`. C'est **LE** sujet d'entretien Angular — a maitriser absolument.
+> **Objectif** : Maîtriser les Reactive Forms, le système de formulaires le plus utilise en entreprise Angular. Comprendre `FormBuilder`, `FormGroup`, `FormControl`, `FormArray`, les validateurs synchrones et asynchrones, les formulaires types, et `valueChanges`. C'est **LE** sujet d'entretien Angular — à maîtriser absolument.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
 <summary>1. Quel module faut-il importer pour utiliser ngModel ?</summary>
@@ -19,9 +19,9 @@ Angular utilise l'attribut `name` pour enregistrer le champ dans le formulaire i
 </details>
 
 <details>
-<summary>3. Comment afficher une erreur de validation seulement apres que l'utilisateur a interagi avec le champ ?</summary>
+<summary>3. Comment afficher une erreur de validation seulement après que l'utilisateur a interagi avec le champ ?</summary>
 
-En testant `monChamp.invalid && monChamp.touched` (ou `monChamp.dirty`). `touched` est vrai apres un blur, `dirty` est vrai apres une modification.
+En testant `monChamp.invalid && monChamp.touched` (où `monChamp.dirty`). `touched` est vrai après un blur, `dirty` est vrai après une modification.
 </details>
 
 ---
@@ -36,11 +36,11 @@ Si les formulaires template-driven sont un **formulaire papier pre-imprime**, le
 - Les **formules** sont les validateurs (regles calculees automatiquement)
 - Tout est **programmable** : ajouter des lignes, changer les formules, lire les valeurs a tout moment
 
-C'est plus puissant qu'un formulaire papier, mais demande plus de configuration.
+C'est plus puissant qu'un formulaire papier, mais demandé plus de configuration.
 
 ---
 
-## Theorie
+## Théorie
 
 ### Configuration : ReactiveFormsModule
 
@@ -56,7 +56,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 export class InscriptionComponent {}
 ```
 
-> **Ne jamais melanger** `FormsModule` et `ReactiveFormsModule` sur le meme champ (pas de `ngModel` + `formControl` ensemble).
+> **Ne jamais melanger** `FormsModule` et `ReactiveFormsModule` sur le même champ (pas de `ngModel` + `formControl` ensemble).
 
 ### FormBuilder, FormGroup, FormControl
 
@@ -153,7 +153,7 @@ form = this.fb.group({
 
 ### Validateur asynchrone
 
-Pour verifier cote serveur (ex : email deja pris) :
+Pour vérifier cote serveur (ex : email déjà pris) :
 
 ```typescript
 import { AsyncValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
@@ -191,7 +191,7 @@ form = this.fb.group({
 
 ### valueChanges : reagir aux modifications
 
-`valueChanges` retourne un **Observable** qui emet a chaque modification :
+`valueChanges` retourne un **Observable** qui emet à chaque modification :
 
 ```typescript
 ngOnInit() {
@@ -292,18 +292,18 @@ form.getRawValue();
 // { nom: string; email: string; age: number | null; actif: boolean }
 ```
 
-> **`nonNullable: true`** : le controle ne peut pas avoir la valeur `null`. Quand on appelle `reset()`, il revient a la valeur initiale au lieu de `null`.
+> **`nonNullable: true`** : le controle ne peut pas avoir la valeur `null`. Quand on appelle `reset()`, il revient à la valeur initiale au lieu de `null`.
 
-### Methodes utiles de FormGroup
+### Méthodes utiles de FormGroup
 
-| Methode | Description |
+| Méthode | Description |
 |---------|------------|
 | `form.value` | Valeurs actuelles (exclut les disabled) |
 | `form.getRawValue()` | Toutes les valeurs (y compris disabled) |
-| `form.valid` / `form.invalid` | Etat de validation |
-| `form.get('champ')` | Acces a un controle specifique |
+| `form.valid` / `form.invalid` | État de validation |
+| `form.get('champ')` | Acces à un controle spécifique |
 | `form.patchValue({...})` | Met a jour partiellement (pas tous les champs requis) |
-| `form.setValue({...})` | Met a jour completement (tous les champs requis) |
+| `form.setValue({...})` | Met a jour complètement (tous les champs requis) |
 | `form.reset()` | Reinitialise le formulaire |
 | `form.markAllAsTouched()` | Marque tous les champs comme touches (utile avant submit) |
 | `form.disable()` / `form.enable()` | Desactive/active le formulaire entier |
@@ -316,8 +316,8 @@ Creez un formulaire d'inscription avec Reactive Forms :
 1. Champs : `nom`, `email`, `motDePasse`, `confirmMotDePasse`
 2. Validations : nom requis (min 2), email requis + format, mot de passe requis (min 8 + contient un chiffre)
 3. Validateur personnalise `contientChiffre()`
-4. Affichage des erreurs apres interaction
-5. Bouton desactive si invalide
+4. Affichage des erreurs après interaction
+5. Bouton désactivé si invalide
 
 <details>
 <summary>Solution</summary>
@@ -406,17 +406,17 @@ export class InscriptionComponent {
 
 ---
 
-## Resume
+## Résumé
 
-| Point cle | A retenir |
+| Point clé | A retenir |
 |-----------|-----------|
-| `ReactiveFormsModule` | A importer, ne pas melanger avec `FormsModule` sur le meme champ |
-| `FormBuilder` | Raccourci pour creer `FormGroup`, `FormControl`, `FormArray` |
-| `formControlName` | Lie un input a un controle dans le template |
+| `ReactiveFormsModule` | A importer, ne pas melanger avec `FormsModule` sur le même champ |
+| `FormBuilder` | Raccourci pour créer `FormGroup`, `FormControl`, `FormArray` |
+| `formControlName` | Lie un input à un controle dans le template |
 | `Validators` | `required`, `email`, `minLength`, `min`, `pattern` |
 | Validateur custom | Fonction qui retourne `null` (valide) ou `{ cle: true }` (invalide) |
 | Async validator | 3eme argument, retourne `Observable<ValidationErrors | null>` |
-| `valueChanges` | Observable qui emet a chaque modification |
+| `valueChanges` | Observable qui emet à chaque modification |
 | `FormArray` | Liste dynamique de controles (ajouter/supprimer) |
 | Typed forms | `FormGroup<{...}>` + `nonNullable: true` |
 | `getRawValue()` | Retourne toutes les valeurs, y compris les disabled |

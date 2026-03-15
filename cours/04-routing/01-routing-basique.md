@@ -93,7 +93,7 @@ export const appConfig: ApplicationConfig = {
 
 ### Route configuration
 
-Chaque route est un objet avec au minimum `path` et `component` (ou `redirectTo`).
+Chaque route est un objet avec au minimum `path` et `component` (où `redirectTo`).
 
 ```typescript
 export const routes: Routes = [
@@ -430,7 +430,7 @@ export class ArticlesListeComponent {
 | 404 | `{ path: '**', component }` | `{ path: '/:pathMatch(.*)*' }` |
 
 - Toujours mettre `pathMatch: 'full'` sur les routes avec `path: ''` ou `redirectTo`.
-- La route wildcard `**` doit toujours etre **la derniere** du tableau.
+- La route wildcard `**` doit toujours etre **la dernière** du tableau.
 - Il n'y a pas de routes nommées en Angular — on navigue par path.
 - N'oublie pas d'importer `RouterOutlet`, `RouterLink`, `RouterLinkActive` dans les `imports` du composant.
 

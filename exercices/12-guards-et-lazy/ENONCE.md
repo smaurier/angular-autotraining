@@ -11,26 +11,26 @@ Ajouter des guards fonctionnels et du lazy loading a l'application multi-pages d
 ## Consignes
 
 1. Reprendre l'application de l'exercice 11 dans `src/app/exercises/ex12/`
-2. Creer un service `AuthService` dans `services/auth.service.ts` :
+2. Créer un service `AuthService` dans `services/auth.service.ts` :
    - Signal `isLoggedIn` (boolean, initialise a `false`)
    - Signal `isAdmin` (boolean, initialise a `false`)
-   - Methode `login()` qui passe `isLoggedIn` a `true`
-   - Methode `logout()` qui remet tout a `false`
-   - Methode `toggleAdmin()` qui bascule le role admin
-3. Creer un **guard fonctionnel** `authGuard` dans `guards/auth.guard.ts` :
+   - Méthode `login()` qui passe `isLoggedIn` a `true`
+   - Méthode `logout()` qui remet tout a `false`
+   - Méthode `toggleAdmin()` qui bascule le role admin
+3. Créer un **guard fonctionnel** `authGuard` dans `guards/auth.guard.ts` :
    - Verifie que l'utilisateur est connecte via `AuthService`
    - Redirige vers `/login` si non connecte
-4. Creer un **guard fonctionnel** `adminGuard` dans `guards/admin.guard.ts` :
+4. Créer un **guard fonctionnel** `adminGuard` dans `guards/admin.guard.ts` :
    - Verifie que l'utilisateur est admin via `AuthService`
    - Redirige vers `/unauthorized` si non admin
-5. Creer un **guard fonctionnel** `canDeactivateGuard` dans `guards/can-deactivate.guard.ts` :
+5. Créer un **guard fonctionnel** `canDeactivateGuard` dans `guards/can-deactivate.guard.ts` :
    - Verifie si un formulaire a des modifications non sauvegardees
    - Affiche un `confirm()` pour demander confirmation avant de quitter
-6. Creer une section admin **lazy-loaded** :
+6. Créer une section admin **lazy-loaded** :
    - `admin.routes.ts` avec des routes enfants (`loadChildren`)
    - `AdminDashboardComponent` comme page principale
    - `AdminUsersComponent` comme sous-page
-7. Creer les pages supplementaires :
+7. Créer les pages supplementaires :
    - `LoginComponent` — formulaire de connexion simple (bouton login)
    - `UnauthorizedComponent` — message d'acces refuse
    - `EditProductComponent` — formulaire avec `canDeactivate` guard
@@ -48,9 +48,9 @@ Ajouter des guards fonctionnels et du lazy loading a l'application multi-pages d
 
 ## Bonus
 
-- Ajouter un `RoleGuard` generique qui accepte un parametre de role
-- Implementer un vrai formulaire reactif dans `EditProductComponent`
-- Ajouter un `canMatch` guard pour masquer completement les routes admin aux non-admins
+- Ajouter un `RoleGuard` générique qui accepte un paramètre de role
+- Implementer un vrai formulaire réactif dans `EditProductComponent`
+- Ajouter un `canMatch` guard pour masquer complètement les routes admin aux non-admins
 
 ## Fichiers
 

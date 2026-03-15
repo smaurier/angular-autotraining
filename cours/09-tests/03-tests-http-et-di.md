@@ -1,15 +1,15 @@
 # Cours 37 — Tester les services HTTP et la DI
 
-> **Prerequis** : les concepts de mocking et d'isolation sont couverts dans le **[Testing Course](https://github.com/smaurier/testing-course)** (module 04). Ici on se concentre sur `HttpTestingController` et le mocking de la DI Angular.
+> **Prérequis** : les concepts de mocking et d'isolation sont couverts dans le **[Testing Course](https://github.com/smaurier/testing-course)** (module 04). Ici on se concentre sur `HttpTestingController` et le mocking de la DI Angular.
 
-> **Objectif** : Maitriser le test des appels HTTP avec `provideHttpClientTesting()` et `HttpTestingController`, mocker des services avec `provide` + `useValue`, et tester les interceptors, guards et resolvers. Comprendre le pattern : test service -> mock HTTP -> assert comportement.
+> **Objectif** : Maîtriser le test des appels HTTP avec `provideHttpClientTesting()` et `HttpTestingController`, mocker des services avec `provide` + `useValue`, et tester les interceptors, guards et resolvers. Comprendre le pattern : test service -> mock HTTP -> assert comportement.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
-<summary>1. Comment creer une fixture de test pour un composant standalone ?</summary>
+<summary>1. Comment créer une fixture de test pour un composant standalone ?</summary>
 
 ```typescript
 await TestBed.configureTestingModule({
@@ -20,35 +20,35 @@ const fixture = TestBed.createComponent(MonComposant);
 </details>
 
 <details>
-<summary>2. Pourquoi faut-il appeler `fixture.detectChanges()` apres avoir modifie un signal ?</summary>
+<summary>2. Pourquoi faut-il appeler `fixture.detectChanges()` après avoir modifie un signal ?</summary>
 
 Angular ne synchronise pas automatiquement le DOM dans les tests. `detectChanges()` declenche la detection de changements pour que le template reflete les nouvelles valeurs.
 </details>
 
 <details>
-<summary>3. Quelle est la facon moderne de definir un input signal dans un test ?</summary>
+<summary>3. Quelle est la façon moderne de définir un input signal dans un test ?</summary>
 
-`fixture.componentRef.setInput('nomInput', valeur)` — c'est l'equivalent de passer une prop dans le template.
+`fixture.componentRef.setInput('nomInput', valeur)` — c'est l'équivalent de passer une prop dans le template.
 </details>
 
 ---
 
 ## Analogie
 
-En Vue 3 avec Vitest, pour tester un appel HTTP vous utilisez `vi.mock('axios')` ou `msw` (Mock Service Worker) pour intercepter les requetes.
+En Vue 3 avec Vitest, pour tester un appel HTTP vous utilisez `vi.mock('axios')` ou `msw` (Mock Service Worker) pour intercepter les requêtes.
 
-Angular a un systeme integre : `HttpTestingController`. C'est un intercepteur de test qui capture toutes les requetes HTTP faites par `HttpClient` et vous permet de les resoudre manuellement avec des donnees fictives.
+Angular à un système intégré : `HttpTestingController`. C'est un intercepteur de test qui capture toutes les requêtes HTTP faites par `HttpClient` et vous permet de les résoudre manuellement avec des donnees fictives.
 
 | Vue 3 / Vitest | Angular / Jest |
 |----------------|---------------|
 | `vi.mock('axios')` | `provideHttpClientTesting()` |
 | `msw` server handlers | `HttpTestingController.expectOne()` |
 | `server.use(rest.get(...))` | `req.flush(donnees)` |
-| Verification manuelle | `httpController.verify()` |
+| Vérification manuelle | `httpController.verify()` |
 
 ---
 
-## Theorie
+## Théorie
 
 ### Setup : provideHttpClientTesting
 
@@ -79,7 +79,7 @@ describe('UtilisateurService', () => {
 });
 ```
 
-> **Important** : Toujours appeler `httpController.verify()` dans `afterEach()` pour detecter les requetes non gerees.
+> **Important** : Toujours appeler `httpController.verify()` dans `afterEach()` pour détecter les requêtes non gerees.
 
 ### Pattern complet : expectOne + flush
 
@@ -188,15 +188,15 @@ describe('UtilisateurService', () => {
 });
 ```
 
-### Methodes de HttpTestingController
+### Méthodes de HttpTestingController
 
-| Methode | Usage |
+| Méthode | Usage |
 |---------|-------|
-| `expectOne(url)` | Verifie qu'une seule requete a ete faite vers cette URL |
-| `expectNone(url)` | Verifie qu'aucune requete n'a ete faite |
-| `match(predicate)` | Retourne toutes les requetes qui matchent |
-| `verify()` | Verifie qu'il ne reste aucune requete en attente |
-| `req.flush(data)` | Repond a la requete avec des donnees |
+| `expectOne(url)` | Verifie qu'une seule requête a ete faite vers cette URL |
+| `expectNone(url)` | Verifie qu'aucune requête n'a ete faite |
+| `match(predicate)` | Retourne toutes les requêtes qui matchent |
+| `verify()` | Verifie qu'il ne reste aucune requête en attente |
+| `req.flush(data)` | Repond à la requête avec des donnees |
 | `req.flush(msg, { status, statusText })` | Repond avec une erreur HTTP |
 
 ### Mocker un service avec provide + useValue
@@ -354,9 +354,9 @@ describe('authGuard', () => {
 });
 ```
 
-> **Point cle** : `TestBed.runInInjectionContext()` permet d'executer une fonction qui utilise `inject()` dans un contexte de test.
+> **Point clé** : `TestBed.runInInjectionContext()` permet d'exécuter une fonction qui utilise `inject()` dans un contexte de test.
 
-### Pattern resume : test service HTTP
+### Pattern résumé : test service HTTP
 
 ```
 1. configureTestingModule avec provideHttpClient() + provideHttpClientTesting()
@@ -372,11 +372,11 @@ describe('authGuard', () => {
 
 ## Pratique
 
-Testez un `ProjetService` qui a trois methodes : `getAll()`, `getById(id)` et `creer(data)`. Ecrivez les tests HTTP complets avec gestion d'erreur pour `getById`.
+Testez un `ProjetService` qui a trois méthodes : `getAll()`, `getById(id)` et `creer(data)`. Ecrivez les tests HTTP complets avec gestion d'erreur pour `getById`.
 
 **Consignes** :
 1. Utilisez `provideHttpClientTesting()`
-2. Testez chaque methode (GET list, GET single, POST)
+2. Testez chaque méthode (GET list, GET single, POST)
 3. Testez le cas d'erreur 500 pour `getById`
 4. N'oubliez pas `httpController.verify()` dans `afterEach`
 
@@ -473,14 +473,14 @@ describe('ProjetService', () => {
 
 ---
 
-## Resume
+## Résumé
 
-| Point cle | A retenir |
+| Point clé | A retenir |
 |-----------|-----------|
 | Setup HTTP | `provideHttpClient()` + `provideHttpClientTesting()` |
 | Intercepter | `httpController.expectOne(url)` |
 | Repondre | `req.flush(data)` ou `req.flush(msg, { status })` |
-| Verifier | `httpController.verify()` dans `afterEach` |
+| Vérifier | `httpController.verify()` dans `afterEach` |
 | Mock service | `{ provide: Service, useValue: mockObj }` |
 | Interceptors | Tester avec `withInterceptors([...])` dans le provider |
 | Guards | `TestBed.runInInjectionContext(() => guard(...))` |
@@ -488,3 +488,11 @@ describe('ProjetService', () => {
 ---
 
 > **Prochain cours** : [Module 10 — State Management](../10-state-management/01-etat-local-signals.md)
+
+---
+
+<!-- parcours-recommande -->
+
+::: tip Parcours recommandé
+1. **Exercice** : [20-tests-complets](../../exercices/20-tests-complets/ENONCE)
+:::

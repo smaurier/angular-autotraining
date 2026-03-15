@@ -10,22 +10,22 @@ Migrer un formulaire d'inscription classique (Reactive Forms) vers une approche 
 
 ## Consignes
 
-1. Creer un composant `SignalFormComponent` dans `src/app/exercises/ex18/`
-2. Commencer par un formulaire reactif classique (`FormGroup`, `FormControl`) avec les champs : `name`, `email`, `password`, `confirmPassword`
+1. Créer un composant `SignalFormComponent` dans `src/app/exercises/ex18/`
+2. Commencer par un formulaire réactif classique (`FormGroup`, `FormControl`) avec les champs : `name`, `email`, `password`, `confirmPassword`
 3. Reecrire ce formulaire en utilisant des **signaux** et `model()` pour le two-way binding sur chaque champ
 4. Implementer la validation via des **computed signals** :
    - `passwordStrength` : retourne `'weak'` | `'medium'` | `'strong'` selon des regles regex
-   - `passwordsMatch` : verifie que `password` === `confirmPassword`
-   - `emailValid` : verifie le format email avec une regex
+   - `passwordsMatch` : vérifié que `password` === `confirmPassword`
+   - `emailValid` : vérifié le format email avec une regex
    - `isFormValid` : computed global qui combine toutes les validations
 5. Ajouter un **indicateur visuel de force du mot de passe** (barre coloree) :
    - `weak` : rouge, 33 % de largeur
    - `medium` : orange, 66 % de largeur
    - `strong` : vert, 100 % de largeur
    - Regles : weak = < 8 caracteres, medium = 8+ avec majuscule + chiffre, strong = 12+ avec majuscule + chiffre + caractere special
-6. Afficher/masquer les messages d'erreur de maniere reactive (apparition immediate quand le champ perd le focus ou quand la valeur change)
-7. Ajouter un signal `touched` par champ (passe a `true` au `blur`) pour n'afficher les erreurs qu'apres interaction
-8. Comparer le nombre de lignes de code entre l'approche reactive et l'approche signal — ajouter un commentaire en haut du fichier avec le resultat
+6. Afficher/masquer les messages d'erreur de manière réactive (apparition immediate quand le champ perd le focus ou quand la valeur change)
+7. Ajouter un signal `touched` par champ (passe a `true` au `blur`) pour n'afficher les erreurs qu'après interaction
+8. Comparer le nombre de lignes de code entre l'approche réactive et l'approche signal — ajouter un commentaire en haut du fichier avec le résultat
 
 ## Contraintes TypeScript
 

@@ -1,10 +1,10 @@
 # Cours 24 — Interoperabilite Signals et RxJS
 
-> **Objectif** : Maitriser le pont entre Signals et RxJS avec `toSignal()`, `toObservable()` et `takeUntilDestroyed()`. Savoir quand utiliser l'un ou l'autre grace a une matrice de decision. Appliquer le pattern : service RxJS interne, Signals exposes aux composants.
+> **Objectif** : Maîtriser le pont entre Signals et RxJS avec `toSignal()`, `toObservable()` et `takeUntilDestroyed()`. Savoir quand utiliser l'un ou l'autre grâce à une matrice de decision. Appliquer le pattern : service RxJS interne, Signals exposes aux composants.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
 <summary>1. Quel est le trio d'operateurs pour une recherche avec debounce ?</summary>
@@ -15,13 +15,13 @@
 <details>
 <summary>2. Pourquoi switchMap empeche-t-il les race conditions ?</summary>
 
-`switchMap` **annule** automatiquement la souscription a l'Observable interne precedent quand une nouvelle emission arrive. Ainsi, seule la derniere requete aboutit, pas une requete ancienne qui serait plus lente.
+`switchMap` **annule** automatiquement la souscription a l'Observable interne précédent quand une nouvelle emission arrive. Ainsi, seule la dernière requête aboutit, pas une requête ancienne qui serait plus lente.
 </details>
 
 <details>
-<summary>3. Quelle est la difference entre forkJoin et combineLatest pour des requetes paralleles ?</summary>
+<summary>3. Quelle est la différence entre forkJoin et combineLatest pour des requêtes paralleles ?</summary>
 
-`forkJoin` attend que **toutes** les sources completent et emet une seule fois les dernieres valeurs. `combineLatest` emet a **chaque** nouvelle emission, ce qui est plus adapte pour des flux continus (parametres de route, filtres).
+`forkJoin` attend que **toutes** les sources completent et emet une seule fois les dernières valeurs. `combineLatest` emet a **chaque** nouvelle emission, ce qui est plus adapte pour des flux continus (paramètres de route, filtres).
 </details>
 
 ---
@@ -30,15 +30,15 @@
 
 Imaginez un **traducteur bilingue** dans une reunion internationale :
 
-- **toSignal()** : traduit le flux RxJS (anglais) en Signal (francais) pour que vos composants Angular le comprennent directement.
-- **toObservable()** : traduit un Signal (francais) en flux RxJS (anglais) pour pouvoir le combiner avec d'autres flux, appliquer des operateurs, etc.
+- **toSignal()** : traduit le flux RxJS (anglais) en Signal (français) pour que vos composants Angular le comprennent directement.
+- **toObservable()** : traduit un Signal (français) en flux RxJS (anglais) pour pouvoir le combiner avec d'autres flux, appliquer des operateurs, etc.
 - **takeUntilDestroyed()** : le traducteur sait quand la reunion est terminee et arrete automatiquement de traduire.
 
 Les deux langues sont utiles. Le traducteur permet de passer de l'une a l'autre sans friction.
 
 ---
 
-## Theorie
+## Théorie
 
 ### toSignal() : Observable → Signal
 
@@ -224,13 +224,13 @@ export class NouveauBisComponent implements OnInit {
 
 | Critere | Signals | RxJS |
 |---------|---------|------|
-| Etat UI synchrone | ✅ Ideal | Possible mais verbeux |
+| État UI synchrone | ✅ Ideal | Possible mais verbeux |
 | Valeurs derivees simples | ✅ `computed()` | `combineLatest` + `map` |
 | Requetes HTTP | `toSignal()` en facade | ✅ `HttpClient` natif |
-| Streams temps reel (WebSocket) | Non adapte | ✅ Natif |
+| Streams temps réel (WebSocket) | Non adapte | ✅ Natif |
 | Debounce, throttle | Non natif | ✅ Operateurs dedies |
 | Composition de flux complexes | Non adapte | ✅ `pipe()` avec operateurs |
-| Etat local d'un composant | ✅ Leger, reactif | Sur-ingenierie |
+| État local d'un composant | ✅ Leger, réactif | Sur-ingenierie |
 | Event bus entre composants | Possible avec `effect` | ✅ `Subject` classique |
 
 **Regle simple** :
@@ -318,11 +318,11 @@ export class CatalogueComponent {
 
 | Concept | Vue 3 | Angular 19+ |
 |---------|-------|-------------|
-| Etat reactif | `ref()` | `signal()` |
+| État réactif | `ref()` | `signal()` |
 | Derive | `computed()` | `computed()` |
-| Flux async | Pas natif (on utilise libs) | RxJS integre |
+| Flux async | Pas natif (on utilise libs) | RxJS intégré |
 | Conversion | `watch()` pour reagir | `toObservable()` pour reagir avec RxJS |
-| Template reactif | Automatique avec `ref` | Automatique avec Signal (`produits()`) |
+| Template réactif | Automatique avec `ref` | Automatique avec Signal (`produits()`) |
 
 ---
 
@@ -332,7 +332,7 @@ Creez un service `ThemeService` qui :
 1. Stocke le theme actif dans un `BehaviorSubject` (valeurs : `'light'` ou `'dark'`)
 2. Expose un Signal `theme` via `toSignal()`
 3. Expose un Signal `computed` `isDark` qui retourne `true` si le theme est `'dark'`
-4. Offre une methode `toggle()` pour basculer le theme
+4. Offre une méthode `toggle()` pour basculer le theme
 
 Puis creez un composant qui affiche le theme actif et un bouton pour le changer.
 
@@ -390,19 +390,28 @@ export class ThemeToggleComponent {
 
 ---
 
-## Resume
+## Résumé
 
-| Point cle | A retenir |
+| Point clé | A retenir |
 |-----------|-----------|
 | `toSignal()` | Observable → Signal, desabonnement automatique |
 | `toObservable()` | Signal → Observable, pour appliquer des operateurs RxJS |
 | `takeUntilDestroyed()` | Remplace `destroy$` + `takeUntil` + `ngOnDestroy` |
-| Signal = "quelle valeur ?" | Etat UI synchrone, valeurs derivees |
+| Signal = "quelle valeur ?" | État UI synchrone, valeurs derivees |
 | RxJS = "que se passe-t-il ?" | Flux async, composition, debounce, retry |
 | Pattern ESN | Service : RxJS interne + Signals exposes |
-| `initialValue` | Obligatoire pour eviter `undefined` dans `toSignal()` |
+| `initialValue` | Obligatoire pour éviter `undefined` dans `toSignal()` |
 | `requireSync` | Pour les Observables synchrones (`BehaviorSubject`, `of()`) |
 
 ---
 
 > **Prochain cours** : [Cours 25 — HttpClient et CRUD](../06-http-api/01-httpclient-crud.md)
+
+---
+
+<!-- parcours-recommande -->
+
+::: tip Parcours recommandé
+1. **Exercice** : [13-recherche-rxjs](../../exercices/13-recherche-rxjs/ENONCE)
+2. **Renforcement** : [13b-rxjs-vs-signals](../../exercices/13b-rxjs-vs-signals/ENONCE)
+:::

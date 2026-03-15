@@ -1,12 +1,12 @@
 # Correction — Exercice 23 : NgRx SignalStore
 
-## Resultat attendu
+## Résultat attendu
 
-Deux stores NgRx SignalStore (un classique avec `withState`, un avec `withEntities`) qui gerent une liste de taches. Le composant consomme le store injecte et le manipule via des methodes typees. Une comparaison ecrite entre l'approche service+signals et NgRx SignalStore.
+Deux stores NgRx SignalStore (un classique avec `withState`, un avec `withEntities`) qui gerent une liste de taches. Le composant consomme le store injecte et le manipule via des méthodes typees. Une comparaison ecrite entre l'approche service+signals et NgRx SignalStore.
 
 ## Code corrige
 
-### Modele de donnees
+### Modèle de donnees
 
 ```typescript
 // src/app/exercises/ex23/models/task.model.ts
@@ -499,33 +499,33 @@ export class TaskBoardComponent {
 
 ### 2. Utiliser `.set()` au lieu de `patchState()`
 - ❌ `store.tasks.set([...])` → les signaux du store sont en lecture seule
-- ✅ `patchState(store, { tasks: [...] })` → seul moyen de modifier l'etat du store
+- ✅ `patchState(store, { tasks: [...] })` → seul moyen de modifier l'état du store
 
 ### 3. Oublier que `withEntities` nomme les signaux `entities()` et pas `tasks()`
-- ❌ `store.tasks()` → erreur, la propriete n'existe pas avec withEntities
+- ❌ `store.tasks()` → erreur, la propriété n'existe pas avec withEntities
 - ✅ `store.entities()` → retourne toutes les entites du store
 
-### 4. Ne pas passer une fonction a `patchState()` quand on a besoin de l'etat precedent
+### 4. Ne pas passer une fonction a `patchState()` quand on a besoin de l'état précédent
 - ❌ `patchState(store, { tasks: [...store.tasks(), newTask] })` → fonctionne mais moins clair
-- ✅ `patchState(store, (state) => ({ tasks: [...state.tasks, newTask] }))` → acces a l'etat precedent via le callback
+- ✅ `patchState(store, (state) => ({ tasks: [...state.tasks, newTask] }))` → acces a l'état précédent via le callback
 
 ### 5. Confondre l'ordre des features dans signalStore()
-- ❌ `withComputed` avant `withState` → les signaux d'etat ne sont pas encore disponibles
+- ❌ `withComputed` avant `withState` → les signaux d'état ne sont pas encore disponibles
 - ✅ Ordre : `withState` → `withComputed` → `withMethods` → `withHooks`
 
-## Concepts cles utilises
+## Concepts clés utilises
 
 | Concept | Explication |
 |---------|-------------|
-| `signalStore()` | Factory qui cree un store injectable en composant des features |
-| `withState(initialState)` | Definit l'etat initial et cree un signal par propriete |
-| `withComputed(store => {...})` | Ajoute des signaux derives (computed) au store |
-| `withMethods(store => {...})` | Ajoute des methodes pour muter l'etat |
+| `signalStore()` | Factory qui créé un store injectable en composant des features |
+| `withState(initialState)` | Definit l'état initial et créé un signal par propriété |
+| `withComputed(store => {...})` | Ajoute des signaux dérivés (computed) au store |
+| `withMethods(store => {...})` | Ajoute des méthodes pour muter l'état |
 | `withHooks({ onInit, onDestroy })` | Ajoute des hooks de cycle de vie au store |
-| `patchState(store, changes)` | Met a jour l'etat de maniere immutable (merge partiel) |
-| `getState(store)` | Retourne un snapshot synchrone de l'etat complet |
+| `patchState(store, changes)` | Met a jour l'état de manière immutable (merge partiel) |
+| `getState(store)` | Retourne un snapshot synchrone de l'état complet |
 | `withEntities<T>()` | Ajoute la gestion d'une collection normalisee d'entites |
-| `addEntity(entity)` | Ajoute une entite a la collection |
+| `addEntity(entity)` | Ajoute une entite à la collection |
 | `updateEntity({ id, changes })` | Met a jour une entite par son id |
 | `removeEntity(id)` | Supprime une entite par son id |
 | `setAllEntities(entities)` | Remplace toute la collection d'entites |

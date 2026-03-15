@@ -2,25 +2,25 @@
 
 > **Module** : 00 - De Vue a Angular
 > **Duree estimee** : 1h15
-> **Prerequis** : Cours 1 (Modele mental)
+> **Prérequis** : Cours 1 (Modèle mental)
 
 ---
 
 ## Objectif
 
-A la fin de ce cours, vous aurez un **tableau de reference complet** des equivalences entre Vue 3 (Composition API) et Angular 19+ (standalone, Signals). Pour chaque concept Vue, vous saurez exactement quoi utiliser en Angular, avec du code cote a cote.
+A la fin de ce cours, vous aurez un **tableau de référence complet** des équivalences entre Vue 3 (Composition API) et Angular 19+ (standalone, Signals). Pour chaque concept Vue, vous saurez exactement quoi utiliser en Angular, avec du code cote a cote.
 
 ---
 
-## Vue d'ensemble des equivalences
+## Vue d'ensemble des équivalences
 
 | Concept | Vue 3 | Angular 19+ |
 |---------|-------|-------------|
-| Etat reactif | `ref()` | `signal()` |
+| État réactif | `ref()` | `signal()` |
 | Valeur derivee | `computed()` | `computed()` |
 | Effet de bord | `watch` / `watchEffect` | `effect()` |
 | Props | `defineProps()` | `input()` |
-| Evenements | `defineEmits()` | `output()` |
+| Événements | `defineEmits()` | `output()` |
 | v-model | `defineModel()` | `model()` |
 | Condition | `v-if` / `v-else` | `@if` / `@else` |
 | Boucle | `v-for` | `@for` (+ `track`) |
@@ -67,7 +67,7 @@ count.set(5)
 count.update(c => c + 1)
 ```
 
-**Difference cle** : en Vue, on accede via `.value`. En Angular, un signal est une **fonction** : on lit avec `()` et on ecrit avec `.set()` ou `.update()`. Pas de mutation directe.
+**Différence clé** : en Vue, on accede via `.value`. En Angular, un signal est une **fonction** : on lit avec `()` et on écrit avec `.set()` ou `.update()`. Pas de mutation directe.
 
 ---
 
@@ -97,7 +97,7 @@ const total = computed(() => price() * (1 + tax()))
 console.log(total())  // 120
 ```
 
-**Difference cle** : quasi identique. Seule la syntaxe d'acces change (`.value` vs `()`). Le `computed` Angular est en lecture seule, comme en Vue.
+**Différence clé** : quasi identique. Seule la syntaxe d'acces change (`.value` vs `()`). Le `computed` Angular est en lecture seule, comme en Vue.
 
 ---
 
@@ -135,9 +135,9 @@ effect(() => {
 })
 ```
 
-**Difference cle** : Angular n'a pas d'equivalent direct de `watch` avec `oldValue`/`newValue`. `effect()` correspond a `watchEffect`. Pour les cas avances, utilisez `toObservable()` + `pairwise()` de RxJS.
+**Différence clé** : Angular n'a pas d'équivalent direct de `watch` avec `oldValue`/`newValue`. `effect()` correspond a `watchEffect`. Pour les cas avances, utilisez `toObservable()` + `pairwise()` de RxJS.
 
-> **Attention** : `effect()` doit etre appele dans un contexte d'injection (constructeur, champ de classe). Pas dans une methode appelee plus tard.
+> **Attention** : `effect()` doit etre appele dans un contexte d'injection (constructeur, champ de classe). Pas dans une méthode appelee plus tard.
 
 ---
 
@@ -180,7 +180,7 @@ export class ChildComponent {
 <app-child title="Bonjour" [count]="42" />
 ```
 
-**Difference cle** : En Angular, `input()` retourne un signal. On lit la valeur avec `title()`, pas `title`. Les inputs obligatoires utilisent `input.required<T>()`.
+**Différence clé** : En Angular, `input()` retourne un signal. On lit la valeur avec `title()`, pas `title`. Les inputs obligatoires utilisent `input.required<T>()`.
 
 ---
 
@@ -223,7 +223,7 @@ export class ChildComponent {
 <app-child (select)="onSelect($event)" (close)="onClose()" />
 ```
 
-**Difference cle** : en Angular, chaque output est un objet avec une methode `.emit()`. La syntaxe du template utilise `(eventName)` au lieu de `@eventName`.
+**Différence clé** : en Angular, chaque output est un objet avec une méthode `.emit()`. La syntaxe du template utilise `(eventName)` au lieu de `@eventName`.
 
 ---
 
@@ -263,7 +263,7 @@ export class ToggleSwitchComponent {
 <app-toggle-switch [(checked)]="isActive" />
 ```
 
-**Difference cle** : Angular utilise la syntaxe `[(prop)]` (banana-in-a-box) pour le two-way binding. `model()` cree un signal writable qui synchronise parent et enfant.
+**Différence clé** : Angular utilise la syntaxe `[(prop)]` (banana-in-a-box) pour le two-way binding. `model()` créé un signal writable qui synchronise parent et enfant.
 
 ---
 
@@ -289,7 +289,7 @@ export class ToggleSwitchComponent {
 }
 ```
 
-**Difference cle** : la syntaxe Angular utilise des blocs `{}` au lieu d'attributs sur les elements. C'est plus lisible quand la logique est complexe.
+**Différence clé** : la syntaxe Angular utilise des blocs `{}` au lieu d'attributs sur les éléments. C'est plus lisible quand la logique est complexe.
 
 ---
 
@@ -320,7 +320,7 @@ export class ToggleSwitchComponent {
 </ul>
 ```
 
-**Difference cle** : `track` est **obligatoire** en Angular (`:key` est optionnel en Vue). Le bloc `@empty` est un bonus pratique qu'Angular offre nativement.
+**Différence clé** : `track` est **obligatoire** en Angular (`:key` est optionnel en Vue). Le bloc `@empty` est un bonus pratique qu'Angular offre nativement.
 
 ---
 
@@ -346,7 +346,7 @@ export class ToggleSwitchComponent {
 <div [class.hidden]="!isVisible()">Contenu</div>
 ```
 
-**Difference cle** : Angular n'a pas de directive `v-show` integree. `[hidden]` est l'equivalent le plus direct, mais attention : `hidden` peut etre surcharge par CSS (`display: flex` gagne sur `hidden`). Utilisez une classe CSS pour plus de controle.
+**Différence clé** : Angular n'a pas de directive `v-show` intégrée. `[hidden]` est l'équivalent le plus direct, mais attention : `hidden` peut etre surcharge par CSS (`display: flex` gagne sur `hidden`). Utilisez une classe CSS pour plus de controle.
 
 ---
 
@@ -388,7 +388,7 @@ export class NavbarComponent {
 }
 ```
 
-**Difference cle** : en Vue, provide/inject est optionnel et ad-hoc. En Angular, l'injection de dependances est **le mecanisme central**. Tout passe par des services et `inject()`.
+**Différence clé** : en Vue, provide/inject est optionnel et ad-hoc. En Angular, l'injection de dépendances est **le mécanisme central**. Tout passe par des services et `inject()`.
 
 ---
 
@@ -434,7 +434,7 @@ export class AppComponent {
 }
 ```
 
-**Difference cle** : Angular n'a pas besoin d'une librairie externe comme Pinia. Un service `providedIn: 'root'` avec des Signals **est** un store. Pour des cas avances, il existe NgRx SignalStore (module 10).
+**Différence clé** : Angular n'a pas besoin d'une librairie externe comme Pinia. Un service `providedIn: 'root'` avec des Signals **est** un store. Pour des cas avances, il existe NgRx SignalStore (module 10).
 
 ---
 
@@ -479,7 +479,7 @@ export const routes: Routes = [
 <router-outlet />
 ```
 
-**Difference cle** : meme concept, syntaxe differente. Angular utilise `loadComponent` pour le lazy loading (equivalent de `() => import()` en Vue). `<router-outlet>` remplace `<router-view>`.
+**Différence clé** : même concept, syntaxe différente. Angular utilise `loadComponent` pour le lazy loading (équivalent de `() => import()` en Vue). `<router-outlet>` remplace `<router-view>`.
 
 ---
 
@@ -534,7 +534,7 @@ export class UserCardComponent {
 }
 ```
 
-**Difference cle** : Vue utilise un format de fichier special (`.vue`) avec des blocs `<script>`, `<template>`, `<style>`. Angular met tout dans un fichier TypeScript standard. Le template et les styles peuvent etre inline ou dans des fichiers separes (`templateUrl`, `styleUrl`).
+**Différence clé** : Vue utilise un format de fichier special (`.vue`) avec des blocs `<script>`, `<template>`, `<style>`. Angular met tout dans un fichier TypeScript standard. Le template et les styles peuvent etre inline ou dans des fichiers separes (`templateUrl`, `styleUrl`).
 
 ---
 
@@ -567,7 +567,7 @@ export class UserCardComponent {
 }
 ```
 
-**Difference cle** : `@defer` d'Angular est beaucoup plus puissant. Il supporte des **declencheurs** (`on viewport`, `on interaction`, `on idle`, `on timer`, `when condition`), un placeholder, un etat de chargement et un etat d'erreur. Le composant est lazy-loade automatiquement.
+**Différence clé** : `@defer` d'Angular est beaucoup plus puissant. Il supporte des **declencheurs** (`on viewport`, `on interaction`, `on idle`, `on timer`, `when condition`), un placeholder, un état de chargement et un état d'erreur. Le composant est lazy-loade automatiquement.
 
 ---
 
@@ -589,7 +589,7 @@ ng new my-app --ssr
 ng add @angular/ssr
 ```
 
-Angular SSR est **integre au framework** depuis Angular 17+. Pas besoin d'un meta-framework separe.
+Angular SSR est **intégré au framework** depuis Angular 17+. Pas besoin d'un meta-framework separe.
 
 ---
 
@@ -631,11 +631,11 @@ export class LocalStorageService {
 }
 ```
 
-**Difference cle** : en Vue, un composable est une simple fonction. En Angular, un service est une classe injectable. La logique est la meme, le conteneur change. L'avantage du service : testabilite native (on peut mocker `LocalStorageService` en test).
+**Différence clé** : en Vue, un composable est une simple fonction. En Angular, un service est une classe injectable. La logique est la même, le conteneur change. L'avantage du service : testabilité native (on peut mocker `LocalStorageService` en test).
 
 ---
 
-## Resume : aide-memoire rapide
+## Résumé : aide-mémoire rapide
 
 Gardez ce tableau sous la main pendant vos premiers jours Angular :
 
@@ -666,4 +666,4 @@ composables              services
 ## Prochain cours
 
 **[Cours 3 -- Premier projet Angular](./03-premier-projet-angular.md)**
-On passe a la pratique : creer un vrai projet Angular, explorer chaque fichier, et coder votre premier composant standalone.
+On passe à la pratique : créer un vrai projet Angular, explorer chaque fichier, et coder votre premier composant standalone.

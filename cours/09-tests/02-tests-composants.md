@@ -1,12 +1,12 @@
 # Cours 36 — Tester les composants : fixture, DOM, interactions
 
-> **Prerequis** : les fondamentaux du testing (Vitest, describe/it/expect, mocking, tests asynchrones) sont couverts dans le **[Testing Course](https://github.com/smaurier/testing-course)** (modules 02-05). Ce cours se concentre sur les **specificites Angular** : TestBed, ComponentFixture, et Material test harnesses.
+> **Prérequis** : les fondamentaux du testing (Vitest, describe/it/expect, mocking, tests asynchrones) sont couverts dans le **[Testing Course](https://github.com/smaurier/testing-course)** (modules 02-05). Ce cours se concentre sur les **specificites Angular** : TestBed, ComponentFixture, et Material test harnesses.
 
-> **Objectif** : Maitriser les tests de composants Angular avec `TestBed.createComponent()`, `ComponentFixture`, les requetes DOM, le test des signals/inputs, les interactions utilisateur (clic, saisie, soumission de formulaire), et les test harnesses Angular Material.
+> **Objectif** : Maîtriser les tests de composants Angular avec `TestBed.createComponent()`, `ComponentFixture`, les requêtes DOM, le test des signals/inputs, les interactions utilisateur (clic, saisie, soumission de formulaire), et les test harnesses Angular Material.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
 <summary>1. Quelle est la structure de base d'un fichier de test Angular ?</summary>
@@ -31,9 +31,9 @@ beforeEach(() => {
 </details>
 
 <details>
-<summary>3. Pourquoi ne faut-il jamais faire de vraies requetes HTTP dans un test unitaire ?</summary>
+<summary>3. Pourquoi ne faut-il jamais faire de vraies requêtes HTTP dans un test unitaire ?</summary>
 
-Les tests doivent etre rapides, reproductibles et independants de l'infrastructure. Les requetes reelles sont lentes, fragiles et non deterministes. On utilise des mocks a la place.
+Les tests doivent etre rapides, reproductibles et independants de l'infrastructure. Les requêtes reelles sont lentes, fragiles et non déterministes. On utilise des mocks à la place.
 </details>
 
 ---
@@ -42,7 +42,7 @@ Les tests doivent etre rapides, reproductibles et independants de l'infrastructu
 
 En Vue 3 avec Vue Test Utils, vous faites `mount(MonComposant)` pour obtenir un `wrapper`, puis `wrapper.find('.btn').trigger('click')` pour simuler un clic.
 
-En Angular, le pattern est identique mais avec un vocabulaire different :
+En Angular, le pattern est identique mais avec un vocabulaire différent :
 
 | Vue Test Utils | Angular TestBed |
 |---------------|----------------|
@@ -55,7 +55,7 @@ En Angular, le pattern est identique mais avec un vocabulaire different :
 
 ---
 
-## Theorie
+## Théorie
 
 ### ComponentFixture et createComponent
 
@@ -86,8 +86,8 @@ describe('CompteurComponent', () => {
 |-------|------|
 | `fixture` | Enveloppe du composant (DOM + instance + utilitaires) |
 | `fixture.componentInstance` | L'instance de la classe TypeScript |
-| `fixture.nativeElement` | L'element DOM racine |
-| `fixture.debugElement` | Element debug Angular (requetes avancees) |
+| `fixture.nativeElement` | L'élément DOM racine |
+| `fixture.debugElement` | Élément debug Angular (requêtes avancees) |
 | `fixture.detectChanges()` | Force la detection de changements |
 
 ### fixture.detectChanges() — quand et pourquoi
@@ -110,7 +110,7 @@ it('devrait afficher le compteur', () => {
 });
 ```
 
-> **Regle d'or** : Apres toute modification de signal ou de propriete, appelez `fixture.detectChanges()` avant de lire le DOM.
+> **Regle d'or** : Après toute modification de signal ou de propriété, appelez `fixture.detectChanges()` avant de lire le DOM.
 
 ### Requetes DOM
 
@@ -197,7 +197,7 @@ describe('StatutBadgeComponent', () => {
 });
 ```
 
-> **Point cle** : `fixture.componentRef.setInput('nom', valeur)` est la facon moderne de definir les inputs signal dans les tests.
+> **Point clé** : `fixture.componentRef.setInput('nom', valeur)` est la façon moderne de définir les inputs signal dans les tests.
 
 ### Tester les interactions utilisateur
 
@@ -344,7 +344,7 @@ await TestBed.configureTestingModule({
 .compileComponents();
 ```
 
-> **Conseil ESN** : Privilegiez le shallow testing pour les tests rapides, le deep testing pour les tests d'integration entre composants proches.
+> **Conseil ESN** : Privilegiez le shallow testing pour les tests rapides, le deep testing pour les tests d'intégration entre composants proches.
 
 ---
 
@@ -434,12 +434,12 @@ describe('CompteurComponent', () => {
 
 ---
 
-## Resume
+## Résumé
 
-| Point cle | A retenir |
+| Point clé | A retenir |
 |-----------|-----------|
 | `createComponent()` | Cree une fixture pour tester un composant |
-| `detectChanges()` | A appeler apres chaque modification de signal/propriete |
+| `detectChanges()` | A appeler après chaque modification de signal/propriété |
 | Requetes DOM | `querySelector` / `By.css` / `data-testid` |
 | Inputs signal | `fixture.componentRef.setInput('nom', valeur)` |
 | Interactions | `element.click()`, `dispatchEvent(new Event('input'))` |

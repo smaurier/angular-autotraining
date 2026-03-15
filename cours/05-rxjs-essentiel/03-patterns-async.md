@@ -1,36 +1,36 @@
 # Cours 23 — Patterns async avec RxJS
 
-> **Objectif** : Maitriser les patterns RxJS les plus frequents en entreprise : recherche avec debounce, polling, prevention des race conditions, requetes paralleles et sequentielles, et recuperation d'erreurs avancee.
+> **Objectif** : Maîtriser les patterns RxJS les plus frequents en entreprise : recherche avec debounce, polling, prevention des race conditions, requêtes paralleles et sequentielles, et récupération d'erreurs avancee.
 
 ---
 
-## Rappel du cours precedent
+## Rappel du cours précédent
 
 <details>
-<summary>1. Quelle est la difference entre switchMap et concatMap ?</summary>
+<summary>1. Quelle est la différence entre switchMap et concatMap ?</summary>
 
-`switchMap` **annule** l'Observable interne precedent a chaque nouvelle emission (ideal pour la recherche). `concatMap` **attend** la completion de l'Observable interne avant de traiter l'emission suivante (ideal pour les operations qui doivent respecter un ordre).
+`switchMap` **annule** l'Observable interne précédent à chaque nouvelle emission (ideal pour la recherche). `concatMap` **attend** la completion de l'Observable interne avant de traiter l'emission suivante (ideal pour les operations qui doivent respecter un ordre).
 </details>
 
 <details>
 <summary>2. Quand utiliser forkJoin vs combineLatest ?</summary>
 
-`forkJoin` attend que **toutes** les sources completent et emet les dernieres valeurs une seule fois (ideal pour des requetes HTTP paralleles). `combineLatest` emet a **chaque** nouvelle emission d'une source des que toutes ont emis au moins une fois (ideal pour des flux continus comme des parametres de route).
+`forkJoin` attend que **toutes** les sources completent et emet les dernières valeurs une seule fois (ideal pour des requêtes HTTP paralleles). `combineLatest` emet a **chaque** nouvelle emission d'une source des que toutes ont emis au moins une fois (ideal pour des flux continus comme des paramètres de route).
 </details>
 
 <details>
 <summary>3. Pourquoi faut-il placer retry() avant catchError() dans le pipe ?</summary>
 
-Si `catchError` est avant `retry`, l'erreur est deja interceptee et remplacee par un Observable de secours : `retry` ne voit jamais l'erreur et ne peut pas reessayer. L'ordre dans le `pipe()` est **de haut en bas**.
+Si `catchError` est avant `retry`, l'erreur est déjà interceptee et remplacee par un Observable de secours : `retry` ne voit jamais l'erreur et ne peut pas reessayer. L'ordre dans le `pipe()` est **de haut en bas**.
 </details>
 
 ---
 
 ## Analogie
 
-Imaginez un **assistant personnel** qui gere vos recherches sur internet :
+Imaginez un **assistant personnel** qui géré vos recherches sur internet :
 
-- **Sans debounce** : vous dictez lettre par lettre, et il lance une recherche Google a chaque lettre. Chaos total.
+- **Sans debounce** : vous dictez lettre par lettre, et il lance une recherche Google à chaque lettre. Chaos total.
 - **Avec debounce** : il attend que vous ayez fini de parler (300ms de silence), puis lance **une seule** recherche avec le terme complet.
 - **Avec switchMap** : si vous changez d'avis pendant qu'il cherche, il **abandonne** la recherche en cours et en lance une nouvelle.
 
@@ -38,7 +38,7 @@ C'est exactement ce que font les patterns RxJS : orchestrer intelligemment les f
 
 ---
 
-## Theorie
+## Théorie
 
 ### Pattern 1 : Recherche avec debounce
 
@@ -94,7 +94,7 @@ export class SearchComponent implements OnInit {
 }
 ```
 
-**Flux detaille :**
+**Flux détaillé :**
 
 ```
 Frappe :    P---Pr--Pro--Prod--Produ--Produit
@@ -151,7 +151,7 @@ export class DashboardComponent implements OnInit {
 
 ### Pattern 3 : Prevention des race conditions avec switchMap
 
-Sans `switchMap`, des requetes concurrentes peuvent arriver dans le desordre :
+Sans `switchMap`, des requêtes concurrentes peuvent arriver dans le desordre :
 
 ```
 // ❌ Sans switchMap : race condition
@@ -188,7 +188,7 @@ export class CategorieService {
 
 ### Pattern 4 : Requetes paralleles avec forkJoin
 
-Pour charger plusieurs ressources en meme temps :
+Pour charger plusieurs ressources en même temps :
 
 ```typescript
 import { forkJoin } from 'rxjs';
@@ -235,7 +235,7 @@ export class ProfilComponent implements OnInit {
 }
 ```
 
-> **Piege `forkJoin`** : si **une seule** requete echoue, TOUT echoue. Protegez chaque requete individuellement si certaines sont optionnelles :
+> **Piege `forkJoin`** : si **une seule** requête echoue, TOUT echoue. Protegez chaque requête individuellement si certaines sont optionnelles :
 
 ```typescript
 forkJoin({
@@ -249,7 +249,7 @@ forkJoin({
 
 ### Pattern 5 : Requetes sequentielles avec concatMap
 
-Quand le resultat d'une requete est necessaire pour la suivante :
+Quand le résultat d'une requête est nécessaire pour la suivante :
 
 ```typescript
 // Etape 1 : creer le client → Etape 2 : creer la commande avec l'id client
@@ -311,15 +311,15 @@ this.http.get('/api/donnees').pipe(
 ).subscribe();
 ```
 
-### Recapitulatif : quel pattern pour quel besoin
+### Récapitulatif : quel pattern pour quel besoin
 
-| Besoin | Pattern | Operateurs cles |
+| Besoin | Pattern | Operateurs clés |
 |--------|---------|-----------------|
 | Recherche / autocomplete | Debounce search | `debounceTime` + `distinctUntilChanged` + `switchMap` |
 | Rafraichissement periodique | Polling | `interval` + `startWith` + `switchMap` |
-| Eviter les race conditions | Cancel previous | `switchMap` |
-| Charger N ressources en meme temps | Parallel load | `forkJoin` |
-| Enchainer des requetes dependantes | Sequential chain | `concatMap` |
+| Éviter les race conditions | Cancel previous | `switchMap` |
+| Charger N ressources en même temps | Parallel load | `forkJoin` |
+| Enchainer des requêtes dependantes | Sequential chain | `concatMap` |
 | Retry intelligent | Exponential backoff | `retry({ delay })` + `catchError` |
 
 ---
@@ -329,8 +329,8 @@ this.http.get('/api/donnees').pipe(
 Creez un composant de recherche d'utilisateurs avec :
 1. Un champ de saisie
 2. `debounceTime(300)` pour ne pas surcharger l'API
-3. `distinctUntilChanged` pour eviter les requetes identiques
-4. `switchMap` pour annuler les requetes obsoletes
+3. `distinctUntilChanged` pour éviter les requêtes identiques
+4. `switchMap` pour annuler les requêtes obsoletes
 5. Un minimum de 3 caracteres avant de lancer la recherche
 6. Gestion d'erreur avec un message "Recherche indisponible"
 
@@ -400,14 +400,14 @@ export class UserSearchComponent {
 
 ---
 
-## Resume
+## Résumé
 
-| Point cle | A retenir |
+| Point clé | A retenir |
 |-----------|-----------|
 | Debounce search | `debounceTime` + `distinctUntilChanged` + `switchMap` = le trio gagnant |
-| Polling | `interval` + `startWith` + `switchMap`, penser a couper a la destruction |
-| Race conditions | `switchMap` annule automatiquement les requetes obsoletes |
-| Requetes paralleles | `forkJoin` attend tout, attention a proteger les requetes optionnelles |
+| Polling | `interval` + `startWith` + `switchMap`, penser a couper à la destruction |
+| Race conditions | `switchMap` annule automatiquement les requêtes obsoletes |
+| Requetes paralleles | `forkJoin` attend tout, attention a proteger les requêtes optionnelles |
 | Requetes en serie | `concatMap` enchaine en respectant l'ordre |
 | Backoff exponentiel | `retry({ count, delay })` avec un timer croissant |
 | Erreur selective | Ne reessayer que sur les 5xx, pas les 4xx |
