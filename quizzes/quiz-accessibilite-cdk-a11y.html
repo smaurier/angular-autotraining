@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz — Accessibilite Angular (CDK A11y)</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #1a1a2e; color: #e0e0e0; min-height: 100vh; padding: 2rem 1rem; }
+    .container { max-width: 800px; margin: 0 auto; }
+    h1 { text-align: center; margin-bottom: 0.5rem; font-size: 1.8rem; color: #ffffff; }
+    .subtitle { text-align: center; color: #8892b0; margin-bottom: 2rem; font-size: 1rem; }
+    .progress-bar-container { background: #0d1117; border-radius: 10px; height: 14px; margin-bottom: 2rem; overflow: hidden; }
+    .progress-bar { background: linear-gradient(90deg, #0d6efd, #4dabf7); height: 100%; width: 0%; border-radius: 10px; transition: width 0.4s ease; }
+    .progress-text { text-align: center; color: #8892b0; margin-bottom: 1rem; font-size: 0.9rem; }
+    .card { background: #16213e; border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+    .question-label { font-size: 0.85rem; color: #4dabf7; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+    .question-text { font-size: 1.15rem; margin-bottom: 1.2rem; line-height: 1.5; color: #ffffff; }
+    pre { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 1rem; margin-bottom: 1.2rem; overflow-x: auto; font-size: 0.95rem; }
+    code { font-family: 'Consolas', 'Fira Code', 'Courier New', monospace; color: #c9d1d9; }
+    .options { list-style: none; }
+    .options li { margin-bottom: 0.5rem; }
+    .options label { display: flex; align-items: center; gap: 0.75rem; padding: 0.8rem 1rem; background: #0d1117; border: 2px solid #30363d; border-radius: 8px; cursor: pointer; transition: border-color 0.2s, background 0.2s; font-size: 1rem; }
+    .options label:hover { border-color: #4dabf7; background: #1c2a4a; }
+    .options input[type="radio"] { accent-color: #0d6efd; width: 18px; height: 18px; flex-shrink: 0; }
+    .btn { display: inline-block; padding: 0.7rem 2rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.1s; }
+    .btn-primary { background: #0d6efd; color: #fff; }
+    .btn-primary:hover { background: #3b82f6; }
+    .btn-primary:disabled { background: #374151; cursor: not-allowed; }
+    .btn-restart { background: #238636; color: #fff; margin-top: 1rem; padding: 0.7rem 2rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; }
+    .btn-restart:hover { background: #2ea043; }
+    .feedback { margin-top: 1rem; padding: 1rem 1.2rem; border-radius: 8px; font-size: 0.95rem; line-height: 1.5; display: none; }
+    .feedback.correct { background: #0f5132; border: 1px solid #198754; color: #d1fae5; display: block; }
+    .feedback.wrong { background: #842029; border: 1px solid #dc3545; color: #fdd; display: block; }
+    .score-card { text-align: center; padding: 3rem 2rem; }
+    .score-card .score { font-size: 3rem; font-weight: 700; color: #4dabf7; margin-bottom: 0.5rem; }
+    .score-card .score-label { font-size: 1.2rem; color: #8892b0; margin-bottom: 1.5rem; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Quiz — Accessibilite Angular (CDK A11y)</h1>
+    <p class="subtitle">FocusTrap, FocusMonitor, LiveAnnouncer, AriaDescriber, formulaires accessibles</p>
+    <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+    <p class="progress-text" id="progressText">Question 1 / 5</p>
+    <div id="quizContainer"></div>
+    <div id="scoreContainer" class="card score-card hidden"></div>
+  </div>
+  <script>
+    const questions = [
+      {
+        label: "Question 1",
+        text: "Quel est le role de la directive cdkTrapFocus du module CDK A11y et dans quel cas l'utilise-t-on ?",
+        code: "&lt;div cdkTrapFocus [cdkTrapFocusAutoCapture]=\"true\"&gt;\n  &lt;h2&gt;Confirmer la suppression&lt;/h2&gt;\n  &lt;p&gt;Cette action est irreversible.&lt;/p&gt;\n  &lt;button (click)=\"cancel()\"&gt;Annuler&lt;/button&gt;\n  &lt;button (click)=\"confirm()\"&gt;Supprimer&lt;/button&gt;\n&lt;/div&gt;",
+        options: [
+          "Elle empeche le composant de recevoir le focus pour eviter les conflits de navigation",
+          "Elle confine la navigation clavier (Tab / Shift+Tab) a l'interieur de l'element, empechant le focus de sortir",
+          "Elle deplace automatiquement le focus vers le premier lien de la page au chargement",
+          "Elle desactive le focus sur tous les elements enfants pour les lecteurs d'ecran"
+        ],
+        answer: 1,
+        explanation: "cdkTrapFocus cree un piege a focus (focus trap) qui confine la navigation au clavier a l'interieur de l'element. Quand l'utilisateur appuie sur Tab sur le dernier element focusable, le focus revient au premier, et inversement avec Shift+Tab. C'est indispensable pour les modales et dialogues afin de respecter les criteres WCAG 2.1. L'option cdkTrapFocusAutoCapture deplace automatiquement le focus dans le piege a l'ouverture."
+      },
+      {
+        label: "Question 2",
+        text: "Comment le service FocusMonitor permet-il d'ameliorer l'accessibilite d'un composant personnalise ?",
+        code: "export class CustomButtonComponent implements OnDestroy {\n  constructor(\n    private focusMonitor: FocusMonitor,\n    private el: ElementRef\n  ) {\n    this.focusMonitor.monitor(this.el, true)\n      .subscribe(origin =&gt; {\n        // origin: 'mouse' | 'keyboard' | 'touch' | 'program' | null\n        this.focusOrigin = origin;\n      });\n  }\n\n  ngOnDestroy() {\n    this.focusMonitor.stopMonitoring(this.el);\n  }\n}",
+        options: [
+          "Il detecte l'origine du focus (souris, clavier, tactile, programme) pour adapter le style visuel en consequence",
+          "Il empeche les elements de recevoir le focus par programme pour securiser l'interface",
+          "Il remplace le comportement natif du focus par un systeme de focus virtuel pour les lecteurs d'ecran",
+          "Il gere automatiquement l'ordre de tabulation de tous les composants de l'application"
+        ],
+        answer: 0,
+        explanation: "FocusMonitor observe un element et indique l'origine du focus via un Observable : 'keyboard', 'mouse', 'touch', 'program' ou null (perte de focus). Cela permet d'afficher un indicateur de focus visible (outline) uniquement lors de la navigation clavier, tout en le masquant pour les clics souris. Cette distinction est essentielle pour offrir une bonne UX clavier sans degrader l'UX souris, conformement aux criteres WCAG 2.4.7 (Focus Visible)."
+      },
+      {
+        label: "Question 3",
+        text: "Dans une SPA Angular, pourquoi est-il important de gerer le focus apres une navigation par le routeur, et comment le fait-on ?",
+        code: "// Quel est le probleme d'accessibilite ?\n// L'utilisateur clique sur un lien, le routeur\n// charge un nouveau composant, mais...",
+        options: [
+          "Le focus reste sur le lien clique, les lecteurs d'ecran n'annoncent pas le nouveau contenu charge",
+          "Le routeur Angular deplace automatiquement le focus sur le h1 de la nouvelle page, ce qui pose des problemes de scroll",
+          "Les SPA n'ont aucun probleme de focus lors de la navigation car le DOM n'est pas recharge",
+          "Le focus est automatiquement place sur le body, ce qui est le comportement optimal pour l'accessibilite"
+        ],
+        answer: 0,
+        explanation: "Dans une SPA, contrairement a une navigation classique, le navigateur ne recharge pas la page : le focus reste sur l'element clique (ou se perd). Les utilisateurs de lecteurs d'ecran ne sont pas informes du changement de contenu. La solution est d'utiliser le ViewportScroller ou de deplacer le focus manuellement vers le titre principal (h1) ou une region live apres chaque navigation, en ecoutant les evenements NavigationEnd du routeur. Le LiveAnnouncer du CDK peut aussi etre utilise pour annoncer le titre de la nouvelle page."
+      },
+      {
+        label: "Question 4",
+        text: "Comment utiliser le service LiveAnnouncer pour informer les lecteurs d'ecran d'une action asynchrone sans modifier l'interface visible ?",
+        code: "export class CartComponent {\n  constructor(private liveAnnouncer: LiveAnnouncer) {}\n\n  addToCart(product: string) {\n    this.cartService.add(product);\n    // Comment informer les lecteurs d'ecran ?\n  }\n}",
+        options: [
+          "this.liveAnnouncer.announce(`${product} ajoute au panier`, 'polite')",
+          "this.liveAnnouncer.setRole('alert', `${product} ajoute au panier`)",
+          "document.title = `${product} ajoute au panier`",
+          "this.liveAnnouncer.focus(`${product} ajoute au panier`)"
+        ],
+        answer: 0,
+        explanation: "LiveAnnouncer.announce() cree dynamiquement une region ARIA live (aria-live) et y injecte le texte, ce qui le fait lire par les lecteurs d'ecran sans aucune modification visuelle de l'interface. Le second parametre 'polite' indique que le message sera lu apres la fin de l'annonce en cours, tandis que 'assertive' interrompt immediatement. C'est essentiel pour les actions comme l'ajout au panier, les notifications de succes ou les mises a jour en temps reel."
+      },
+      {
+        label: "Question 5",
+        text: "Quelle est la bonne pratique pour associer des messages d'erreur a un champ de formulaire reactif de maniere accessible ?",
+        code: "&lt;!-- Quelle approche est correcte ? --&gt;\n&lt;form [formGroup]=\"profileForm\"&gt;\n  &lt;label for=\"email\"&gt;Adresse email&lt;/label&gt;\n  &lt;input id=\"email\"\n         formControlName=\"email\"\n         [attr.aria-describedby]=\"emailError\"\n         [attr.aria-invalid]=\"profileForm.get('email')?.invalid\n                              &amp;&amp; profileForm.get('email')?.touched\"&gt;\n  &lt;div *ngIf=\"profileForm.get('email')?.errors?.['required']\n              &amp;&amp; profileForm.get('email')?.touched\"\n       id=\"emailError\"\n       role=\"alert\"&gt;\n    L'adresse email est requise.\n  &lt;/div&gt;\n&lt;/form&gt;",
+        options: [
+          "Utiliser uniquement une classe CSS .error sur le champ pour signaler visuellement l'erreur",
+          "Utiliser aria-describedby pour lier le message d'erreur au champ, aria-invalid pour signaler l'etat invalide, et role=\"alert\" pour l'annonce immediate",
+          "Placer le message d'erreur dans un tooltip qui s'affiche au hover, sans attributs ARIA supplementaires",
+          "Utiliser aria-label sur le champ avec le texte d'erreur a la place du message visible"
+        ],
+        answer: 1,
+        explanation: "L'approche accessible combine trois mecanismes : aria-describedby lie programmatiquement le message d'erreur au champ (les lecteurs d'ecran le lisent quand le champ recoit le focus), aria-invalid=\"true\" indique aux technologies d'assistance que la valeur est invalide, et role=\"alert\" sur le conteneur d'erreur fait annoncer immediatement le message quand il apparait dans le DOM. Cette combinaison satisfait les criteres WCAG 3.3.1 (Identification des erreurs) et 1.3.1 (Information et relations)."
+      }
+    ];
+
+    let currentQuestion = 0, score = 0, answered = false;
+
+    function renderQuestion() {
+      const q = questions[currentQuestion];
+      const total = questions.length;
+      document.getElementById('progressBar').style.width = ((currentQuestion / total) * 100) + '%';
+      document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} / ${total}`;
+      let html = `<div class="card">
+        <p class="question-label">${q.label}</p>
+        <p class="question-text">${q.text}</p>`;
+      if (q.code) {
+        html += `<pre><code>${q.code}</code></pre>`;
+      }
+      html += `<ul class="options">`;
+      q.options.forEach((opt, i) => {
+        html += `<li><label><input type="radio" name="q" value="${i}"> ${opt}</label></li>`;
+      });
+      html += `</ul>
+        <button class="btn btn-primary" id="validateBtn" onclick="validate()" disabled>Valider</button>
+        <div class="feedback" id="feedback"></div>
+      </div>`;
+      document.getElementById('quizContainer').innerHTML = html;
+      document.querySelectorAll('input[name="q"]').forEach(r => {
+        r.addEventListener('change', () => {
+          document.getElementById('validateBtn').disabled = false;
+        });
+      });
+      answered = false;
+    }
+
+    function validate() {
+      if (answered) {
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+          renderQuestion();
+        } else {
+          showScore();
+        }
+        return;
+      }
+      answered = true;
+      const selected = document.querySelector('input[name="q"]:checked');
+      if (!selected) return;
+      const val = parseInt(selected.value);
+      const q = questions[currentQuestion];
+      const fb = document.getElementById('feedback');
+      const btn = document.getElementById('validateBtn');
+      document.querySelectorAll('input[name="q"]').forEach(r => r.disabled = true);
+      if (val === q.answer) {
+        score++;
+        fb.className = 'feedback correct';
+        fb.innerHTML = `<strong>Correct !</strong> ${q.explanation}`;
+      } else {
+        fb.className = 'feedback wrong';
+        fb.innerHTML = `<strong>Incorrect.</strong> ${q.explanation}`;
+      }
+      btn.textContent = currentQuestion < questions.length - 1 ? 'Suivant' : 'Voir le score';
+    }
+
+    function showScore() {
+      document.getElementById('quizContainer').classList.add('hidden');
+      document.getElementById('progressBar').style.width = '100%';
+      document.getElementById('progressText').textContent = `Termine !`;
+      const sc = document.getElementById('scoreContainer');
+      sc.classList.remove('hidden');
+      const pct = Math.round((score / questions.length) * 100);
+      let msg = pct === 100 ? 'Parfait !' : pct >= 60 ? 'Bien joue !' : 'Continuez a reviser !';
+      sc.innerHTML = `<div class="score">${score} / ${questions.length}</div>
+        <div class="score-label">${msg} (${pct}%)</div>
+        <button class="btn-restart" onclick="restart()">Recommencer</button>`;
+    }
+
+    function restart() {
+      currentQuestion = 0; score = 0; answered = false;
+      document.getElementById('scoreContainer').classList.add('hidden');
+      document.getElementById('quizContainer').classList.remove('hidden');
+      renderQuestion();
+    }
+
+    renderQuestion();
+  </script>
+</body>
+</html>
