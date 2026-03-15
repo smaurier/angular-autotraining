@@ -64,6 +64,8 @@ export class MonComposant {}  // ✅ Autonome, pas de NgModule
 
 > Depuis Angular 19, `standalone: true` est la valeur par défaut. Vous n'avez même plus besoin de l'écrire explicitement.
 
+> **Angular 19+** : `standalone: true` est le defaut. Il n'est plus necessaire de le specifier dans le decorateur `@Component`. Les exemples de ce cours l'omettent volontairement.
+
 ### Le décorateur @Component
 
 Le décorateur `@Component` est le coeur de tout composant Angular. Voici ses propriétés principales :

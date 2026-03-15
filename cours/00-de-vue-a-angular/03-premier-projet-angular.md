@@ -148,7 +148,6 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -159,7 +158,6 @@ export class AppComponent {
 ```
 
 Remarquez :
-- `standalone: true` : pas besoin de NgModule
 - `imports: [RouterOutlet]` : declare ses dependances
 - `selector: 'app-root'` : correspond au `<app-root>` dans `index.html`
 - `templateUrl` et `styleUrl` : fichiers separes (contrairement au SFC Vue)
@@ -248,7 +246,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-hello',
-  standalone: true,
   imports: [],
   template: `<p>hello works!</p>`,
   styles: ``
@@ -265,7 +262,6 @@ import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-hello',
-  standalone: true,
   imports: [],
   template: `
     <div class="hello">
@@ -314,7 +310,6 @@ import { HelloComponent } from './hello/hello.component';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [RouterOutlet, HelloComponent],
   template: `
     <h1>DevDesk</h1>
@@ -449,7 +444,7 @@ Voici les commandes que vous utiliserez quotidiennement :
 |-------------------------|--------|
 | Creer un projet | `ng new` avec options |
 | Structure des fichiers | `main.ts`, `app.config.ts`, `app.routes.ts`, `angular.json` |
-| Composant standalone | `@Component` avec `standalone: true` |
+| Composant standalone | `@Component` (standalone par defaut) |
 | Signal basique | `signal()`, `.set()`, lecture avec `()` |
 | Template syntax | `{{ }}`, `@if`, `(event)`, `[value]` |
 | Dev server | `ng serve` avec hot reload |

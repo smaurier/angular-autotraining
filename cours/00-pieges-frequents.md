@@ -19,7 +19,6 @@ En Angular standalone, chaque composant doit **explicitement** declarer ses depe
 // child.component.ts
 @Component({
   selector: 'app-child',
-  standalone: true,
   template: `<p>Je suis le composant enfant</p>`
 })
 export class ChildComponent {}
@@ -27,7 +26,6 @@ export class ChildComponent {}
 // parent.component.ts
 @Component({
   selector: 'app-parent',
-  standalone: true,
   imports: [],  // ChildComponent manquant !
   template: `<app-child />`  // Angular ne reconnait pas ce selecteur
 })
@@ -40,7 +38,6 @@ export class ParentComponent {}
 // parent.component.ts
 @Component({
   selector: 'app-parent',
-  standalone: true,
   imports: [ChildComponent],  // Declaration explicite
   template: `<app-child />`
 })

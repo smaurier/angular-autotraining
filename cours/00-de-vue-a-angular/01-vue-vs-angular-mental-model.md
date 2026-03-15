@@ -152,7 +152,6 @@ import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-counter',       // Le "nom de balise" du composant
-  standalone: true,               // Composant autonome (pas de module)
   template: `
     <button (click)="increment()">{{ count() }}</button>
   `,

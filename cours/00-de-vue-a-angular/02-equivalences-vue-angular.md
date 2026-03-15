@@ -167,7 +167,6 @@ const props = defineProps<{
 // child.component.ts
 @Component({
   selector: 'app-child',
-  standalone: true,
   template: `{{ title() }} -- {{ count() }}`
 })
 export class ChildComponent {
@@ -211,7 +210,6 @@ emit('select', 42)
 // child.component.ts
 @Component({
   selector: 'app-child',
-  standalone: true,
   template: `<button (click)="select.emit(42)">Selectionner</button>`
 })
 export class ChildComponent {
@@ -249,7 +247,6 @@ const modelValue = defineModel<boolean>()
 // toggle-switch.component.ts
 @Component({
   selector: 'app-toggle-switch',
-  standalone: true,
   template: `
     <button (click)="checked.set(!checked())">
       {{ checked() ? 'ON' : 'OFF' }}
@@ -519,7 +516,6 @@ import { Component, input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-user-card',
-  standalone: true,
   template: `
     <div class="card" (click)="isExpanded.set(!isExpanded())">
       <h2>{{ name() }}</h2>
