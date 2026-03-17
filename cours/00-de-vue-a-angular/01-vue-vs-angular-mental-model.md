@@ -8,6 +8,8 @@
 > **Duree estimee** : 1h15
 > **Prérequis** : Experience Vue 3 (Composition API)
 
+> **Ressource transversale** : consulte [`00-pieges-frequents.md`](../00-pieges-frequents.md) régulièrement — il liste les pièges courants quand on passe de Vue à Angular.
+
 ---
 
 ## Objectif

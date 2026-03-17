@@ -32,7 +32,7 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 | 02 | Signals avances | 3 | 1 | ~4h |
 | 03 | Services & DI | 3 | 2 | ~4h30 |
 | 04 | Routing | 4 | 2 | ~5h |
-| 05 | RxJS Essentiel | 4 | 2 + 1 bonus | ~5h30 |
+| 05 | RxJS Essentiel | 5 | 2 + 1 bonus | ~5h30 |
 | 06 | HTTP & API | 3 | 2 | ~4h30 |
 | 07 | Formulaires | 4 | 3 | ~6h |
 | 08 | Angular Material | 3 | 2 + 1 bonus | ~5h |
@@ -40,7 +40,7 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 | 10 | State Management | 3 | 2 | ~4h30 |
 | 11 | Auth (spécifique Angular) | 1 | 1 | ~2h |
 | 12 | Recettes ESN | 2 | 1 | ~3h |
-| | **TOTAL** | **42** | **27** | **~60h** |
+| | **TOTAL** | **43** | **27** | **~60h** |
 
 ---
 
@@ -55,6 +55,11 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 | 03 | Premier projet Angular | `ng new`, structure, premier composant standalone |
 | Ex01 | HelloComponent | Créer un composant, l'afficher, ajouter un signal |
 
+Quizzes :
+- `quizzes/quiz-00-01-vue-vs-angular-mental-model.html`
+- `quizzes/quiz-00-02-equivalences-vue-angular.html`
+- `quizzes/quiz-00-03-premier-projet-angular.html`
+
 ### Module 01 -- Composants & Templates (7 cours, 6 exercices)
 
 | # | Cours | Contenu clé |
@@ -67,6 +72,15 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 | 06 | Projeter du contenu avec ng-content | Slots nommes, content projection |
 | 07 | Cycle de vie et afterRender | OnInit, OnDestroy, afterNextRender |
 
+Quizzes :
+- `quizzes/quiz-01-01-composants-standalone.html`
+- `quizzes/quiz-01-02-signaux-base.html`
+- `quizzes/quiz-01-03-control-flow.html`
+- `quizzes/quiz-01-04-binding-et-events.html`
+- `quizzes/quiz-01-05-input-output-model.html`
+- `quizzes/quiz-01-06-lifecycle-hooks.html`
+- `quizzes/quiz-01-07-pipes-et-directives.html`
+
 ### Module 02 -- Signals avances (3 cours, 1 exercice)
 
 | # | Cours | Contenu clé |
@@ -75,6 +89,11 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 | 02 | linkedSignal et resource | Signals dérivés, chargement async |
 | 03 | Patterns avances | Signaux en services, state local, bonnes pratiques |
 
+Quizzes :
+- `quizzes/quiz-02-01-signaux-avances.html`
+- `quizzes/quiz-02-02-resource-api.html`
+- `quizzes/quiz-02-03-patterns-signaux.html`
+
 ### Module 03 -- Services & DI (3 cours, 2 exercices)
 
 | # | Cours | Contenu clé |
@@ -82,6 +101,11 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 | 01 | Services et inject() | providedIn, injection hiérarchique |
 | 02 | InjectionToken et providers avances | Tokens, useFactory, useValue |
 | 03 | Patterns DI en entreprise | Multi-providers, injection conditionnelle |
+
+Quizzes :
+- `quizzes/quiz-03-01-services-et-injectable.html`
+- `quizzes/quiz-03-02-providers-et-scopes.html`
+- `quizzes/quiz-03-03-injection-tokens.html`
 
 ### Module 04 -- Routing (4 cours, 2 exercices)
 
@@ -92,6 +116,12 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 | 03 | Guards et resolvers | canActivate, resolve, redirections |
 | 04 | Layouts et routes imbriquees | Routes enfants, layouts partages |
 
+Quizzes :
+- `quizzes/quiz-04-01-routing-basique.html`
+- `quizzes/quiz-04-02-parametres-et-data.html`
+- `quizzes/quiz-04-03-guards-et-protection.html`
+- `quizzes/quiz-04-04-lazy-loading.html`
+
 ### Module 05 -- RxJS Essentiel (4 cours, 2 + 1 bonus exercices)
 
 | # | Cours | Contenu clé |
@@ -100,6 +130,14 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 | 02 | Operateurs de transformation | map, filter, switchMap, mergeMap |
 | 03 | Gestion du cycle de vie | takeUntilDestroyed, async pipe |
 | 04 | Patterns RxJS courants | debounceTime, distinctUntilChanged, combineLatest |
+| 05 | Error handling et testing RxJS | catchError, retry, marble testing, TestScheduler |
+
+Quizzes :
+- `quizzes/quiz-05-01-observables-et-subscribe.html`
+- `quizzes/quiz-05-02-operators-courants.html`
+- `quizzes/quiz-05-03-patterns-async.html`
+- `quizzes/quiz-05-04-interop-signals-rxjs.html`
+- `quizzes/quiz-05-05-error-handling-testing.html`
 
 ### Module 06 -- HTTP & API (3 cours, 2 exercices)
 
@@ -108,6 +146,11 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 | 01 | HttpClient et requêtes REST | GET, POST, PUT, DELETE, typage |
 | 02 | Interceptors fonctionnels | Auth token, logging, retry |
 | 03 | Gestion d'erreurs et cache | catchError, retry, stratégies de cache |
+
+Quizzes :
+- `quizzes/quiz-06-01-httpclient-crud.html`
+- `quizzes/quiz-06-02-interceptors.html`
+- `quizzes/quiz-06-03-error-handling-et-cache.html`
 
 ### Module 07 -- Formulaires (4 cours, 3 exercices)
 
@@ -118,6 +161,12 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 | 03 | FormArray et formulaires dynamiques | Listes, ajout/suppression dynamique |
 | 04 | Bonnes pratiques formulaires | Typage strict, helpers, UX |
 
+Quizzes :
+- `quizzes/quiz-07-01-template-driven-forms.html`
+- `quizzes/quiz-07-02-reactive-forms.html`
+- `quizzes/quiz-07-03-signal-forms.html`
+- `quizzes/quiz-07-04-patterns-formulaires.html`
+
 ### Module 08 -- Angular Material (3 cours, 2 + 1 bonus exercices)
 
 | # | Cours | Contenu clé |
@@ -125,6 +174,11 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 | 01 | Installation et theming | Palette, typographie, dark mode |
 | 02 | Composants courants | Table, Dialog, Snackbar, Form fields |
 | 03 | CDK et composants avances | Drag & drop, virtual scroll, overlay |
+
+Quizzes :
+- `quizzes/quiz-08-01-setup-et-theming.html`
+- `quizzes/quiz-08-02-composants-courants.html`
+- `quizzes/quiz-accessibilite-cdk-a11y.html`
 
 ### Module 09 -- Tests (2 cours, 1 exercice)
 
@@ -135,6 +189,10 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 | 02 | Tester les composants | TestBed, ComponentFixture, queries |
 | 03 | Tester les services et HTTP | HttpTestingController, mocks |
 
+Quizzes :
+- `quizzes/quiz-09-02-tests-composants.html`
+- `quizzes/quiz-09-03-tests-http-et-di.html`
+
 ### Module 10 -- State Management (3 cours, 2 exercices)
 
 | # | Cours | Contenu clé |
@@ -142,6 +200,11 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 | 01 | État local avec Signals | Patterns signal-based, state services |
 | 02 | NgRx SignalStore | Stores, features, entites |
 | 03 | Patterns avances d'état | Optimistic updates, cache, sync |
+
+Quizzes :
+- `quizzes/quiz-10-01-state-avec-services.html`
+- `quizzes/quiz-10-02-ngrx-signal-store.html`
+- `quizzes/quiz-10-03-quand-utiliser-quoi.html`
 
 ### Module 11 -- Auth (spécifique Angular) (1 cours, 1 exercice)
 
@@ -151,12 +214,20 @@ Ce parcours s'appuie sur des principes issus de la recherche en apprentissage :
 |---|-------|-------------|
 | 02 | Authentification JWT | Login, guards, interceptors auth |
 
+Quizzes :
+- `quizzes/quiz-11-02-auth-jwt-guards.html`
+
 ### Module 12 -- Recettes ESN (2 cours, 1 exercice)
 
 | # | Cours | Contenu clé |
 |---|-------|-------------|
 | 01 | Architecture et conventions d'entreprise | Monorepo, feature modules, coding style |
 | 02 | Performance et optimisation | Lazy loading, bundle size, OnPush, SSR |
+
+Quizzes :
+- `quizzes/quiz-12-01-patterns-esn.html`
+- `quizzes/quiz-12-02-entretien-technique.html`
+- `quizzes/quiz-defer-zoneless.html`
 
 ---
 
@@ -190,6 +261,7 @@ Utilisez ce tableau pour suivre vos revisions espacees. Cochez chaque case aprè
 | 05 | 02 - Operateurs | ____/____/____ | [ ] | [ ] | [ ] |
 | 05 | 03 - Cycle de vie RxJS | ____/____/____ | [ ] | [ ] | [ ] |
 | 05 | 04 - Patterns RxJS | ____/____/____ | [ ] | [ ] | [ ] |
+| 05 | 05 - Error handling et testing RxJS | ____/____/____ | [ ] | [ ] | [ ] |
 | 06 | 01 - HttpClient | ____/____/____ | [ ] | [ ] | [ ] |
 | 06 | 02 - Interceptors | ____/____/____ | [ ] | [ ] | [ ] |
 | 06 | 03 - Erreurs et cache | ____/____/____ | [ ] | [ ] | [ ] |

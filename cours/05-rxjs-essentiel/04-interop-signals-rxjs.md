@@ -405,7 +405,7 @@ export class ThemeToggleComponent {
 
 ---
 
-> **Prochain cours** : [Cours 25 — HttpClient et CRUD](../06-http-api/01-httpclient-crud.md)
+> **Prochain cours** : [Cours 25 — Gestion d'erreurs et tests RxJS](./05-error-handling-testing.md)
 
 ---
 
