@@ -1,0 +1,17 @@
+{
+  "name": "angular-course",
+  "version": "1.0.0",
+  "description": "Formation Angular 19+ : Standalone, Signals, DI, RxJS, formulaires, routing, Material, tests, SSR",
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  }
+}
