@@ -63,7 +63,7 @@ features:
 ## Démarrer en local
 
 ```bash
-# dans 02-angular/
+# dans 03-angular/
 pnpm install
 pnpm docs:dev    # → http://localhost:5172
 ```
