@@ -29,7 +29,7 @@ Tu construis `SortieDetailComponent`, la **page détail d'une sortie** TribuZen,
 Crée le projet et les composants avec l'Angular CLI :
 
 ```bash
-ng new tribuzen-labs --standalone --style=css
+ng new tribuzen-labs --style=css
 cd tribuzen-labs
 ng generate component sortie-detail
 ng generate component carte-lieu

@@ -8,13 +8,13 @@ hero:
   actions:
     - theme: brand
       text: Commencer le cours
-      link: /cours/01-composants-templates/01-standalone
+      link: /modules/00-de-vue-a-angular
     - theme: alt
       text: Parcours recommandé
       link: /cours/parcours
     - theme: alt
-      text: Exercices pratiques
-      link: /exercices/README
+      text: Labs pratiques
+      link: /labs/lab-00-de-vue-a-angular/README
 
 features:
   - icon: 🅰️

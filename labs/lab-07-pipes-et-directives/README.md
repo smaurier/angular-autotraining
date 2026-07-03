@@ -44,7 +44,7 @@ const sortie: Sortie = {
 Crée un projet et génère les squelettes avec la CLI (vrai outil) :
 
 ```bash
-ng new tribuzen-lab07 --standalone --style=css --skip-tests
+ng new tribuzen-lab07 --style=css --skip-tests
 cd tribuzen-lab07
 ng generate component sortie-card
 ng generate pipe tronquer

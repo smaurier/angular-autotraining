@@ -28,7 +28,7 @@ Tu construis `ListeSortiesComponent`, le deuxième écran interactif de TribuZen
 
 ### Starter minimal
 
-Dans un projet Angular 19 (`ng new tribuzen-labs --standalone` si pas déjà fait au lab 01), génère le composant :
+Dans un projet Angular 19 (`ng new tribuzen-labs` si pas déjà fait au lab 01), génère le composant :
 
 ```bash
 ng generate component liste-sorties

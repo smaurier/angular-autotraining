@@ -24,7 +24,7 @@ Tu construis `ProchaineSortieComponent`, l'écran **compte à rebours** de Tribu
 
 ```bash
 # Si tu n'as pas encore de projet du cours Angular :
-ng new tribuzen-labs --standalone --style=css --routing=false
+ng new tribuzen-labs --style=css --routing=false
 cd tribuzen-labs
 
 # Génère le composant du lab :

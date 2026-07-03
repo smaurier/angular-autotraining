@@ -29,7 +29,7 @@ Tu construis `AventureCardComponent`, la **carte d'activité** du catalogue Trib
 
 ### Starter minimal
 
-Dans ton projet Angular 19 (`ng new tribuzen-labs --standalone` si pas déjà fait), génère le composant :
+Dans ton projet Angular 19 (`ng new tribuzen-labs` si pas déjà fait), génère le composant :
 
 ```bash
 ng generate component aventure-card

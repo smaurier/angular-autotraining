@@ -1,7 +1,7 @@
 ---
 titre: Recettes ESN et pièges fréquents — architecture de mission, prep entretien, projet final
 cours: 03-angular
-notions: [architecture feature-based core/shared/features, smart et dumb components, pattern facade, feature flags signal-based, config runtime APP_INITIALIZER, GlobalErrorHandler, conventions de nommage et conventional commits, les pièges Angular récurrents en mission, préparation entretien technique, intégration de bout en bout]
+notions: [architecture feature-based core/shared/features, smart et dumb components, pattern facade, feature flags signal-based, config runtime provideAppInitializer, GlobalErrorHandler, conventions de nommage et conventional commits, les pièges Angular récurrents en mission, préparation entretien technique, intégration de bout en bout]
 outcomes:
   - sait structurer un projet Angular de mission en core/shared/features et justifier ce découpage
   - sait distinguer smart et dumb components et poser une facade entre l'UI et l'état
@@ -178,14 +178,11 @@ bootstrapApplication(App, appConfig).catch(err => console.error(err));
 
 ```typescript
 // provider dans app.config.ts — bloque le boot tant que la config n'est pas chargée
-{
-  provide: APP_INITIALIZER,
-  useFactory: () => {
-    const cfg = inject(AppConfigService);
-    return () => cfg.load();   // fetch('/assets/config.json')
-  },
-  multi: true,
-}
+// provideAppInitializer (v19) remplace le token déprécié APP_INITIALIZER
+provideAppInitializer(() => {
+  const cfg = inject(AppConfigService);
+  return cfg.load();   // fetch('/assets/config.json') → Promise/Observable
+})
 ```
 
 **Error handler global** — capturer toute erreur non gérée en un seul endroit, la logger et prévenir l'utilisateur, au lieu de laisser l'app planter silencieusement :
@@ -453,7 +450,7 @@ C'est le livrable du **projet final** (le lab de ce module).
 1. Un projet de mission se structure en `core` (singletons), `shared` (réutilisable sans état) et `features` (domaines lazy-loadés) — dépendances unidirectionnelles `features → shared → core`.
 2. On sépare **smart** (injecte, orchestre) et **dumb** (reçoit par `input()`, émet par `output()`, n'injecte rien).
 3. La **facade** interpose un service à état `readonly` entre le composant et les détails (API, cache, store) ; le composant exprime une intention, la facade exécute.
-4. Tout se configure dans `app.config.ts` / `bootstrapApplication` : `provideRouter`, `provideHttpClient(withInterceptors([...]))`, `ErrorHandler` global, `APP_INITIALIZER` pour la config runtime.
+4. Tout se configure dans `app.config.ts` / `bootstrapApplication` : `provideRouter`, `provideHttpClient(withInterceptors([...]))`, `ErrorHandler` global, `provideAppInitializer` (le token `APP_INITIALIZER` est déprécié en v19) pour la config runtime.
 5. Les réflexes qui passent en revue : typage strict (pas de `any`), signals `readonly`, `takeUntilDestroyed`, conventional commits, états chargement/erreur systématiques.
 6. Les pièges récurrents de mission : HTTP dans le composant, feature qui importe une feature, `root` vs `providers`, subscribe qui fuit ou requête cold, entretien récité sans justification, écran sans loading/erreur.
 7. En entretien : une phrase par question = définition + trade-off ; distinguer les trois strates (fondamentaux / intermédiaire / avancé) ; toujours situer le front par rapport à la sécurité serveur.
@@ -466,7 +463,7 @@ C'est le livrable du **projet final** (le lab de ce module).
 Quels sont les trois dossiers d'une architecture Angular de mission et leur règle de dépendance ?|core (singletons), shared (réutilisable sans état), features (domaines lazy-loadés). Dépendances unidirectionnelles : features → shared → core, jamais l'inverse ni entre features.
 Quelle est la différence entre un smart component et un dumb component ?|Smart (container) : injecte les services, orchestre l'état, peu de HTML. Dumb (présentational) : reçoit tout par input(), émet par output(), n'injecte aucun service métier, réutilisable et facile à tester.
 À quoi sert le pattern facade dans une feature Angular ?|Interposer un service à état readonly entre le composant et les détails (API, cache, store). Le composant exprime une intention (charger, inviter), la facade décide comment l'exécuter. Découple l'UI de l'implémentation.
-Où configure-t-on les providers globaux d'une app Angular 19 standalone ?|Dans app.config.ts via bootstrapApplication : provideRouter(routes), provideHttpClient(withInterceptors([...])), ErrorHandler global, APP_INITIALIZER pour la config runtime. Plus de NgModule.
+Où configure-t-on les providers globaux d'une app Angular 19 standalone ?|Dans app.config.ts via bootstrapApplication : provideRouter(routes), provideHttpClient(withInterceptors([...])), ErrorHandler global, provideAppInitializer (le token APP_INITIALIZER est déprécié en v19) pour la config runtime. Plus de NgModule.
 Pourquoi un appel HTTP dans un composant est-il refusé en revue ESN ?|Il rend le composant intestable et non réutilisable, mélange orchestration et communication réseau, et court-circuite la couche service. Le composant demande à une facade ; le service parle à l'API.
 Quelle est la différence entre providedIn root et providers dans un composant ?|providedIn: 'root' = singleton global partagé par toute l'app. providers: [Service] dans @Component = nouvelle instance par composant. Confondre les deux cause des bugs de partage d'état, surtout sur les formulaires.
 Comment répondre en entretien à « signal() vs computed() » ?|signal() est un état source, modifiable via set/update. computed() en dérive une valeur en lecture seule, lazy et mémoïsée, recalculée quand ses dépendances changent. Une phrase, précise.

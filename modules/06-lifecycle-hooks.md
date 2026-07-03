@@ -1,13 +1,14 @@
 ---
 titre: Cycle de vie d'un composant — ngOnInit, ngOnDestroy, ngOnChanges, afterNextRender, DestroyRef
 cours: 03-angular
-notions: [cycle de vie du composant, ngOnInit et interface OnInit, ngOnDestroy et interface OnDestroy, ngOnChanges et SimpleChanges, ngAfterViewInit et interface AfterViewInit, constructor vs ngOnInit, afterNextRender, afterRender, DestroyRef.onDestroy(), takeUntilDestroyed(), nettoyage et fuites mémoire]
+notions: [cycle de vie du composant, ngOnInit et interface OnInit, ngOnDestroy et interface OnDestroy, ngOnChanges et SimpleChanges, ngAfterViewInit et interface AfterViewInit, constructor vs ngOnInit, afterNextRender, afterRender, "DestroyRef.onDestroy()", "takeUntilDestroyed()", nettoyage et fuites mémoire, "signal queries viewChild()", "viewChild.required() et viewChildren()", "contentChild()"]
 outcomes:
   - sait choisir entre constructor et ngOnInit pour initialiser un composant selon la disponibilité des inputs
   - sait libérer les ressources d'un composant avec ngOnDestroy ou DestroyRef.onDestroy() pour éviter les fuites mémoire
   - sait exécuter du code qui touche le DOM au bon moment avec afterNextRender (une fois) et afterRender (à chaque rendu)
   - sait réagir à un changement d'input avec ngOnChanges et lire un SimpleChanges, et sait quand un computed le remplace
   - sait désabonner automatiquement un flux à la destruction avec takeUntilDestroyed()
+  - sait lire un enfant de sa vue depuis la classe avec une signal query viewChild() / viewChild.required() / viewChildren() / contentChild()
 prerequis: [module 00 de-vue-a-angular, module 01 premier-projet-standalone, module 02 signaux-base, module 03 control-flow, module 04 binding-et-events, module 05 input-output-model]
 next: 07-pipes-et-directives
 libs: [{ name: "@angular/core", version: "19" }]
@@ -223,7 +224,7 @@ import { Component, ElementRef, viewChild, afterNextRender } from '@angular/core
   template: `<canvas #graphe width="240" height="80"></canvas>`,
 })
 export class MiniGrapheBudgetComponent {
-  // viewChild signal (query de vue, module 05) → résolu au rendu
+  // viewChild signal (query de vue, §2.9) → résolu au rendu
   graphe = viewChild.required<ElementRef<HTMLCanvasElement>>('graphe');
 
   constructor() {
@@ -264,7 +265,7 @@ export class CarteSortieComponent implements AfterViewInit {
 }
 ```
 
-Avec les signaux, `viewChild()` (module 05) rend souvent `ngAfterViewInit` inutile pour lire un enfant. Mais pour du code qui doit tourner **une fois la vue montée**, `ngAfterViewInit` (ou `afterNextRender` pour le DOM) reste le bon hook.
+Avec les signaux, `viewChild()` (§2.9) rend souvent `ngAfterViewInit` inutile pour lire un enfant. Mais pour du code qui doit tourner **une fois la vue montée**, `ngAfterViewInit` (ou `afterNextRender` pour le DOM) reste le bon hook.
 
 ### 2.8 `ngOnChanges` — réagir à un changement d'input
 
@@ -295,6 +296,40 @@ Structures vérifiées : `interface OnChanges { ngOnChanges(changes: SimpleChang
 statut = input.required<string>();
 libelle = computed(() => `Statut : ${this.statut()}`);
 ```
+
+### 2.9 Signal queries : `viewChild()` / `contentChild()`
+
+Pour lire un élément ou un composant **de son propre template depuis la classe**, Angular 19 fournit des **queries sous forme de signaux**, à déclarer comme des champs (en contexte d'injection). Elles remplacent les décorateurs historiques `@ViewChild` / `@ContentChild` et se lisent avec `()`, comme n'importe quel signal. Leur domicile est ici : la valeur d'une query de vue n'est **disponible qu'une fois la vue rendue** — c'est le même « quand » que `afterNextRender` (§2.6).
+
+- `viewChild<T>('ref')` — un enfant unique de la **vue** (référence template `#ref`, composant ou directive). Signal qui vaut `undefined` tant que la vue n'est pas rendue.
+- `viewChild.required<T>('ref')` — variante **non nullable** : le type est `T` (jamais `undefined`), au prix d'une erreur à l'exécution si la cible est absente. À utiliser quand la cible est toujours présente dans le template.
+- `viewChildren<T>('ref')` — **plusieurs** enfants de la vue, sous forme d'un signal de tableau `readonly T[]`.
+- `contentChild<T>('ref')` — équivalent pour le **contenu projeté** (`<ng-content>`), c.-à-d. les éléments passés par le parent entre les balises du composant.
+
+```typescript
+import { Component, ElementRef, viewChild, afterNextRender } from '@angular/core';
+
+@Component({
+  selector: 'app-carte-sortie',
+  template: `<canvas #graphe width="240" height="80"></canvas>`,
+})
+export class CarteSortieComponent {
+  // .required : le canvas est toujours dans le template → type non nullable
+  graphe = viewChild.required<ElementRef<HTMLCanvasElement>>('graphe');
+
+  constructor() {
+    // La query n'est fiable qu'APRÈS rendu → on la lit dans afterNextRender
+    afterNextRender(() => {
+      const ctx = this.graphe().nativeElement.getContext('2d');
+      ctx?.fillRect(0, 0, 120, 80);
+    });
+  }
+}
+```
+
+Sur TribuZen, `viewChild.required` cible le `<canvas>` du `MiniGrapheBudgetComponent` (Exemple 2) pour y dessiner la barre de budget après rendu ; `contentChild` servirait si une carte de sortie projetait un en-tête personnalisé fourni par son parent.
+
+> Détail vérifié : ces queries se lisent à partir de `afterNextRender` / `ngAfterViewInit`. Les lire dans le `constructor` ou `ngOnInit` renvoie `undefined` (vue pas encore rendue).
 
 ---
 

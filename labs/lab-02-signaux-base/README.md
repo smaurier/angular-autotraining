@@ -27,7 +27,7 @@ Tu construis `SortieBudgetComponent`, le premier écran interactif de TribuZen :
 
 ### Starter minimal
 
-Dans un projet Angular 19 (`ng new tribuzen-labs --standalone`), génère le composant :
+Dans un projet Angular 19 (`ng new tribuzen-labs`), génère le composant :
 
 ```bash
 ng generate component sortie-budget

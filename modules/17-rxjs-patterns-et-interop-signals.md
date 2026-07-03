@@ -392,7 +392,7 @@ export class PlanificateurComponent {
 
 ### Exemple 2 — recherche instantanée (`toObservable` + error handling), TribuZen
 
-La barre de recherche du planificateur : l'utilisateur tape, on veut débouncer, annuler les recherches obsolètes, et **ne pas casser** si la source échoue.
+La barre de recherche du planificateur : l'utilisateur tape, on veut débouncer, annuler les recherches obsolètes, et **ne pas casser** si la source échoue. On croise ici `distinctUntilChanged()` : cet opérateur **ignore deux valeurs successives identiques** — si l'utilisateur retape le même terme (ou revient dessus après un espace supprimé), aucune nouvelle requête n'est déclenchée.
 
 ```typescript
 // recherche.component.ts

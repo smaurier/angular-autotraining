@@ -151,17 +151,37 @@ Pour aiguiller sur **une seule valeur** ayant plusieurs cas (typiquement un stat
 }
 ```
 
-La comparaison des `@case` est stricte (`===`). Un seul `@case` correspondant est rendu ; `@default` (optionnel) couvre le reste. On peut aussi **enchaîner deux `@case`** pour partager un même bloc :
+La comparaison des `@case` est stricte (`===`). Un seul `@case` correspondant est rendu ; `@default` (optionnel) couvre le reste.
+
+**Pas de fall-through en Angular.** Contrairement au `switch` de JavaScript, `@switch` **ne permet pas** d'enchaîner plusieurs `@case` vides pour partager un même bloc (`@case ('reviewer') @case ('editor') { ... }` ne compile pas). Pour regrouper plusieurs valeurs sur un même rendu, deux techniques :
+
+- **normaliser en amont avec un `computed`** — mapper les valeurs équivalentes vers une seule clé, puis un seul `@case` :
+
+```typescript
+// dans la classe : 'reviewer' et 'editor' -> 'staff'
+roleAffiche = computed(() =>
+  ['reviewer', 'editor'].includes(this.permission()) ? 'staff' : this.permission()
+);
+```
 
 ```html
-@switch (permission()) {
-  @case ('reviewer')
-  @case ('editor') {
+@switch (roleAffiche()) {
+  @case ('staff') {
     <app-editor-dashboard />
   }
   @default {
     <app-viewer-dashboard />
   }
+}
+```
+
+- **ou un `@if` avec `||`** quand il n'y a que deux ou trois valeurs à regrouper :
+
+```html
+@if (permission() === 'reviewer' || permission() === 'editor') {
+  <app-editor-dashboard />
+} @else {
+  <app-viewer-dashboard />
 }
 ```
 

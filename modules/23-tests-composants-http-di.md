@@ -56,7 +56,7 @@ Angular fournit exactement l'outillage manquant : **`TestBed`** reconstruit un m
 Angular ne teste pas « tout seul » : un **runner** exécute tes fichiers `*.spec.ts`. Deux vérités à distinguer (confirmées Context7, `/angular/angular`) :
 
 - **Angular 19** scaffolde encore **Karma + Jasmine** par défaut (`ng new` → `karma.conf.js`, syntaxe Jasmine : `describe`/`it`/`expect(...).toBe(...)`, `jasmine.createSpyObj`, `spy.and.returnValue(...)`).
-- La **CLI récente** (builder `@angular/build:unit-test`) fait de **Vitest le runner par défaut** des nouveaux projets ; le support Vitest est **expérimental** en Angular 19 et devient le défaut ensuite. L'option `runner` (`vitest` par défaut) est configurable dans `angular.json`.
+- **Karma/Jasmine reste le défaut en v19** ; le **support de Vitest** est arrivé plus tard (dans une version ultérieure, ≈ v20) via le builder `@angular/build:unit-test`, qui fait de **Vitest le runner par défaut** des nouveaux projets. L'option `runner` est configurable dans `angular.json`. <!-- FLAG-CONTEXT7: version exacte d'arrivée/défaut du runner Vitest -->.
 
 **Ce qui ne change pas** entre les deux : `TestBed`, `ComponentFixture`, `HttpTestingController` sont fournis par `@angular/core/testing` et `@angular/common/http/testing`, **identiques** quel que soit le runner. Seule la syntaxe des assertions et des spies diffère (`jasmine.createSpyObj` vs `vi.fn()`). Ce module écrit les exemples en **Jasmine** (défaut Angular 19) ; l'encadré 2.8 donne la traduction Vitest.
 
@@ -483,7 +483,7 @@ tribuzen/
 6. `provideHttpClient()` **puis** `provideHttpClientTesting()` isolent le réseau ; `HttpTestingController.expectOne(url)` + `req.flush(data)` interceptent et répondent ; `verify()` en `afterEach` garde-fou.
 7. Un service HTTP Observable est froid : sans `subscribe` aucune requête, sans `flush` aucune réponse.
 8. On mocke une dépendance avec `{ provide: Service, useValue: mock }` ; une fonction à `inject()` (guard/interceptor) se teste dans `TestBed.runInInjectionContext(...)`.
-9. Runner : Angular 19 scaffolde **Karma/Jasmine** ; la CLI récente passe à **Vitest** par défaut. Les briques `TestBed`/`ComponentFixture`/`HttpTestingController` sont identiques ; seule la syntaxe spies/assertions change.
+9. Runner : Angular 19 scaffolde **Karma/Jasmine** (défaut en v19) ; le support **Vitest** est arrivé plus tard (≈ v20) et devient le défaut des nouveaux projets. Les briques `TestBed`/`ComponentFixture`/`HttpTestingController` sont identiques ; seule la syntaxe spies/assertions change.
 
 ---
 
@@ -497,7 +497,7 @@ Quels deux providers isolent le réseau dans un test de service HTTP, et dans qu
 Quel est le cycle d'un test HttpTestingController ?|1) subscribe à la méthode du service (sinon rien ne part, Observable froid) ; 2) expectOne(url) intercepte ; 3) vérifier method/body/headers ; 4) req.flush(data) répond ; 5) assertions dans le subscribe ; 6) verify() en afterEach.
 Comment simuler une réponse d'erreur 500 avec HttpTestingController ?|req.flush('message', { status: 500, statusText: 'Server Error' }). Le 2e argument transforme le flush en réponse d'erreur, ce qui déclenche le callback error du subscribe.
 Comment mocker un service injecté dans un test de composant ?|Dans les providers : { provide: MonService, useValue: mock }. La DI renvoie le mock à quiconque injecte MonService. Le composant ignore qu'il ne parle pas au vrai service.
-Quel est le runner de test par défaut d'Angular 19, et vers quoi la CLI évolue-t-elle ?|Angular 19 scaffolde Karma + Jasmine. La CLI récente (builder @angular/build:unit-test) fait de Vitest le runner par défaut (expérimental en 19). TestBed/ComponentFixture/HttpTestingController restent identiques ; seule la syntaxe spies/assertions change.
+Quel est le runner de test par défaut d'Angular 19, et vers quoi la CLI évolue-t-elle ?|Angular 19 scaffolde Karma + Jasmine (défaut en v19). Le support Vitest (builder @angular/build:unit-test) est arrivé plus tard (≈ v20) et devient le runner par défaut des nouveaux projets. TestBed/ComponentFixture/HttpTestingController restent identiques ; seule la syntaxe spies/assertions change.
 Pourquoi createComponent() ne doit-il pas être appelé avant les overrides du TestBed ?|createComponent() fige la configuration du TestBed. Tout configureTestingModule / overrideProvider / override de composant doit venir avant le premier createComponent, sinon l'override est refusé.
 ```
 

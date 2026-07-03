@@ -431,29 +431,25 @@ Access token en mémoire → au reload il est perdu. On tente un refresh silenci
 
 ```typescript
 // app.config.ts — hook de démarrage
-import { APP_INITIALIZER } from '@angular/core';
+import { inject } from '@angular/core';
+import { provideAppInitializer } from '@angular/core';
 import { firstValueFrom, of, catchError } from 'rxjs';
 import { AuthService } from './auth.service';
-
-export function rehydraterSession(auth: AuthService) {
-  return () =>
-    firstValueFrom(
-      auth.refreshToken().pipe(
-        // pas de session valide → on démarre déconnecté, sans planter le boot
-        catchError(() => of(null)),
-      ),
-    );
-}
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(withInterceptors([authInterceptor])),
-    {
-      provide: APP_INITIALIZER,
-      useFactory: rehydraterSession,
-      deps: [AuthService],
-      multi: true,
-    },
+    // provideAppInitializer : fonction moderne (v19) qui remplace le token déprécié APP_INITIALIZER.
+    // Le callback s'exécute dans un contexte d'injection → inject() y est disponible.
+    provideAppInitializer(() => {
+      const auth = inject(AuthService);
+      return firstValueFrom(
+        auth.refreshToken().pipe(
+          // pas de session valide → on démarre déconnecté, sans planter le boot
+          catchError(() => of(null)),
+        ),
+      );
+    }),
   ],
 };
 ```
@@ -552,7 +548,7 @@ tribuzen/
         role.guard.ts         ← roleGuard (RBAC front, UX only)
       pages/
         connexion.component.ts
-    app.config.ts             ← withInterceptors + APP_INITIALIZER (réhydratation)
+    app.config.ts             ← withInterceptors + provideAppInitializer (réhydratation)
 ```
 
 > Le back TribuZen (NestJS) émet et **valide** les tokens, hache les mots de passe et **autorise** chaque action — c'est la vraie ligne de défense. Le front décrit ici transporte le jeton et adapte l'UI. Le refresh token vit en cookie `httpOnly` posé par le serveur, jamais manipulé par ce code Angular.

@@ -72,7 +72,7 @@ Trois signaux d'état à synchroniser à la main (`chargement`, `erreur`, `sorti
 
 La **Resource API** d'Angular 19 encapsule exactement ce pattern : on déclare **ce qui déclenche** le chargement (`request`) et **comment charger** (`loader`), et Angular gère pour nous les états, l'annulation et le re-déclenchement. Ce module remplace tout le bloc ci-dessus par une dizaine de lignes déclaratives.
 
-> ⚠️ **API expérimentale.** En Angular **19**, `resource()` et `rxResource()` sont marquées `@experimental` : elles s'importent normalement depuis `@angular/core` (aucun provider spécial requis), mais leur **surface d'API peut changer d'une mineure à l'autre** — c'est précisément le cas de `status()` (voir §2.3 et le PIÈGE #1). Elles ne sont devenues stables qu'en Angular 22. Vérifie toujours la doc de ta version exacte.
+> ⚠️ **API expérimentale.** En Angular **19**, `resource()` et `rxResource()` sont marquées `@experimental` : elles s'importent normalement depuis `@angular/core` (aucun provider spécial requis), mais leur **surface d'API peut changer d'une mineure à l'autre** — c'est précisément le cas de `status()` (voir §2.3 et le PIÈGE #1). Leur stabilisation est intervenue dans une version ultérieure : **vérifie le statut exact sur ta version mineure** avant de t'appuyer dessus en prod. <!-- FLAG-CONTEXT7: version exacte de stabilisation de resource()/rxResource() -->
 
 ---
 
@@ -456,7 +456,7 @@ tribuzen/
 5. **Toujours brancher l'`abortSignal`** sur `fetch` (`{ signal }`) — Angular le déclenche pour annuler la requête obsolète quand `request` change.
 6. `reload()` relance sans changer l'entrée (statut `Reloading`, l'ancienne `value()` reste visible) ; `value.set()/update()` fait une mise à jour optimiste locale (statut `Local`).
 7. `rxResource()` (import `@angular/core/rxjs-interop`) est la variante dont le `loader` renvoie un **Observable** — à choisir avec `HttpClient`.
-8. En Angular **19**, `resource()` et `rxResource()` sont **`@experimental`** (stables en v22) : vérifier l'API sur la doc de sa mineure exacte.
+8. En Angular **19**, `resource()` et `rxResource()` sont **`@experimental`** (stabilisées dans une version ultérieure — vérifie le statut sur ta mineure exacte) : vérifier l'API sur la doc de sa version. <!-- FLAG-CONTEXT7: version exacte de stabilisation de resource()/rxResource() -->
 
 ---
 
