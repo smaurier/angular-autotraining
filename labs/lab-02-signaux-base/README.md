@@ -154,7 +154,7 @@ export class SortieBudgetComponent {
 - `total`, `message` et `nombreInvites` sont des `computed` — Angular les recalcule automatiquement quand une dépendance change. Aucune ligne de synchronisation dans les handlers.
 - `set` sert quand la valeur ne dépend pas de l'ancienne (`reinitialiser` → 2) ; `update` quand elle en dépend (`+1`, `-1`, ajout d'invité).
 - `ajouterInvite` construit un **nouveau** tableau avec le spread : la référence change, donc `nombreInvites()` se recalcule. Un `push()` laisserait la même référence et l'écran resterait figé.
-- Chaque signal est lu avec `()` dans le template — sans les parenthèses, `{{ total }}` afficherait la fonction, pas le nombre.
+- Chaque signal est lu avec `()` dans le template — sans les parenthèses, <code v-pre>{{ total }}</code> afficherait la fonction, pas le nombre.
 
 ---
 

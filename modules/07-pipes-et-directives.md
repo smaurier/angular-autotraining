@@ -64,7 +64,7 @@ La bonne réponse Angular : les **pipes** transforment *à l'affichage* sans tou
 
 ### 2.1 Un pipe : transformer une valeur dans le template
 
-Un pipe applique une transformation **de présentation** avec l'opérateur `|` : `{{ valeur | nomPipe }}`. La donnée source n'est **jamais modifiée** — le pipe produit une nouvelle valeur affichée. On peut passer des arguments après `:` : `{{ valeur | nomPipe:arg1:arg2 }}`.
+Un pipe applique une transformation **de présentation** avec l'opérateur `|` : <code v-pre>{{ valeur | nomPipe }}</code>. La donnée source n'est **jamais modifiée** — le pipe produit une nouvelle valeur affichée. On peut passer des arguments après `:` : <code v-pre>{{ valeur | nomPipe:arg1:arg2 }}</code>.
 
 En Angular standalone (défaut en 19), **chaque pipe utilisé doit être importé** dans le tableau `imports` du composant, exactement comme un composant enfant.
 
@@ -90,8 +90,8 @@ export class DemoPipesComponent {
 }
 ```
 
-- **`DatePipe`** — `{{ valeur | date:format:timezone:locale }}`. Formats nommés (`'short'`, `'longDate'`, `'fullDate'`) ou motif (`'dd/MM/yyyy HH:mm'`). Accepte une `Date`, un timestamp `number`, ou une chaîne ISO.
-- **`CurrencyPipe`** — `{{ valeur | currency:codeDevise:affichage:digitsInfo:locale }}`. `digitsInfo` a la forme `'minEntier.minDéc-maxDéc'` (ex. `'1.2-2'` = 2 décimales fixes).
+- **`DatePipe`** — <code v-pre>{{ valeur | date:format:timezone:locale }}</code>. Formats nommés (`'short'`, `'longDate'`, `'fullDate'`) ou motif (`'dd/MM/yyyy HH:mm'`). Accepte une `Date`, un timestamp `number`, ou une chaîne ISO.
+- **`CurrencyPipe`** — <code v-pre>{{ valeur | currency:codeDevise:affichage:digitsInfo:locale }}</code>. `digitsInfo` a la forme `'minEntier.minDéc-maxDéc'` (ex. `'1.2-2'` = 2 décimales fixes).
 - **`AsyncPipe`** — voir 2.5.
 
 > Note : les formats et locales autres qu'en-US demandent d'enregistrer la locale (`registerLocaleData`) ou de fournir `LOCALE_ID`. Le mécanisme d'i18n est hors périmètre ici ; on montre la syntaxe du pipe.
@@ -401,7 +401,7 @@ En standalone, un pipe est comme un composant enfant : **pas d'import, pas de pi
 
 ### PIÈGE #2 — Croire qu'un pipe modifie la donnée
 
-Un pipe est **de présentation**. `{{ prix() | currency }}` n'écrit rien dans `prix()`. Pour trier/filtrer une **liste** dans le template, un pipe impur est tentant mais coûteux : préfère un `computed` (module 02) qui dérive une nouvelle liste immuable.
+Un pipe est **de présentation**. <code v-pre>{{ prix() | currency }}</code> n'écrit rien dans `prix()`. Pour trier/filtrer une **liste** dans le template, un pipe impur est tentant mais coûteux : préfère un `computed` (module 02) qui dérive une nouvelle liste immuable.
 
 ### PIÈGE #3 — Passer en `pure: false` pour « voir » une mutation
 
@@ -470,7 +470,7 @@ tribuzen/
 
 ## 6. Points clés
 
-1. Un pipe `{{ valeur | nom:arg }}` transforme **à l'affichage** sans modifier la donnée source.
+1. Un pipe <code v-pre>{{ valeur | nom:arg }}</code> transforme **à l'affichage** sans modifier la donnée source.
 2. En standalone, **chaque pipe doit être importé** dans `imports[]` (comme un composant enfant).
 3. `DatePipe`, `CurrencyPipe`, `AsyncPipe` viennent de `@angular/common` ; `async` s'abonne et se **désabonne** tout seul.
 4. Un pipe custom = `@Pipe({ name })` + `PipeTransform` avec `transform(value, ...args)`.

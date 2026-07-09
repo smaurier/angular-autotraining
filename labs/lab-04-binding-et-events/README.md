@@ -17,10 +17,10 @@ Tu construis `AventureCardComponent`, la **carte d'activité** du catalogue Trib
 5. **Style binding** : `[style.opacity]` passe à `0.85` au survol de la carte (`(mouseenter)`/`(mouseleave)` écrivent dans `survole`).
 6. **Attribute binding** : le bouton porte un `[attr.aria-label]` décrivant l'action (ex. `'M inscrire a ' + titre()`).
 7. **Event binding** : `(click)="sInscrire()"` décrémente `placesRestantes` **sans jamais passer sous 0** (`update` + `Math.max`), et ne fait rien si `estComplet()`.
-8. **Bonus obligatoire** : ajoute sous la carte un champ de recherche avec **trois voies** de capture — un `<input (input)="surSaisie($event)">`, un `<input #champ>` + bouton `(click)="champ.focus()"`, et un `<input [(ngModel)]="terme">` avec `{{ terme }}` affiché en dessous.
+8. **Bonus obligatoire** : ajoute sous la carte un champ de recherche avec **trois voies** de capture — un `<input (input)="surSaisie($event)">`, un `<input #champ>` + bouton `(click)="champ.focus()"`, et un `<input [(ngModel)]="terme">` avec <code v-pre>{{ terme }}</code> affiché en dessous.
 
 **Contraintes techniques :**
-- Aucune interpolation `{{ }}` dans un attribut (`disabled="{{ ... }}"` interdit) — utilise `[prop]`.
+- Aucune interpolation <code v-pre>{{ }}</code> dans un attribut (<code v-pre>disabled="{{ ... }}"</code> interdit) — utilise `[prop]`.
 - Toute écriture de signal passe par `set()`/`update()` ; jamais de mutation en place.
 - `[(ngModel)]` impose d'importer `FormsModule` dans le composant.
 - Les méthodes des event bindings sont **invoquées** avec `()`.
@@ -72,13 +72,13 @@ Branche `AventureCardComponent` dans `AppComponent` (import + balise `<app-avent
 ## Étapes (en friction)
 
 1. **Déclare l'état source** — les cinq `signal` + le `computed` `estComplet`. Ajoute une propriété simple `terme = ''` pour le two-way.
-2. **Property binding photo** — `<img [src]="urlPhoto()" [alt]="titre()" />`. Vérifie dans l'inspecteur que `src` reçoit bien l'URL, pas la chaîne `{{ ... }}`.
+2. **Property binding photo** — `<img [src]="urlPhoto()" [alt]="titre()" />`. Vérifie dans l'inspecteur que `src` reçoit bien l'URL, pas la chaîne <code v-pre>{{ ... }}</code>.
 3. **Bouton d'inscription** — `[disabled]="estComplet() || envoiEnCours()"`, `[attr.aria-label]="..."`, `(click)="sInscrire()"`. Le libellé bascule sur `envoiEnCours()` (« Envoi… » / « M'inscrire »).
 4. **Class bindings** — sur l'`<article class="carte">`, ajoute `[class.complet]` et `[class.derniere-place]`. Descends `placesRestantes` à 1 puis 0 et observe bordure puis grayscale.
 5. **Style + événements de survol** — `[style.opacity]="survole() ? 0.85 : 1"`, plus `(mouseenter)="survole.set(true)"` / `(mouseleave)="survole.set(false)"`.
 6. **Handler `sInscrire`** — `if (estComplet()) return;` puis `placesRestantes.update(n => Math.max(0, n - 1))`.
-7. **Bloc recherche (bonus)** — les trois `<input>` : `(input)="surSaisie($event)"` (cast `event.target as HTMLInputElement`), `#champ` + `(click)="champ.focus()"`, `[(ngModel)]="terme"` + `<p>{{ terme }}</p>`.
-8. **Épreuve anti-piège #1** : remplace un instant `[disabled]="estComplet()"` par `disabled="{{ estComplet() }}"` et observe que le bouton reste **toujours désactivé** (l'attribut est présent) — puis remets le property binding. Tu viens de voir le piège de tes propres yeux.
+7. **Bloc recherche (bonus)** — les trois `<input>` : `(input)="surSaisie($event)"` (cast `event.target as HTMLInputElement`), `#champ` + `(click)="champ.focus()"`, `[(ngModel)]="terme"` + <code v-pre>&lt;p&gt;{{ terme }}&lt;/p&gt;</code>.
+8. **Épreuve anti-piège #1** : remplace un instant `[disabled]="estComplet()"` par <code v-pre>disabled="{{ estComplet() }}"</code> et observe que le bouton reste **toujours désactivé** (l'attribut est présent) — puis remets le property binding. Tu viens de voir le piège de tes propres yeux.
 9. **Épreuve anti-piège #4** : retire l'import `FormsModule` et constate l'erreur de compilation sur `[(ngModel)]` — puis remets-le.
 
 ---
@@ -174,7 +174,7 @@ export class AventureCardComponent {
 ```
 
 **Pourquoi ce corrigé est correct :**
-- `[disabled]="estComplet() || envoiEnCours()"` passe un **booléen** — le bouton se grise dès la dernière place prise ou pendant l'envoi. Une interpolation `disabled="{{ ... }}"` aurait laissé le bouton toujours désactivé (attribut présent).
+- `[disabled]="estComplet() || envoiEnCours()"` passe un **booléen** — le bouton se grise dès la dernière place prise ou pendant l'envoi. Une interpolation <code v-pre>disabled="{{ ... }}"</code> aurait laissé le bouton toujours désactivé (attribut présent).
 - `[class.complet]` / `[class.derniere-place]` cohabitent avec la classe statique `carte` : Angular fusionne, l'attribut statique n'est jamais écrasé.
 - `[style.opacity]` réagit au signal `survole`, lui-même écrit par les event bindings `(mouseenter)`/`(mouseleave)` — la réactivité vient des signaux, le binding ne fait que relier.
 - `[attr.aria-label]` cible un attribut sans propriété DOM ; un `[aria-label]` classique n'aurait rien lié.

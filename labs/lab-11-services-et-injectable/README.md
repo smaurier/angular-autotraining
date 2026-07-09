@@ -81,7 +81,7 @@ Branche `<app-header />` et `<app-famille-page />` côte à côte dans `AppCompo
 
 1. **Écris le service d'abord** — `_membres` privé (`signal<Membre[]>` avec Alice + Bob), `membres = this._membres.asReadonly()`, `nombreMembres = computed(() => this._membres().length)`.
 2. **Écris les mutations** — `ajouterMembre(nom)` avec `update(l => [...l, { id: crypto.randomUUID(), nom }])`, `retirerMembre(id)` avec `update(l => l.filter(m => m.id !== id))`.
-3. **Injecte dans le header** — `protected readonly store = inject(FamilleStore)` en propriété, template `{{ store.nombreMembres() }} membre(s)`. Vérifie : aucun `signal` dans ce composant.
+3. **Injecte dans le header** — `protected readonly store = inject(FamilleStore)` en propriété, template <code v-pre>{{ store.nombreMembres() }} membre(s)</code>. Vérifie : aucun `signal` dans ce composant.
 4. **Injecte dans la page** — même `inject(FamilleStore)`. Ajoute un `signal` **local** `nouveauNom` **uniquement** pour le champ de saisie (ça, c'est de la vue, pas de l'état métier), et un `@for` sur `store.membres()` avec un bouton « Retirer » par ligne.
 5. **Affiche les deux ensemble** — importe et place `<app-header />` puis `<app-famille-page />` dans `AppComponent`.
 6. **Teste la synchronisation dans le navigateur** — ajoute un membre depuis la page : le compteur du header passe de 2 à 3 **sans que tu aies écrit une seule ligne reliant les deux composants**. Retire-en un : il redescend.

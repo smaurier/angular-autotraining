@@ -87,7 +87,7 @@ export class ProchaineSortieComponent implements OnInit {
 4. **Dans le `constructor`**, appelle `afterNextRender(() => console.log('Compte à rebours prêt'))`.
 5. **Dans `ngOnInit`**, initialise `restant` avec `secondesInitiales()`, puis démarre le `setInterval` qui décrémente (`Math.max(0, s - 1)`).
 6. **Enregistre le nettoyage** : `this.destroyRef.onDestroy(() => clearInterval(timerId))`. Vérifie dans DevTools : ouvre/ferme l'écran 5 fois avec le bouton → un seul timer actif à la fois, la valeur ne « double-décrémente » jamais.
-7. **Écris le template** : `@if (restant() > 0) { ... {{ affichage() }} ... } @else { Départ ! }`.
+7. **Écris le template** : <code v-pre>@if (restant() &gt; 0) { ... {{ affichage() }} ... } @else { Départ ! }</code>.
 8. **Teste le cas limite** : passe l'input à `3` → le chrono descend `0:03 → 0:00` puis affiche `Départ !` et s'arrête à 0 (ne passe pas en négatif).
 
 ---

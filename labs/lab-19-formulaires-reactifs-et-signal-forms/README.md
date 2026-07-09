@@ -201,7 +201,7 @@ export class SortieFormComponent {
 
 1. Ajoute un champ `nbParticipants` (nombre) : requis, entre **1 et 20** (`Validators.min(1)` + `Validators.max(20)`), avec deux messages d'erreur distincts (`min`, `max`).
 2. Ajoute un bouton **Réinitialiser** (`type="button"`, `(click)="form.reset()"`) séparé du submit.
-3. Affiche en direct, sous le formulaire, l'état courant : `Formulaire {{ '{{' }} form.valid ? 'valide' : 'invalide' {{ '}}' }}` — pour observer le passage valide/invalide pendant la saisie.
+3. Affiche en direct, sous le formulaire, l'état courant : <code v-pre>Formulaire {{ '{{' }} form.valid ? 'valide' : 'invalide' {{ '}}' }}</code> — pour observer le passage valide/invalide pendant la saisie.
 
 **Critère de réussite :** le formulaire fonctionne dans le navigateur, `nbParticipants = 0` déclenche l'erreur `min`, `= 25` déclenche `max`, et le bouton Réinitialiser vide les champs sans soumettre.
 

@@ -47,7 +47,7 @@ export class AventureCardComponent {
 }
 ```
 
-Deux problèmes. D'abord `disabled="{{ envoiEnCours() }}"` ne fonctionne pas comme attendu : l'interpolation produit la **chaîne** `"false"`, et en HTML un attribut `disabled` présent — même à `"false"` — désactive le bouton. Ensuite, aucune classe ni style ne bouge quand l'état change.
+Deux problèmes. D'abord <code v-pre>disabled="{{ envoiEnCours() }}"</code> ne fonctionne pas comme attendu : l'interpolation produit la **chaîne** `"false"`, et en HTML un attribut `disabled` présent — même à `"false"` — désactive le bouton. Ensuite, aucune classe ni style ne bouge quand l'état change.
 
 Ce qu'il faut, c'est lier des **propriétés DOM** (pas des attributs texte) à des expressions, écouter les **événements** du bouton, et piloter **classes et styles** selon l'état. C'est exactement le rôle du binding Angular. Ce module te donne les cinq formes : `[prop]`, `(event)`, `[attr.]`, `[class.]`, `[style.]`, plus la référence `#var`.
 
@@ -61,7 +61,7 @@ Angular a une syntaxe par direction de flux de données. Retiens le repère : **
 
 | Syntaxe | Direction | Exemple |
 |---|---|---|
-| interpolation | composant → DOM (texte) | `{{ titre() }}` |
+| interpolation | composant → DOM (texte) | <code v-pre>{{ titre() }}</code> |
 | `[prop]` | composant → DOM (propriété) | `[disabled]="envoiEnCours()"` |
 | `(event)` | DOM → composant | `(click)="sInscrire()"` |
 | `[(ngModel)]` | bidirectionnel | `[(ngModel)]="recherche"` |
@@ -89,7 +89,7 @@ export class AventureCardComponent {
 
 Ici `[disabled]="envoiEnCours()"` passe le **booléen** `false` → le bouton est actif ; `true` → désactivé. C'est la solution au piège du §1.
 
-**Interpolation vs property binding.** L'interpolation `{{ expr }}` est du sucre pour un binding vers la propriété textuelle : réserve-la au **contenu texte**. Dès qu'une valeur est booléenne, numérique, ou vise une vraie propriété (`src`, `disabled`, `value`), utilise `[prop]`.
+**Interpolation vs property binding.** L'interpolation <code v-pre>{{ expr }}</code> est du sucre pour un binding vers la propriété textuelle : réserve-la au **contenu texte**. Dès qu'une valeur est booléenne, numérique, ou vise une vraie propriété (`src`, `disabled`, `value`), utilise `[prop]`.
 
 ### 2.3 Event binding — `(event)="handler($event)"`
 
@@ -341,7 +341,7 @@ export class RechercheActiviteComponent {
 
 ## 4. Pièges & misconceptions
 
-### PIÈGE #1 — Interpoler un attribut booléen (`disabled="{{ ... }}"`)
+### PIÈGE #1 — Interpoler un attribut booléen (<code v-pre>disabled="{{ ... }}"</code>)
 
 ```html
 <!-- ❌ produit la chaîne "false" ; un attribut disabled présent désactive TOUJOURS -->
@@ -451,7 +451,7 @@ tribuzen/
 ## 6. Points clés
 
 1. Repère de flux : crochets `[]` = donnée qui entre dans le DOM, parenthèses `()` = événement qui en sort, `[()]` = les deux.
-2. `[prop]="expr"` lie une **propriété DOM** à la vraie valeur (booléen, nombre, objet) ; réserve l'interpolation `{{ }}` au contenu texte.
+2. `[prop]="expr"` lie une **propriété DOM** à la vraie valeur (booléen, nombre, objet) ; réserve l'interpolation <code v-pre>{{ }}</code> au contenu texte.
 3. `(event)="handler($event)"` écoute un événement ; la méthode doit être **invoquée** avec `()`, et `$event` expose l'objet natif.
 4. Modificateurs clavier dans le nom du binding (`(keyup.enter)`) ; `preventDefault`/`stopPropagation` s'appellent dans le handler, pas via des modificateurs template.
 5. `[attr.x]` uniquement quand il n'y a pas de propriété DOM (`colspan`, `aria-*`, `data-*`) ; sinon `[x]`.

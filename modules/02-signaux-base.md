@@ -156,7 +156,7 @@ export class SortieBudgetComponent {
 }
 ```
 
-Les parenthèses dans le template sont **obligatoires** : `{{ participants() }}` s'actualise à chaque changement, alors qu'une propriété non-signal (`{{ welcomeMessage }}`) ne garantit pas la mise à jour réactive.
+Les parenthèses dans le template sont **obligatoires** : <code v-pre>{{ participants() }}</code> s'actualise à chaque changement, alors qu'une propriété non-signal (<code v-pre>{{ welcomeMessage }}</code>) ne garantit pas la mise à jour réactive.
 
 ### 2.7 Objets et tableaux : mise à jour **immuable**
 
@@ -301,7 +301,7 @@ console.log(total());        // 30
 if (this.participants() > 5) { /* correct */ }
 ```
 
-Le même piège dans le template : `{{ total }}` affiche la fonction, `{{ total() }}` affiche le nombre. **Toujours** appeler un signal pour le lire.
+Le même piège dans le template : <code v-pre>{{ total }}</code> affiche la fonction, <code v-pre>{{ total() }}</code> affiche le nombre. **Toujours** appeler un signal pour le lire.
 
 ### PIÈGE #2 — Muter un objet/tableau au lieu de créer une nouvelle référence
 

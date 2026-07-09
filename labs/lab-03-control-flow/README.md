@@ -74,7 +74,7 @@ Branche `ListeSortiesComponent` dans `AppComponent` (import + balise `<app-liste
 
 1. **Déclare l'état source** — un `signal<Activite[]>` `activites` avec 3 activités de statuts distincts (`proposee`, `validee`, `annulee`).
 2. **Écris le computed `auMoinsUneValidee`** — `activites().some(a => a.statut === 'validee')`. Vérifie qu'il n'a pas de `set`.
-3. **Construis la boucle** — `@for (activite of activites(); track activite.id; let num = $index)`, affiche `{{ num + 1 }}. {{ activite.titre }}`.
+3. **Construis la boucle** — `@for (activite of activites(); track activite.id; let num = $index)`, affiche <code v-pre>{{ num + 1 }}. {{ activite.titre }}</code>.
 4. **Ajoute le `@switch`** dans la ligne — trois cas de statut, `@default` pour « Proposée ».
 5. **Ajoute le `@empty`** juste après le `@for`.
 6. **Ajoute la bannière** — `@if (auMoinsUneValidee()) { ... }` au-dessus de la liste.
@@ -209,7 +209,7 @@ export class ListeSortiesComponent {
 
 1. Ajoute un `signal` `filtreStatut` (`'tous' | 'validee' | 'proposee' | 'annulee'`, initial `'tous'`) et des boutons pour le changer.
 2. Remplace la boucle sur `activites()` par une boucle sur un `computed` `activitesVisibles` qui filtre selon `filtreStatut()` (si `'tous'`, renvoie tout).
-3. Ajoute un compteur en haut : « {{ activitesVisibles().length }} activité(s) affichée(s) », et utilise `$last` pour ne pas mettre de `<hr />` après la dernière ligne.
+3. Ajoute un compteur en haut : « <span v-pre>{{ activitesVisibles().length }}</span> activité(s) affichée(s) », et utilise `$last` pour ne pas mettre de `<hr />` après la dernière ligne.
 4. Vérifie que l'`@empty` s'affiche aussi quand un filtre ne laisse **aucune** activité (ex. filtre `validee` alors qu'aucune n'est validée).
 5. **Sans rouvrir ce corrigé** ni le module 03.
 
