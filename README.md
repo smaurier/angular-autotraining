@@ -1,5 +1,9 @@
 # Angular par exemple (TypeScript + Angular 19+)
 
+![VitePress](https://img.shields.io/badge/-VitePress-646CFF?style=flat-square&logo=vite&logoColor=white)
+![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+[![fullstack-autotraining](https://img.shields.io/badge/curriculum-fullstack--autotraining-4C1?style=flat-square)](https://github.com/smaurier/fullstack-autotraining)
+
 Formation progressive Angular : Transition Vue → Angular staffable ESN.
 
 ## Stack
