@@ -2,11 +2,13 @@
   "name": "angular-labs",
   "version": "1.0.0",
   "private": true,
-  "description": "Oracles exécutables des labs Angular (règle : un lab = un geste métier complet). Solution GREEN / starter RED. Portée : services (DI + RxJS), testés en TypeScript pur — le rendu de template Angular (TestBed + compilateur) a été essayé (@analogjs/vite-plugin-angular + @angular/build) et écarté : segfault natif reproductible avec ce toolchain sur cet environnement, chantier séparé documenté dans le README du cours.",
+  "description": "Oracles exécutables des labs Angular (règle : un lab = un geste métier complet). Solution GREEN / starter RED. Portée : services ET composants, tous testés en TypeScript pur, DI par constructeur jamais inject() — le rendu de template Angular (TestBed + compilateur) reste hors oracle : @analogjs/vite-plugin-angular + @angular/build 19.2 segfaultent nativement sur cet environnement (re-vérifié 10/10/2026 ; le builder natif unit-test/Vitest n'existe qu'à partir d'Angular 20, upgrade bloquée par des peer-deps TS/vitest, chantier séparé). Détail dans le README du cours.",
   "type": "module",
   "scripts": {
     "lab:01": "vitest run --root lab-01-feature-de-zero",
-    "solution:01": "vitest run --root lab-01-feature-de-zero --config vitest.solution.config.ts"
+    "solution:01": "vitest run --root lab-01-feature-de-zero --config vitest.solution.config.ts",
+    "lab:02": "vitest run --root lab-02-intervention-chargement-membres",
+    "solution:02": "vitest run --root lab-02-intervention-chargement-membres --config vitest.solution.config.ts"
   },
   "engines": {
     "node": ">=20.0.0"
