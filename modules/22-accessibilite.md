@@ -22,6 +22,12 @@ last-reviewed: 2026-07
 
 # Accessibilité Angular — ARIA, focus management et CDK a11y
 
+> 📐 **Les fondamentaux d'accessibilité sont dans le cours 25 HTML & CSS**, source unique du
+> curriculum. Ce module garde ce qui est propre à Angular, et c'est l'essentiel de son contenu :
+> le CDK a11y (`cdkTrapFocus`, `LiveAnnouncer`, `FocusMonitor`), la syntaxe `[attr.aria-*]`, et
+> la gestion du focus dans une application à page unique.
+
+
 > **Outcomes — tu sauras FAIRE :** binder ARIA proprement en Angular, piéger/restituer le focus d'une modale avec `cdkTrapFocus`, annoncer au lecteur d'écran avec `LiveAnnouncer`, gérer le focus après navigation, et rattacher chaque écran à un critère WCAG/RGAA vérifiable.
 > **Difficulté :** :star::star::star:
 >
@@ -72,9 +78,11 @@ Ce ne sont pas des détails cosmétiques : ce sont des **non-conformités** WCAG
 
 ### 2.1 Règle d'or : le HTML natif d'abord, ARIA en dernier recours
 
-La **première règle d'ARIA** (WAI-ARIA Authoring Practices) : *« Si un élément HTML natif fournit la sémantique et le comportement voulus, utilise-le plutôt que de réimplémenter avec ARIA. »*
+> 📐 **Traité dans le cours 25 HTML & CSS**, module 01 § 1.2 pour la règle de fond, et module 17 § 2 pour l'ordre à suivre avant d'écrire un pattern.
 
-Un `<button>` est focusable, activable à Entrée/Espace, annoncé « bouton » — gratuitement. Une `<div role="button" tabindex="0">` t'oblige à recâbler le focus, le clavier et l'état à la main, et le moindre oubli casse l'accès. Donc : `<button>`, `<a href>`, `<nav>`, `<main>`, `<h1>`–`<h6>`, `<label>`, `<dialog>` d'abord. ARIA seulement quand le natif ne suffit pas (composants composites : onglets, menus, comboboxes).
+En une phrase, parce que tout ce module en découle : **ARIA n'ajoute aucun comportement.** En
+Angular, cela veut dire que `[attr.role]` ne rend rien focusable et n'ajoute aucune touche : le
+CDK est là pour ça.
 
 ### 2.2 Les attributs ARIA en Angular
 
@@ -189,24 +197,9 @@ Un SPA ne recharge pas la page : après une navigation, le lecteur d'écran ne s
 
 Pour un groupe (onglets, menu, barre d'outils), le pattern ARIA veut **une seule** entrée dans l'ordre de tabulation : l'élément actif a `tabindex="0"`, les autres `tabindex="-1"`, et les flèches déplacent le focus **dans** le groupe (WAI-ARIA APG). C'est le **roving tabindex**. On le pilote très bien avec un `signal` pour l'index actif et `[attr.tabindex]` conditionnel.
 
-### 2.9 Rattacher un écran à WCAG 2.1 AA / RGAA 4.1
+### 2.9 Rattacher un écran au référentiel
 
-Le RGAA 4.1 est la déclinaison française de WCAG 2.1 niveau AA. Il organise **13 thématiques** (Images, Couleurs, Liens, Scripts, Éléments obligatoires, Structuration, Présentation, Formulaires, Navigation, Consultation…) et **106 critères**. Un écran conforme = « chaque critère applicable est satisfait ». Repères utiles côté Angular :
-
-| Exigence écran | Critère WCAG 2.1 | Thématique RGAA | Levier Angular |
-|----------------|------------------|-----------------|----------------|
-| Alternative sur image porteuse d'info | 1.1.1 (A) | 1 Images | `alt` / `[alt]`, `aria-label` |
-| Structure de titres et régions | 1.3.1 (A) | 9 Structuration | `<h1>`–`<h6>`, `<nav>`, `<main>` |
-| Contraste texte ≥ 4.5:1 | 1.4.3 (AA) | 3 Couleurs | CSS / tokens design |
-| Tout au clavier | 2.1.1 (A) | 12 Navigation | `<button>`, `(keydown)` |
-| Pas de piège clavier | 2.1.2 (A) | 12 Navigation | `cdkTrapFocus` réversible (Échap) |
-| Lien d'évitement | 2.4.1 (A) | 12 Navigation | skip link + `<main tabindex="-1">` |
-| Focus visible | 2.4.7 (AA) | 10 Présentation | `:focus-visible`, `FocusMonitor` |
-| Erreurs de formulaire identifiées | 3.3.1 (A) | 11 Formulaires | `role="alert"`, `aria-describedby` |
-| Nom / rôle / valeur exposés | 4.1.2 (A) | 7 Scripts | `role`, `[attr.aria-*]` |
-| Messages d'état annoncés | 4.1.3 (AA) | 7 Scripts | `LiveAnnouncer` / `aria-live` |
-
-> ⚠️ **FLAG-REVIEW RGAA** : les numéros de critères et de thématiques ci-dessus sont des repères d'apprentissage. Avant de les invoquer dans un audit officiel, Sylvain les recroise avec accessibilite.numerique.gouv.fr (certif oct 2026).
+> 📐 **Traité dans le cours 25 HTML & CSS**, module 00 § 4 bis pour la chaîne WCAG et RGAA et les niveaux, et module 20 § 5 pour l'échantillonnage d'un audit.
 
 ### 2.10 Tester l'accessibilité
 
